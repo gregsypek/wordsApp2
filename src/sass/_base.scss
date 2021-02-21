@@ -50,16 +50,20 @@ body {
 }
 
 .container {
+  //TODO DELETE BORDER AFTER 
+  border: 1px solid white; 
+
   max-width: 120rem;
   min-height: 117rem;
   margin: 4vw auto;
+  //THIS STRUCTURE IS FOR FUTURE CHANGE COLOR OPTION INTO WHITE
   background-color: $color-primary;
   border-radius: 9px;
   overflow: hidden;
   box-shadow: 0 2rem 6rem 0.5rem rgba($color-primary, 0.2);
 
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-rows: 10rem minmax(100rem, auto);
   grid-template-areas: 'head head'
                        'list words';

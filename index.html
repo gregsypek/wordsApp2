@@ -13,7 +13,67 @@
     <script defer src="./src/js/script.js"></script>
     <title>wordsApp</title>
   </head>
+
   <body>
-    <div class="container"></div>
+    <div class="container">
+      <header class="header">
+        <img src="./src/img/logo-white.png" alt="logo" class="header__logo" />
+        <form action="" class="search">
+          <input
+            type="text"
+            placeholder="Search a word from dictionary.."
+            class="search__field"
+          />
+          <button class="btn search__btn"></button>
+          <span>Search</span>
+        </form>
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--add-word">
+                <svg class="nav__icon">
+                  <use href="./src/img/icons.svg#icon-plus"></use>
+                </svg>
+                <span>Add word</span>
+              </button>
+            </li>
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--bookmarks">
+                <svg class="nav__icon">
+                  <use href="./src/img/icons.svg#icon-bookmark"></use>
+                </svg>
+                <span>Groups</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <aside class="aside">
+        <div class="aside__info">
+          <h1>
+            Application built to help you learn new words by grouping them and
+            print on special preformated lists.
+          </h1>
+        </div>
+        <footer>
+          <p class="copyright">&copy; Copyright by Greg Sypek 2021</p>
+        </footer>
+      </aside>
+      <main class="main">
+        <div class="main__box">
+          <div class="message message-nogroup">
+            <p>No groups yet .Find any word and create new group</p>
+          </div>
+          <div class="main__create-group">
+            <p>Create new group</p>
+            <button class="main__btn main__btn--create-group">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

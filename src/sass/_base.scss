@@ -1,0 +1,68 @@
+//FONT
+$font-family: 'Kalam',
+cursive;
+
+
+//COLORS
+
+$color-primary: #3D3E40;
+$color-primary2: #8B8C8C;
+$color-primary3: #C4C4C4;
+
+$color-secondary: #D1D3D8;
+$color-secondary2: #D8D8D8;
+$color-secondary3: #EEEEEE;
+
+$gradient: linear-gradient(to right bottom, $color-primary, $color-primary);
+
+$bp-large: 78.15em; // 1250px
+$bp-medium: 61.25em; // 980px
+$bp-small: 37.5em; // 600px
+$bp-smallest: 31.25em; // 500px
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  //This defines what 1rem is;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-family, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $color-primary;
+  background-image: $gradient;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  min-height: calc(100vh - 2 * 4vw);
+}
+
+.container {
+  max-width: 120rem;
+  min-height: 117rem;
+  margin: 4vw auto;
+  background-color: $color-primary;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 2rem 6rem 0.5rem rgba($color-primary, 0.2);
+
+  // 
+
+  @media only screen and (max-width: $bp-large) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}

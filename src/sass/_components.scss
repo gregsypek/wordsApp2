@@ -1,0 +1,20 @@
+%btn {
+  display: block;
+  height: 100%;
+  width: 10rem;
+  background-color: $color-primary2;
+  font-family: inherit;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  // outline: 1px solid black;
+  border: none;
+  border-left: 1px solid black;
+  border-radius: 4px;
+
+  &:hover,
+  &:active {
+    background-color: $color-primary3;
+  }
+}

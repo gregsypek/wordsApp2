@@ -8,7 +8,9 @@
   align-items: center;
 
   .message-nogroup {
+    //TODO use javascript to change those value
     // visibility: hidden;
+
     width: 80%;
     height: 20rem;
 
@@ -24,19 +26,13 @@
       background-color: $color-primary3;
     }
   }
-
+  // BUTTON CREATE NEW GROUP WITH PLUS
   &__create-group {
-    position: relative;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    background-color: $color-primary3;
-    height: 6rem;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.5s ease;
-    border: 1px solid black;
+    //TODO use javascript to change those value
+    // visibility: hidden;
+    height: 0rem;
+
+    @extend %nav-bar;
 
     p {
       margin: 0 auto;
@@ -50,13 +46,14 @@
     }
   }
 
-  &__btn {
+  &__btn--create-group {
     position: relative;
     transform: translateX(-6rem);
-    background-color: $color-primary2;
-    opacity: 0;
-    width: 6rem;
-    height: 6rem;
+    @extend %btn-icon;
+    // background-color: $color-primary2;
+    @extend %btn-hidden;
+    // width: 6rem;
+    // height: 6rem;
   }
 
   .nav__icon {
@@ -68,5 +65,52 @@
     width: 100%;
     height: 100%;
     fill: $color-primary;
+  }
+
+  &__input {
+    //TODO use javascript to change those value
+    // visibility: hidden;
+
+    .create {
+      @extend %form;
+
+      &__field {
+        background-color: $color-secondary3;
+
+        height: 5.6rem;
+        width: 40rem;
+        color: inherit;
+        padding-left: 1rem;
+        border: none;
+
+        &::placeholder {
+          color: $color-primary2;
+          font-size: 1.8rem;
+        }
+      }
+
+      &__btn {
+        @extend %btn;
+      }
+      // @include form2;
+    }
+  }
+
+  //MAIN NAVIGATION BAR
+  &__bar {
+    @extend %nav-bar;
+  }
+  &__btns {
+    display: flex;
+  }
+  // name of the new created group
+  &__group {
+    margin-left: 3rem;
+  }
+  &__btn--edit {
+    @extend %btn-icon;
+    &:hover {
+      background-color: $color-primary3;
+    }
   }
 }

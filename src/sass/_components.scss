@@ -9,6 +9,7 @@
   font-size: 1.8rem;
   text-transform: uppercase;
   // outline: 1px solid black;
+  transition: all 0.2s;
   border: none;
   border-left: 1px solid black;
   border-radius: 4px;
@@ -17,4 +18,74 @@
   &:active {
     background-color: $color-primary3;
   }
+}
+%btn-icon {
+  background-color: $color-primary2;
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 1rem;
+  fill: $color-primary; //SVG FILE
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+%btn-hidden {
+  opacity: 0;
+}
+
+%form {
+  display: flex;
+  background-color: $color-primary2;
+  font-family: inherit;
+  font-size: 1.7rem;
+  align-items: center;
+  font-size: 1.8rem;
+  outline: 1px solid black;
+  height: 5.6rem;
+}
+
+// @mixin form2 {
+//   display: flex;
+//   background-color: $color-primary2;
+//   font-family: inherit;
+//   font-size: 1.7rem;
+//   align-items: center;
+//   font-size: 1.8rem;
+//   outline: 1px solid black;
+//   height: 5.6rem;
+
+//   .field {
+//     background-color: $color-secondary3;
+
+//     height: 5.6rem;
+//     width: 40rem;
+//     color: inherit;
+//     padding-left: 1rem;
+//     border: none;
+
+//     &::placeholder {
+//       color: $color-primary2;
+//       font-size: 1.8rem;
+//     }
+//   }
+
+//   &__btn {
+//     @extend %btn;
+//   }
+// }
+
+%nav-bar {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  background-color: $color-primary3;
+  height: 6rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.5s ease;
+  border: 1px solid black;
 }

@@ -48,12 +48,12 @@
         </nav>
       </header>
       <aside class="aside">
-        <!-- <div class="aside__info">
+        <div class="aside__info">
           <h1>
             Application built to help you learn new words by grouping them and
             print on special preformated lists.
           </h1>
-        </div> -->
+        </div>
         <div class="aside__results">
           <ul class="aside__list">
             <li class="aside__item">
@@ -72,15 +72,17 @@
             </li>
           </ul>
         </div>
+
         <footer>
           <p class="copyright">&copy; Copyright by Greg Sypek 2021</p>
         </footer>
       </aside>
+
       <main class="main">
-        <!-- <div class="main__box"> -->
         <div class="message message-nogroup">
-          <p>No groups yet .Find any word and create new group</p>
+          <p>No groups yet. Find any word and create new group...</p>
         </div>
+
         <div class="main__create-group">
           <p>Create new group</p>
           <button class="main__btn main__btn--create-group">
@@ -89,7 +91,48 @@
             </svg>
           </button>
         </div>
-        <!-- </div> -->
+
+        <div class="main__input">
+          <form class="create">
+            <input
+              type="text"
+              placeholder="Please name your group..."
+              class="field create__field"
+            />
+            <button class="btn create__btn">Create</button>
+          </form>
+        </div>
+
+        <div class="main__bar">
+          <p class="main__group">Owoce</p>
+          <div class="main__btns">
+            <button class="main__btn main__btn--edit">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-edit"></use>
+              </svg>
+            </button>
+            <button class="main__btn main__btn--edit">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+            <button class="main__btn main__btn--edit">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+            <button class="main__btn main__btn--edit">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-bar-graph"></use>
+              </svg>
+            </button>
+            <button class="main__btn main__btn--edit">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-print"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
       </main>
     </div>
   </body>

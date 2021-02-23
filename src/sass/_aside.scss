@@ -20,13 +20,11 @@
     font-size: 1.6rem;
     width: 20rem;
     min-height: 30rem;
-
   }
 
   &__list {
     list-style: none;
     margin-top: 3rem;
-
   }
 
   &__item {
@@ -34,13 +32,19 @@
 
     &--active {
       background-color: $color-primary3;
-      
+
       &::after {
-        content: "+";
+        // visibility: hidden;
+        content: url('../img/SVG/plus.SVG');
         position: absolute;
+        @extend %btn-icon;
+        font-size: 4rem;
+        @extend .main__btn--edit;
         top: 0;
         bottom: 0;
-        right: -3rem;
+        right: -6rem;
+        margin: 0.5rem 0;
+        // right: -3rem;
       }
     }
   }
@@ -56,18 +60,17 @@
     color: $color-primary;
     text-decoration: none;
 
-
-
     &--eng {
       text-transform: uppercase;
     }
+  }
 
-
+  .message-noword {
+    @extend %message;
   }
 
   .copyright {
     margin-bottom: 5rem;
     // text-align: center;
   }
-
 }

@@ -1,0 +1,97 @@
+.main {
+  &__cards {
+    margin-top: 5rem;
+    padding: 2rem;
+    width: 100%;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
+    // border: 1px solid white;
+  }
+  &__card {
+    width: 23rem;
+    background-color: $color-secondary2;
+    margin-bottom: 3rem;
+
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+
+    // NAVIGATION CARD
+    &-nav {
+      height: 4rem;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      font-weight: 600;
+      color: $color-primary;
+      background-color: $color-primary2;
+    }
+    .card {
+      &__word {
+        font-size: 2.8rem;
+        margin-left: 1rem;
+        text-transform: uppercase;
+      }
+      &__phonetic {
+        width: 8rem;
+      }
+      &__btns {
+        display: flex;
+
+        align-items: center;
+
+        height: 4rem;
+        // width: 4rem;
+        button {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+    }
+    // BODY CARD
+    &-body {
+      height: 30rem;
+      padding: 2rem;
+    }
+
+    .card {
+      &__explanation {
+        font-size: 2.3rem;
+        &--nr {
+          @extend %btn-icon;
+          display: inline-block;
+          width: 4rem;
+          height: 4rem;
+        }
+        &--word {
+          font-weight: 600;
+        }
+        &--role {
+          font-size: 1.6rem;
+        }
+      }
+      &__sentance {
+        margin-top: 5rem;
+        font-size: 1.6rem;
+      }
+    }
+    // FOOTER CARD
+    &-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem 1rem;
+
+      .more__btn {
+        background-color: $color-secondary2;
+        &:hover {
+          background-color: $color-primary3;
+        }
+      }
+    }
+  }
+}

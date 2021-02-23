@@ -12,12 +12,21 @@
   transition: all 0.3s;
   border: none;
   border-left: 1px solid black;
-  border-radius: 4px;
+  // border-radius: 4px;
 
   &:hover,
   &:active {
     background-color: $color-primary3;
   }
+}
+.btn {
+  @extend %btn;
+  border: 1px solid black;
+}
+.btn-light {
+  @extend %btn;
+  border: 1px solid black;
+  background-color: $color-secondary2;
 }
 %btn-icon {
   background-color: $color-primary2;

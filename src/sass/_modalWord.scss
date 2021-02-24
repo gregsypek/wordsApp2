@@ -1,0 +1,84 @@
+.overlay {
+  border: 1px solid white;
+}
+.add-word-window {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn--close {
+  @extend %btn-icon;
+  align-self: flex-end;
+  margin: 5rem;
+}
+
+.upload {
+  width: 80vw;
+  margin: 0 auto;
+
+  &__row {
+    height: 6rem;
+    flex-basis: 80vw;
+    display: flex;
+    justify-content: center;
+    &:not(last-of-type) {
+      margin-bottom: 5rem;
+    }
+  }
+
+  &__column {
+    display: flex;
+    font-size: 2rem;
+    label {
+      background-color: $color-primary3;
+      width: 40rem;
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      padding-left: 3rem;
+
+      text-transform: uppercase;
+    }
+    &:not(last-of-type) {
+      margin-right: 5rem;
+    }
+    input {
+      padding: 1rem;
+      width: 45rem;
+      font-size: inherit;
+    }
+    button {
+      // The interactive element label must not appear as a descendant of the button element.
+      pointer-events: none;
+      &:hover {
+        background-color: $color-primary2;
+      }
+    }
+
+    select {
+      width: 46rem; // helps to center text
+      padding-left: 3rem;
+      color: inherit;
+      @extend label;
+      font-size: 2rem;
+      font-family: inherit;
+      border: none;
+      -webkit-appearance: none;
+      outline: none;
+    }
+  }
+
+  .btn--down {
+    margin-left: -6rem;
+  }
+
+  .btn--plus,
+  .btn--down {
+    @extend %btn-icon;
+  }
+  .btn--submit {
+    height: 6rem;
+    width: 16rem;
+    margin: 0 auto;
+  }
+}

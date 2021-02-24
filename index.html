@@ -88,14 +88,14 @@
           <p>No groups yet. Find any word and create new group...</p>
         </div>
 
-        <!-- <div class="main__create-group">
+        <div class="main__create-group">
           <p>Create new group</p>
           <button class="main__btn main__btn--create-group">
             <svg class="nav__icon">
               <use href="./src/img/icons.svg#icon-plus"></use>
             </svg>
           </button>
-        </div> -->
+        </div>
 
         <!-- <div class="main__input">
           <form class="create">
@@ -138,16 +138,17 @@
             </button>
           </div>
         </div>
-        <div class="main__cards">
+        <!-- ************************* -->
+        <!-- <div class="main__cards">
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Apple</h3>
-              <!-- <img
+               <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> -->
+              /> 
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -178,12 +179,12 @@
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Apple</h3>
-              <!-- <img
+              <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> -->
+              /> 
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -219,7 +220,7 @@
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> -->
+              /> 
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -250,12 +251,12 @@
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Apple</h3>
-              <!-- <img
+             <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> -->
+              /> 
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -283,8 +284,114 @@
               <button class="btn more__btn">More</button>
             </div>
           </div>
-        </div>
+        </div> -->
+
+        <!-- ************************* -->
       </main>
+    </div>
+
+    <div class="overlay hidden"></div>
+    <div class="add-word-window hidden">
+      <button class="btn--close">
+        <svg>
+          <use href="./src/img/icons.svg#icon-cross"></use>
+        </svg>
+      </button>
+      <form class="upload">
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="definition1">definition 1</label>
+            <button class="btn--plus">
+              <svg>
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="definition1"
+              required
+              name="definition"
+              placeholder="Enter your new word..."
+            />
+          </div>
+        </div>
+
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="definition2">definition 2</label>
+            <button class="btn--plus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="definition2"
+              required
+              name="definition"
+              placeholder="Enter your new word..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="explanation1">explanation 1</label>
+            <button class="btn--plus">
+              <svg>
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="explanation1"
+              required
+              name="explanation1"
+              placeholder="Enter your explanation..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="sentance">sample sentance 1</label>
+            <button class="btn--plus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="sentance"
+              required
+              name="sentance"
+              placeholder="Enter your sentance..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <select name="group" id="group">
+              <option>owoce</option>
+              <option>zakupy</option>
+            </select>
+            <button class="btn--down">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-triangle-down"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn create__btn btn--submit">
+          Create
+        </button>
+      </form>
     </div>
   </body>
 </html>

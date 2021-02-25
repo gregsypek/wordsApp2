@@ -18,13 +18,48 @@
     background-color: $color-secondary3;
 
     font-size: 1.6rem;
-    width: 20rem;
+    width: 25rem;
     min-height: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__list {
     list-style: none;
     margin-top: 3rem;
+
+    .btn--plus-sm {
+      // visibility: hidden;
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      font-size: 3rem;
+      top: 0;
+      bottom: 0;
+      right: -4rem;
+
+      background-color: #8b8c8c;
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid black;
+      cursor: pointer;
+      padding: 1rem;
+      fill: #3d3e40;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__letter {
+    color: $color-primary;
+    background-color: $color-secondary2;
+    width: 5rem;
+    margin-left: -2rem;
+    border: 1px solid black;
+    padding-left: 1rem;
   }
 
   &__item {
@@ -33,19 +68,21 @@
     &--active {
       background-color: $color-primary3;
 
-      &::after {
-        // visibility: hidden;
-        content: url('../img/SVG/plus.SVG');
-        position: absolute;
-        @extend %btn-icon;
-        font-size: 4rem;
-        @extend .main__btn--edit;
-        top: 0;
-        bottom: 0;
-        right: -6rem;
-        margin: 0.5rem 0;
-        // right: -3rem;
-      }
+      // &::after {
+      //   // visibility: hidden;
+      //   content: url('../img/SVG/plus.SVG');
+      //   position: absolute;
+      //   // @extend %btn-icon;
+      //   width: 3rem;
+      //   height: 3rem;
+      //   font-size: 3rem;
+      //   @extend .main__btn--edit;
+      //   top: 0;
+      //   bottom: 0;
+      //   right: -6rem;
+      //   margin: -1rem 0;
+      //   // right: -3rem;
+      // }
     }
   }
 
@@ -59,9 +96,42 @@
     font-size: 1.8rem;
     color: $color-primary;
     text-decoration: none;
+    &:not(last-of-type) {
+      margin-bottom: 1rem;
+    }
 
     &--eng {
       text-transform: uppercase;
+      font-weight: 700;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-content: center;
+    .btn--page {
+      display: flex;
+      flex-basis: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 0.2rem;
+    }
+    .btn--print {
+      font-size: 1.8rem;
+      padding: 0.2rem;
+    }
+    svg {
+      background-color: $color-secondary3;
+      width: 3rem;
+      height: 3rem;
+      // border: 1px solid black;
+      fill: $color-primary; //SVG FILE
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 

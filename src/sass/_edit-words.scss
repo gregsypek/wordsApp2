@@ -1,15 +1,13 @@
 .overlay {
   border: 1px solid white;
-}
-.add-word-window {
-  display: flex;
-  flex-direction: column;
+  margin-top: 5rem;
 }
 
 .btn--close {
   @extend %btn-icon;
-  align-self: flex-end;
-  margin: 5rem;
+  display: flex;
+  flex-basis: 80vw;
+  margin: 5rem 5rem 0 auto;
 }
 
 .upload {
@@ -30,14 +28,14 @@
     display: flex;
     font-size: 2rem;
     label {
-      background-color: $color-primary3;
+      // background-color: $color-primary3;
       width: 40rem;
-      display: flex;
-      align-items: center;
-      // justify-content: center;
+      // display: flex;
+      // align-items: center;
       padding-left: 3rem;
 
-      text-transform: uppercase;
+      // text-transform: uppercase;
+          @extend .main__bar;
     }
     &:not(last-of-type) {
       margin-right: 5rem;
@@ -60,7 +58,8 @@
       padding-left: 3rem;
       color: inherit;
       @extend label;
-      font-size: 2rem;
+             @extend .main__bar;
+      // font-size: 2rem;
       font-family: inherit;
       border: none;
       -webkit-appearance: none;

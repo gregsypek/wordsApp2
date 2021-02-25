@@ -48,14 +48,25 @@
         </nav>
       </header>
       <aside class="aside">
-        <!-- <div class="aside__info">
+        <!-- ************************* -->
+        <!-- ***MESSAGE START ****** -->
+        <!-- ************************* -->
+
+        <div class="aside__info">
           <h1>
             Application built to help you learn new words by grouping them and
             print on special preformated lists.
           </h1>
-        </div> -->
+        </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+
+        <!-- ************************* -->
+        <!-- ***WORDS LIST RESULTS****** -->
+        <!-- ************************* -->
         <div class="aside__results">
-          <ul class="aside__list">
+          <!-- <ul class="aside__list">
             <li class="aside__item">
               <a href="#" class="aside__link">
                 <span class="aside__link--eng">apple</span> -
@@ -70,12 +81,21 @@
                 <span class="aside__link--type">noun</span>
               </a>
             </li>
-          </ul>
-
-          <!-- <div class="message message-noword">
+          </ul> -->
+          <!-- ************************* -->
+          <!-- ***MESSAGE NO-WORDS****** -->
+          <!-- ************************* -->
+          <div class="message message-noword">
             <p>You have no results. Please search a new word</p>
-          </div> -->
+          </div>
+          <!-- ***************************** -->
+          <!-- **************END************ -->
+          <!-- ***************************** -->
         </div>
+
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
 
         <footer>
           <p class="copyright">&copy; Copyright by gregsypek 2021</p>
@@ -84,10 +104,20 @@
 
       <main class="main">
         <!-- TODO IN JS CHANGE VISIBILITY  -->
+
+        <!-- ************************* -->
+        <!-- ***NO-GROUP MESSAGE****** -->
+        <!-- ************************* -->
         <div class="message message-nogroup">
           <p>No groups yet. Find any word and create new group...</p>
         </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
 
+        <!-- ************************* -->
+        <!-- ***CREATE GROUP BAR****** -->
+        <!-- ************************* -->
         <div class="main__create-group">
           <p>Create new group</p>
           <button class="main__btn main__btn--create-group">
@@ -96,8 +126,14 @@
             </svg>
           </button>
         </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
 
-        <!-- <div class="main__input">
+        <!-- ****************************** -->
+        <!-- ****CREATE GROUP INPUT******** -->
+        <!-- ****************************** -->
+        <div class="main__input">
           <form class="create">
             <input
               type="text"
@@ -106,8 +142,14 @@
             />
             <button class="btn create__btn">Create</button>
           </form>
-        </div> -->
+        </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
 
+        <!-- ****************************** -->
+        <!-- ****GROUP EDIT BAR******** -->
+        <!-- ****************************** -->
         <div class="main__bar">
           <p class="main__group">Owoce</p>
           <div class="main__btns">
@@ -138,17 +180,23 @@
             </button>
           </div>
         </div>
-        <!-- ************************* -->
-        <!-- <div class="main__cards">
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+
+        <!-- ****************************** -->
+        <!-- ****CARDS DISPLAY GRID******** -->
+        <!-- ****************************** -->
+        <div class="main__cards">
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Apple</h3>
-               <img
+              <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> 
+              />
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -184,7 +232,7 @@
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> 
+              />
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -215,12 +263,12 @@
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Appe</h3>
-              <!-- <imgt
+              <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> 
+              />
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -251,12 +299,12 @@
           <div class="main__card">
             <div class="main__card-nav">
               <h3 class="card__word">Apple</h3>
-             <img
+              <img
                 src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
                 alt=""
                 class="card__phonetic"
                 tabindex="-1"
-              /> 
+              />
               <div class="card__btns">
                 <button class="main__btn main__btn--edit">
                   <svg class="bar__icon">
@@ -284,12 +332,16 @@
               <button class="btn more__btn">More</button>
             </div>
           </div>
-        </div> -->
+        </div>
 
-        <!-- ************************* -->
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
       </main>
     </div>
-
+    <!-- ****************************** -->
+    <!-- ****NEW WORDS FORM******* -->
+    <!-- ****************************** -->
     <div class="overlay hidden"></div>
     <div class="add-word-window hidden">
       <button class="btn--close">
@@ -393,5 +445,76 @@
         </button>
       </form>
     </div>
+    <!-- ***************************** -->
+    <!-- **************END************ -->
+    <!-- ***************************** -->
+
+    <!-- ****************************** -->
+    <!-- ****GROUPS EDITING LIST******* -->
+    <!-- ****************************** -->
+
+    <div class="overlay hidden"></div>
+    <div class="groups-window hidden">
+      <button class="btn--close">
+        <svg>
+          <use href="./src/img/icons.svg#icon-cross"></use>
+        </svg>
+      </button>
+      <div class="groups">
+        <ul class="groups__list">
+          <li class="preview">
+            <button class="preview__link">owoce</button>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">mar</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizyfghdfgh</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- ***************************** -->
+    <!-- **************END************ -->
+    <!-- ***************************** -->
   </body>
 </html>

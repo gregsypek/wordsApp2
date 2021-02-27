@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "core-js": "^3.9.0",
-    "owlbot-js": "^2.0.2",
     "regenerator-runtime": "^0.13.7"
   }
 }

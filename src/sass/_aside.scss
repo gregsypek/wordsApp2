@@ -88,10 +88,9 @@
 
   &__link {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    padding: 0.5rem 3rem;
+    flex-direction: column;
+    word-wrap: break-word;
+    padding: 0.5rem 2rem;
 
     font-size: 1.8rem;
     color: $color-primary;
@@ -102,7 +101,28 @@
 
     &--eng {
       text-transform: uppercase;
-      font-weight: 700;
+    }
+    // &--type {
+    //   // flex-basis: 100%;
+    // }
+    &--meanings {
+      // flex-basis: 100%;
+      display: flex;
+    }
+    &--nr {
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      border: 1px solid black;
+      margin-right: 1rem;
+      font-family: sans-serif;
+      font-style: italic;
+    }
+    &--def {
+      max-width: 80%;
+      word-wrap: break-word;
     }
   }
 

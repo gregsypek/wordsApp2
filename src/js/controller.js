@@ -1,8 +1,8 @@
-console.log('hellosd');
-var Owlbot = require('owlbot-js');
+// Get word definitions
+// Usage : The basic syntax of a URL request to the API is shown below:
 
-var client = Owlbot(YOUR_TOKEN);
+// https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
 
-client.define('owl').then(function (result) {
-  console.log(result);
-});
+// As an example, to get definition of English word hello, you can send request to
+
+// https://api.dictionaryapi.dev/api/v2/entries/en_US/hello

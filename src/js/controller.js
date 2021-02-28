@@ -6,16 +6,31 @@
 // As an example, to get definition of English word hello, you can send request to
 
 // https://api.dictionaryapi.dev/api/v2/entries/en_US/hello
+import icons from '../img/icons.svg';
 
 const resultList = document.querySelector('.aside__list');
 const resultListFrame = document.querySelector('.aside__results');
 const startMessage = document.querySelector('.aside__info');
 
+const renderSpinner = function (parentEl) {
+  const markup = `
+    <div class="spinner">
+      <svg>
+        <use href="${icons}#icon-spinner"></use>
+      </svg>
+    </div>
+  `;
+  parentEl.innerHTML = '';
+  parentEl.insertAdjacentHTML('afterbegin', markup);
+};
+
 const showWord = async function () {
   try {
-    //1. Loading words
+    //1. Loading word
+    renderSpinner(startMessage);
+
     const res = await fetch(
-      'https://api.dictionaryapi.dev/api/v2/entries/en_US/cut'
+      'https://api.dictionaryapi.dev/api/v2/entries/en_US/clean'
     );
 
     const [data] = await res.json();
@@ -67,14 +82,15 @@ const showWord = async function () {
         </a>
         <button class="btn--plus-sm hidden">
           <svg class="nav__icon">
-            <use href="./src/img/icons.svg#icon-plus"></use>
+            <use href="${icons}#icon-plus"></use>
           </svg>
         </button>
       </li>
     `;
 
     //3. Hide start Message
-    startMessage.remove();
+    //spinner cleaned the message
+    // startMessage.remove();
 
     // TODO ONLY WHEN USER SUBMIT A WORD INTO INPUT SEARCH
     //4.Show resultList frame and wait for result
@@ -83,9 +99,13 @@ const showWord = async function () {
 
     //5. Show results in empty list frame
     resultList.insertAdjacentHTML('afterbegin', markup);
+
+    //6.Hide spinner
+    document.querySelector('.spinner').style.display = 'none';
   } catch (err) {
     alert(err);
   }
 };
 
 showWord();
+//

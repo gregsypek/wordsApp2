@@ -5,7 +5,7 @@
   justify-content: space-between;
   color: white;
   align-items: center;
-  margin-top: 15rem;
+  margin-top: 8rem;
 
   // INFO displays information about application only in begining
   &__info {
@@ -19,6 +19,7 @@
 
     font-size: 1.6rem;
     width: 25rem;
+    height: 80%;
     min-height: 30rem;
     display: flex;
     flex-direction: column;
@@ -101,10 +102,11 @@
 
     &--eng {
       text-transform: uppercase;
+      margin-bottom: -2rem;
     }
-    // &--type {
-    //   // flex-basis: 100%;
-    // }
+    &--type {
+      margin-top: 1rem;
+    }
     &--meanings {
       // flex-basis: 100%;
       display: flex;

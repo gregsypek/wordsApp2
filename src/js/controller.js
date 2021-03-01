@@ -14,24 +14,12 @@ const controlWords = async function () {
     wordView.renderSpinner();
 
     //1. Loading word
-
+    //function only change state object
     await model.loadWord(id);
 
     //2. Rendering words
 
     wordView.render(model.state.word);
-
-    //3. Hide start Message
-
-    wordView.removeMessage();
-
-    // TODO ONLY WHEN USER SUBMIT A WORD INTO INPUT SEARCH
-    //4.Show resultList frame and wait for result
-
-    wordView.showList();
-    // resultList.classList.remove('hidden');
-    //5.Hide spinner
-    wordView.hideSpinner();
   } catch (err) {
     alert(err);
   }

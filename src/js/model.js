@@ -1,7 +1,7 @@
 export const state = {
   word: {},
 };
-//function only change state object
+
 export const loadWord = async function (id) {
   try {
     const res = await fetch(

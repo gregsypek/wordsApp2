@@ -1,31 +1,21 @@
 import icons from '../../img/icons.svg';
 
 class WordView {
-  #parentElement = document.querySelector('.aside__list');
+  #parentElement = document.querySelector('.aside');
   #data;
-  #messageElement = document.querySelector('.aside__info');
 
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
-    // resultListFrame.classList.remove('hidden');
+    this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   #clear() {
     this.#parentElement.innerHTML = '';
   }
-  removeMessage() {
-    this.#messageElement.remove();
-  }
-  showList() {
-    this.#parentElement.classList.remove('hidden');
-  }
-  hideSpinner() {
-    document.querySelector('.spinner').style.display = 'none';
-  }
 
-  renderSpinner = function () {
+  renderSpinner() {
     const markup = `
     <div class="spinner">
       <svg>
@@ -35,10 +25,14 @@ class WordView {
   `;
     this.#parentElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  };
+  }
 
   #generateMarkup() {
     return `
+     <div class="aside__results">
+          <ul class="aside__list">
+           <a href="#soup">soup</a>
+            <a href="#cut">cut</a> -->
       <li class="aside__item aside__item--active">
         <a href="${this.#data.word}" class="aside__link">
           <strong class="aside__link--eng">${this.#data.word}</strong>&nbsp;
@@ -64,8 +58,11 @@ class WordView {
           </svg>
         </button>
       </li>
+      </ul>
+      </div>
     `;
   }
+
   #generateMarkupDefinitions(def, index) {
     return `
                <span class="aside__link--meanings">

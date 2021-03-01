@@ -21,9 +21,11 @@ const controlWords = async function () {
 
     wordView.render(model.state.word);
   } catch (err) {
-    alert(err);
+    console.log(err);
   }
 };
 
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, controlWords));
-// window.addEventListener('hashchange', controlWords);
+const init = function () {
+  wordView.addHandlerRender(controlWords);
+};
+init();

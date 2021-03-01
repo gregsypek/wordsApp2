@@ -1,20 +1,13 @@
+import { API_URL } from './config.js';
+import { getJSON } from './helpers.js';
+
 export const state = {
   word: {},
 };
 
 export const loadWord = async function (id) {
   try {
-    const res = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en_US/${id}`
-    );
-
-    const [data] = await res.json();
-
-    console.log(data);
-
-    if (data.word === 'undefined')
-      throw new Error('No results or empty search');
-
+    const data = await getJSON(`${API_URL}/${id}`);
     const word = data;
     state.word = {
       word: word.word,
@@ -24,6 +17,6 @@ export const loadWord = async function (id) {
     };
     console.log(state.word);
   } catch (err) {
-    console.error(err);
+    console.error(`${err}🔥🔥🔥`);
   }
 };

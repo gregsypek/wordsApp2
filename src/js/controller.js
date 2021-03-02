@@ -21,7 +21,7 @@ const controlWords = async function () {
 
     wordView.render(model.state.word);
   } catch (err) {
-    console.log(err);
+    wordView.renderMessageError();
   }
 };
 

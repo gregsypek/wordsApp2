@@ -162,6 +162,8 @@
 
   .message-noword {
     @extend %message;
+    align-items: flex-start;
+    margin-top: 3rem;
   }
 
   .copyright {

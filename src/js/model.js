@@ -1,4 +1,4 @@
-import { API_URL } from './config.js';
+import { API_URL, LANGUAGE_CODE } from './config.js';
 import { getJSON } from './helpers.js';
 
 export const state = {
@@ -7,7 +7,7 @@ export const state = {
 
 export const loadWord = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await getJSON(`${API_URL}${LANGUAGE_CODE}${id}`);
     const word = data;
     state.word = {
       word: word.word,
@@ -18,5 +18,6 @@ export const loadWord = async function (id) {
     console.log(state.word);
   } catch (err) {
     console.error(`${err}🔥🔥🔥`);
+    throw err;
   }
 };

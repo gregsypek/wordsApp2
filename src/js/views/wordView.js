@@ -3,6 +3,8 @@ import icons from '../../img/icons.svg';
 class WordView {
   #parentElement = document.querySelector('.aside');
   #data;
+  #messageError = 'You have no results. Please try again or search another one. You can also create new word and add him into group.';
+  #message = '';
 
   render(data) {
     this.#data = data;
@@ -23,7 +25,26 @@ class WordView {
       </svg>
     </div>
   `;
-    this.#parentElement.innerHTML = '';
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+  //if no argument default value will be set to #messageError
+  renderMessageError(message = this.#messageError) {
+    const markup = `
+     <div class="message message-noword">
+            <p>${message}</p>
+          </div> -->
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+  renderMessage(message = this.#message) {
+    const markup = `
+     <div class="message">
+            <p>${message}</p>
+          </div> -->
+    `;
+    this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 

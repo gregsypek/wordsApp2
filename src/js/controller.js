@@ -1,6 +1,7 @@
 import * as model from './model.js';
 import wordView from './views/wordView.js';
 import searchView from './views/searchView.js';
+import groupView from './views/groupView.js';
 
 import 'core-js/stable'; // allows old browser display our code
 import 'regenerator-runtime/runtime'; //polyfiling async await functions

@@ -5,7 +5,7 @@ export const state = {
   word: {},
 };
 
-export const loadWord = async function (id) {
+export const loadSearchWord = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${LANGUAGE_CODE}${id}`);
     const word = data;

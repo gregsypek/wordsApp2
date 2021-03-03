@@ -28,13 +28,33 @@ const controlSearchWords = async function () {
     //3. Render result
 
     wordView.render(model.state.word);
+
+    //4. Add word into results array
+
+    await model.saveSearchedWord();
   } catch (err) {
     wordView.renderMessageError();
   }
 };
+// const controlGroupWords = async function () {
+//   try {
+//     await model.loadSearchWord('apple');
+
+//     const word = model.state.word;
+//     console.log(word);
+//     groupView.renderSpinner();
+
+//     groupView.render(model.state.word);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const init = function () {
-  wordView.addHandlerRender(controlSearchWords);
   searchView.addHandlerSearch(controlSearchWords);
+  // wordView.addHandlerRender(controlSearchWords);
+  wordView.addHandlerRender();
+
+  // controlGroupWords();
 };
 init();

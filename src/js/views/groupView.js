@@ -1,13 +1,13 @@
 import View from './View.js';
 
 class GroupView extends View {
-  _parentElement = document.querySelector('.main__cards');
+  _parentElement = document.querySelector('.main__cards-box');
 
-  _generateMarku() {
+  _generateMarkup() {
     return `
        <div class="main__card">
         <div class="main__card-nav">
-          <h3 class="card__word">Apple</h3>
+          <h3 class="card__word">banana</h3>
           <img
             src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
             alt=""

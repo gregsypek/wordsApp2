@@ -16,6 +16,7 @@ class SearchView {
       handler();
     });
   }
+  addActiveClass() {}
 }
 
 export default new SearchView();

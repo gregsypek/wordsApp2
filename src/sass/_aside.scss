@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: white;
+  color: $color-primary;
   align-items: center;
   margin-top: 8rem;
 
@@ -66,31 +66,8 @@
     padding-left: 1rem;
   }
 
-  &__item {
-    position: relative;
-
-    &--active {
-      background-color: $color-primary3;
-
-      // &::after {
-      //   // visibility: hidden;
-      //   content: url('../img/SVG/plus.SVG');
-      //   position: absolute;
-      //   // @extend %btn-icon;
-      //   width: 3rem;
-      //   height: 3rem;
-      //   font-size: 3rem;
-      //   @extend .main__btn--edit;
-      //   top: 0;
-      //   bottom: 0;
-      //   right: -6rem;
-      //   margin: -1rem 0;
-      //   // right: -3rem;
-      // }
-    }
-  }
-
   &__link {
+    position: relative;
     display: flex;
     flex-direction: column;
     word-wrap: break-word;
@@ -104,11 +81,14 @@
     }
 
     &--eng {
+      margin-left: 2rem;
       text-transform: uppercase;
+      font-size: 2rem;
       margin-bottom: -2rem;
     }
     &--type {
       margin-top: 1rem;
+      text-transform: uppercase;
     }
     &--meanings {
       // flex-basis: 100%;
@@ -128,6 +108,9 @@
     &--def {
       max-width: 80%;
       word-wrap: break-word;
+    }
+    &--active {
+      background-color: $color-primary3;
     }
   }
 

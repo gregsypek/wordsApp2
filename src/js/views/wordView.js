@@ -5,8 +5,8 @@ import icons from '../../img/icons.svg';
 
 class WordView extends View {
   _parentElement = document.querySelector('.aside');
-  // _plusButton = document.querySelector('.btn--plus-sm');
-  // _searchedWords = document.querySelectorAll('.aside__item');
+  // _plusButtons = document.querySelectorAll('.btn--plus-sm');
+  _btnPlusClicked = false;
   _messageError =
     'You have no results. Please try again or search another one. You can also create new word and add him into group.';
   _message = '';
@@ -22,16 +22,16 @@ class WordView extends View {
             <li class="aside__item">
               <strong class="aside__link--eng">${this._data.word}</strong>&nbsp;
               ${this._data.meanings
-                .map(item => {
+                .map((item, i) => {
                   return `
-                <div class="aside__link">
+                <div class="aside__link" data-link="${i + 1}">
                 <dfn class="aside__link--data">
                   <span class="aside__link--type">${item.partOfSpeech}</span>
                   ${item.definitions
                     .map(this._generateMarkupDefinitions)
                     .join('')}
                 </dfn>
-                <button class="btn--plus-sm hidden">
+                <button class="btn--plus-sm hidden btn__active--${i + 1}">
                   <svg class="nav__icon">
                     <use href="${icons}#icon-plus"></use>
                   </svg>
@@ -74,9 +74,49 @@ class WordView extends View {
                   </span>
               `;
   }
-  _makeWordActive(word) {
-    e.preventDefault();
-    console.log(e);
+
+  getWord() {
+    const wordsPartOfSpeechParent = this._parentElement.querySelector(
+      '.aside__item'
+    );
+
+    wordsPartOfSpeechParent.addEventListener('click', e => {
+      const clicked = e.target.closest('.aside__link');
+
+      if (!clicked) return;
+      //1.marked partOfSpeech as active
+      clicked.classList.toggle('aside__link--active');
+
+      //2.show btn-plus on the right side
+
+      const clickedBtn = document.querySelector(
+        `.btn__active--${clicked.dataset.link}`
+      );
+      this._btnPlusClicked
+        ? clickedBtn.classList.remove('hidden')
+        : clickedBtn.classList.toggle('hidden');
+
+      // if (this._btnPlusClicked) {
+      //   clickedBtn.classList.remove('hidden');
+      // } else {
+      //   clickedBtn.classList.toggle('hidden');
+      // }
+    });
+
+    this.addHandlerDisplayCard(wordsPartOfSpeechParent);
+  }
+
+  addHandlerDisplayCard(parent) {
+    parent.addEventListener('click', e => {
+      const clicked = e.target.closest('.btn--plus-sm');
+      if (!clicked) return;
+
+      this._btnPlusClicked = true;
+
+      clicked.disabled = true;
+
+      console.log(clicked);
+    });
   }
 }
 

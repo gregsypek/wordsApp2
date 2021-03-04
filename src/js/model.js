@@ -32,8 +32,13 @@ export const saveSearchedWord = async function () {
   try {
     this.state.search.results.push(this.state.word);
     console.log(this.state.search.results);
+    console.log(this.state.search.results.slice(-1));
   } catch (err) {
     console.error(`${err}🔥🔥🔥`);
     throw err;
   }
 };
+
+// export const addWordIntoGroup = function (word) {
+//   state.
+// }

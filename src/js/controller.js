@@ -32,29 +32,32 @@ const controlSearchWords = async function () {
     //4. Add word into results array
 
     await model.saveSearchedWord();
+
+    wordView.getWord();
   } catch (err) {
     wordView.renderMessageError();
   }
 };
-// const controlGroupWords = async function () {
-//   try {
-//     await model.loadSearchWord('apple');
+const controlGroupWords = async function () {
+  try {
+    wordView.renderSpinner();
+    // await model.loadSearchWord('apple');
 
-//     const word = model.state.word;
-//     console.log(word);
-//     groupView.renderSpinner();
+    const word = model.state.search.results.slice(-1);
+    console.log(word);
+    groupView.renderSpinner();
 
-//     groupView.render(model.state.word);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+    groupView.render(model.state.word);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender(controlSearchWords);
   wordView.addHandlerRender();
 
-  // controlGroupWords();
+  controlGroupWords();
 };
 init();

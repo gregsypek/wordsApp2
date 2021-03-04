@@ -43,17 +43,25 @@
       bottom: 0;
       right: -4rem;
 
-      background-color: #8b8c8c;
+      background-color: $color-primary2;
       width: 4rem;
       height: 4rem;
       border: 1px solid black;
       cursor: pointer;
       padding: 1rem;
-      fill: #3d3e40;
+      fill: $color-primary;
       transition: all 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
+      &:disabled {
+        opacity: 0.65;
+        // background-color: red;
+        background-color: $color-primary;
+        cursor: not-allowed;
+        fill: $color-primary3;
+        border-color: $color-primary3;
+      }
     }
   }
 
@@ -78,6 +86,9 @@
     text-decoration: none;
     &:not(last-of-type) {
       margin-bottom: 1rem;
+    }
+    &:hover {
+      cursor: pointer;
     }
 
     &--eng {

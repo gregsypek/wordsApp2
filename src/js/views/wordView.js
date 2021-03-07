@@ -76,38 +76,36 @@ class WordView extends View {
   }
 
   getWord() {
-    const wordsPartOfSpeechParent = this._parentElement.querySelector(
-      '.aside__item'
-    );
+    this._parentElement
+      .querySelector('.aside__item')
+      .addEventListener('click', e => {
+        const clicked = e.target.closest('.aside__link');
 
-    wordsPartOfSpeechParent.addEventListener('click', e => {
-      const clicked = e.target.closest('.aside__link');
+        if (!clicked) return;
+        //1.marked partOfSpeech as active
+        clicked.classList.toggle('aside__link--active');
 
-      if (!clicked) return;
-      //1.marked partOfSpeech as active
-      clicked.classList.toggle('aside__link--active');
+        //2.show btn-plus on the right side
 
-      //2.show btn-plus on the right side
+        const clickedBtn = document.querySelector(
+          `.btn__active--${clicked.dataset.link}`
+        );
+        this._btnPlusClicked
+          ? clickedBtn.classList.remove('hidden')
+          : clickedBtn.classList.toggle('hidden');
 
-      const clickedBtn = document.querySelector(
-        `.btn__active--${clicked.dataset.link}`
-      );
-      this._btnPlusClicked
-        ? clickedBtn.classList.remove('hidden')
-        : clickedBtn.classList.toggle('hidden');
-
-      // if (this._btnPlusClicked) {
-      //   clickedBtn.classList.remove('hidden');
-      // } else {
-      //   clickedBtn.classList.toggle('hidden');
-      // }
-    });
-
-    this.addHandlerDisplayCard(wordsPartOfSpeechParent);
+        // if (this._btnPlusClicked) {
+        //   clickedBtn.classList.remove('hidden');
+        // } else {
+        //   clickedBtn.classList.toggle('hidden');
+        // }
+      });
+    console.log(this);
+    this.addHandlerDisplayCard();
   }
 
-  addHandlerDisplayCard(parent) {
-    parent.addEventListener('click', e => {
+  addHandlerDisplayCard() {
+    this._parentElement.addEventListener('click', e => {
       const clicked = e.target.closest('.btn--plus-sm');
       if (!clicked) return;
 

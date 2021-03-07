@@ -7,6 +7,12 @@ export const state = {
     query: '',
     results: [],
   },
+  click: {
+    activePart: false,
+    clickedPart: 10,
+    activeBtn: false,
+    clickedBtn: 1,
+  },
 };
 
 export const loadSearchWord = async function (id) {
@@ -28,17 +34,20 @@ export const loadSearchWord = async function (id) {
   }
 };
 
-export const saveSearchedWord = async function () {
+export const saveSearchedWord = async function (word) {
   try {
-    this.state.search.results.push(this.state.word);
-    console.log(this.state.search.results);
-    console.log(this.state.search.results.slice(-1));
+    state.search.results.push(word);
+    state.search.query = word.word;
+    console.log(state);
   } catch (err) {
     console.error(`${err}🔥🔥🔥`);
     throw err;
   }
 };
 
-// export const addWordIntoGroup = function (word) {
-//   state.
-// }
+export const getClickedPartOfSpeech = function (link) {
+  state.click.clickedPart = link;
+  state.click.activePart = true;
+  console.log(state);
+  return state.click.clickedPart;
+};

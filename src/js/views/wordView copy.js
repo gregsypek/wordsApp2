@@ -1,5 +1,6 @@
 //.js is optional
 import View from './View.js';
+
 import icons from '../../img/icons.svg';
 
 class WordView extends View {
@@ -14,33 +15,26 @@ class WordView extends View {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
-  addHandlerClick(handler) {
+  addHandlerClick() {
     this._parentElement
       .querySelector('.aside__item')
-      //to have access for WordView object we need implement here arrow function
-      .addEventListener('click', e => {
+      .addEventListener('click', function (e) {
         const clicked = e.target.closest('.aside__link');
         if (!clicked) return;
         const markPartClicked = +clicked.dataset.link;
-        // this._data.click.activePart = true;
-        // this._data.clickedPart = markPartClicked;
-
-        console.log(this._data);
-
-        handler(markPartClicked);
+        console.log(markPartClicked);
+        // return markPartClicked;
       });
   }
 
   _generateMarkup() {
     console.log(this._data);
-    const { word } = this._data;
-    console.log(word);
     return `
      <div class="aside__results">
           <ul class="aside__list">
             <li class="aside__item">
-              <strong class="aside__link--eng">${word.word}</strong>&nbsp;
-              ${word.meanings
+              <strong class="aside__link--eng">${this._data.word}</strong>&nbsp;
+              ${this._data.meanings
                 .map((item, i) => {
                   return `
                 <div class="aside__link" data-link="${i + 1}">

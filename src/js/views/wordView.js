@@ -5,7 +5,7 @@ import icons from '../../img/icons.svg';
 class WordView extends View {
   _parentElement = document.querySelector('.aside');
   // _plusButtons = document.querySelectorAll('.btn--plus-sm');
-  _btnPlusClicked = false;
+
   _messageError =
     'You have no results. Please try again or search another one. You can also create new word and add him into group.';
   _message = '';
@@ -20,21 +20,21 @@ class WordView extends View {
       //to have access for WordView object we need implement here arrow function
       .addEventListener('click', e => {
         const clicked = e.target.closest('.aside__link');
+        // console.log(clicked);
         if (!clicked) return;
         const markPartClicked = +clicked.dataset.link;
-        // this._data.click.activePart = true;
-        // this._data.clickedPart = markPartClicked;
+        // console.log(markPartClicked);
 
-        console.log(this._data);
-
+        clicked.classList.toggle('aside__link--active');
+        // console.log(clicked);
         handler(markPartClicked);
       });
   }
 
   _generateMarkup() {
-    console.log(this._data);
     const { word } = this._data;
-    console.log(word);
+    // const { activePart } = this._data.click;
+    const { clickedPart } = this._data.click;
     return `
      <div class="aside__results">
           <ul class="aside__list">
@@ -42,6 +42,10 @@ class WordView extends View {
               <strong class="aside__link--eng">${word.word}</strong>&nbsp;
               ${word.meanings
                 .map((item, i) => {
+                  if (clickedPart === i + 1)
+                    document
+                      .querySelector('.aside__link')
+                      .classList.toggle('aside__link--active');
                   return `
                 <div class="aside__link" data-link="${i + 1}">
                 <dfn class="aside__link--data">
@@ -84,6 +88,7 @@ class WordView extends View {
         </div>
     `;
   }
+  _toggleClass() {}
 
   _generateMarkupDefinitions(def, index) {
     return `

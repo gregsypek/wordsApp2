@@ -4,10 +4,19 @@ import icons from '../../img/icons.svg';
 
 class WordClickView extends View {
   _parentElement = document.querySelector('.aside');
+
+  //TODO AFTER CLICK ON BTN:1.DISABLE BTN, 2.CHECK IF THERE IS A GROUP CREATED, 3. IF NO DISPLAY MESSAGE 'NO GROUP CREATED'4. IF YES ADD CARD INTO THAT GROUP 5. BEFORE NEW SEARCH DISPLAY WARNING MESSAGE 'ALL CARDS WILL BE ADDED INTO DEFAULT GROUP AND TO PREVENT THAT ADD THEM INTO YOUR GROUP'
+  handleClickPlusBtn(handler) {
+    // console.log(this._data.click.clickedPart);
+    this._parentElement
+      .querySelector(`.btn__active--${this._data.click.clickedPart}`)
+      .addEventListener('click', () => {
+        handler();
+      });
+  }
+
   _generateMarkup() {
-    console.log(this._data);
     const { word } = this._data;
-    const { activePart } = this._data.click;
     const { clickedPart } = this._data.click;
     return `
      <div class="aside__results">

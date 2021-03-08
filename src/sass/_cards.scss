@@ -1,12 +1,17 @@
 .main {
-  &__cards-box {
-    margin-top: 5rem;
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  &__cards {
+    width: 100%;
+    &-box {
+      margin-top: 5rem;
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
   }
+
   &__card {
+    margin-right: 2rem;
     max-width: 25rem;
     background-color: $color-secondary3;
 
@@ -35,9 +40,14 @@
         margin-left: 1rem;
         text-transform: uppercase;
       }
-      // &__phonetic {
-      //   // height: auto;
-      // }
+      &__phonetic {
+        background-color: transparent;
+        border: none;
+        font-size: 2rem;
+        font-style: italic;
+        outline: none;
+        color: $color-primary;
+      }
       &__btns {
         display: flex;
 
@@ -73,13 +83,13 @@
           margin-right: 2rem;
           font-size: 1.8rem;
         }
-        &--word {
+        &--role {
           font-size: 2.5rem;
           font-weight: 600;
         }
-        &--role {
-          font-size: 1.6rem;
-        }
+        // &--role {
+        //   font-size: 1.6rem;
+        // }
       }
       &__sentance {
         margin-top: 5rem;

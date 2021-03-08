@@ -8,6 +8,11 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
+  renderCard(data) {
+    this._data = data;
+    const markup = this._generateMarkup();
+    this._parentElement.insertAdjacentHTML('beforeend', markup);
+  }
 
   _clear() {
     this._parentElement.innerHTML = '';

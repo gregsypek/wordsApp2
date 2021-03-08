@@ -13,7 +13,12 @@ export const state = {
     activeBtn: false,
     clickedBtn: 1,
   },
+  cards: [],
 };
+
+// meanings: Array(2)
+// 0: {partOfSpeech: "noun", definitions: Array(2)}
+// 1: {partOfSpeech: "transitive verb", definitions: Array(1)}
 
 export const loadSearchWord = async function (id) {
   try {
@@ -21,6 +26,7 @@ export const loadSearchWord = async function (id) {
 
     const word = data;
     state.word = {
+      id: Date.now(),
       word: word.word,
       meanings: word.meanings,
       phonetics: word.phonetics[0].text,
@@ -44,10 +50,39 @@ export const saveSearchedWord = async function (word) {
     throw err;
   }
 };
+export const resetClickObject = function () {
+  state.click = {
+    activePart: false,
+    clickedPart: 0,
+    activeBtn: false,
+    clickedBtn: 0,
+  };
+};
 
 export const getClickedPartOfSpeech = function (link) {
   state.click.clickedPart = link;
   state.click.activePart = true;
   console.log(state);
   return state.click.clickedPart;
+};
+export const createObjCard = async function () {
+  try {
+    const { word } = state;
+    const index = state.click.clickedPart - 1;
+    const definitions = word.meanings[index].definitions.map(
+      def => def.definition
+    );
+
+    const cardObj = {
+      id: word.id,
+      name: word.word,
+      audio: word.audio,
+      phonetics: word.phonetics,
+      partOfSpeech: word.meanings[index].partOfSpeech,
+      definitions,
+    };
+    state.cards.push(cardObj);
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -30,16 +30,9 @@ const controlSearchWords = async function () {
 
     wordView.render(model.state);
 
-    //4. Add word into results array
+    //4. Add word and query into search object
 
     await model.saveSearchedWord(model.state.word);
-
-    // wordView.render(model.state.word);
-    // await wordClickView.addHandlerClick(controlClickPartOfSpeech);
-    // wordView.addHandlerClick();
-
-    console.log('renderuj');
-    wordView.render(model.state);
 
     // wordView.getWord();
     wordView.addHandlerClick(controlClickPartOfSpeech);
@@ -49,9 +42,18 @@ const controlSearchWords = async function () {
 };
 
 const controlClickPartOfSpeech = function (markPartClicked) {
+  //reset data
+  // console.log(model.state.click);
+  model.resetClickObject();
+  console.log('after');
+  // console.log(model.state.click);
+
   model.getClickedPartOfSpeech(markPartClicked);
-  console.log(markPartClicked);
+  // console.log(markPartClicked);
   wordClickView.render(model.state);
+  wordView.addHandlerClick(controlClickPartOfSpeech);
+
+  wordClickView.handleClickPlusBtn(controlClickPlusBtn);
   // wordView.render(model.getClickedPartOfSpeech(markPartClicked));
 };
 
@@ -69,6 +71,14 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 //     console.log(err);
 //   }
 // };
+
+const controlClickPlusBtn = function () {
+  //1.create card object
+  model.createObjCard();
+  //2.render new card
+  const lastCard = model.state.cards.length - 1;
+  groupView.renderCard(model.state.cards[lastCard]);
+};
 
 const init = function () {
   searchView.addHandlerSearch(controlSearchWords);

@@ -40,15 +40,12 @@ export const loadSearchWord = async function (id) {
   }
 };
 
-export const saveSearchedWord = async function (word) {
-  try {
-    state.search.results.push(word);
-    state.search.query = word.word;
-    console.log(state);
-  } catch (err) {
-    console.error(`${err}🔥🔥🔥`);
-    throw err;
-  }
+export const saveSearchedWord = function (word) {
+  state.search.results.push(word);
+  state.search.query = word.word;
+
+  // console.error(`${err}🔥🔥🔥`);
+  // throw err;
 };
 export const resetClickObject = function () {
   state.click = {
@@ -62,8 +59,7 @@ export const resetClickObject = function () {
 export const getClickedPartOfSpeech = function (link) {
   state.click.clickedPart = link;
   state.click.activePart = true;
-  console.log(state);
-  return state.click.clickedPart;
+  // return state.click.clickedPart;
 };
 export const createObjCard = async function () {
   try {

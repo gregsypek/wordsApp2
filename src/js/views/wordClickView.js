@@ -90,11 +90,11 @@ class WordClickView extends View {
 
   _generateMarkupDefinitions(def, index) {
     return `
-              <span class="aside__link--meanings">
-                    <em class="aside__link--nr">${index + 1}</em>
-                    <em class="aside__link--def">${def.definition}</em>
-                  </span>
-              `;
+      <span class="aside__link--meanings">
+            <em class="aside__link--nr">${index + 1}</em>
+            <em class="aside__link--def">${def.definition}</em>
+          </span>
+      `;
   }
 }
 

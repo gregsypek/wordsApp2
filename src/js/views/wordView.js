@@ -42,7 +42,7 @@ class WordView extends View {
               <strong class="aside__link--eng">${word.word}</strong>&nbsp;
               ${word.meanings
                 .map((item, i) => {
-                  if (clickedPart === i + 1)
+                  if (!clickedPart && clickedPart === i + 1)
                     document
                       .querySelector('.aside__link')
                       .classList.toggle('aside__link--active');

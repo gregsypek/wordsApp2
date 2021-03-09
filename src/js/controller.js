@@ -31,10 +31,8 @@ const controlSearchWords = async function () {
     wordView.render(model.state);
 
     //4. Add word and query into search object
+    model.saveSearchedWord(model.state.word);
 
-    await model.saveSearchedWord(model.state.word);
-
-    // wordView.getWord();
     wordView.addHandlerClick(controlClickPartOfSpeech);
   } catch (err) {
     wordView.renderMessageError();
@@ -45,7 +43,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
   //reset data
   // console.log(model.state.click);
   model.resetClickObject();
-  console.log('after');
+
   // console.log(model.state.click);
 
   model.getClickedPartOfSpeech(markPartClicked);

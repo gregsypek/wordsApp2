@@ -14,6 +14,7 @@ export const state = {
     clickedBtn: 1,
   },
   cards: [],
+  groups: [],
 };
 
 // meanings: Array(2)
@@ -56,10 +57,13 @@ export const resetClickObject = function () {
   };
 };
 
-export const getClickedPartOfSpeech = function (link) {
+export const saveClickedData = function (link) {
   state.click.clickedPart = link;
   state.click.activePart = true;
   // return state.click.clickedPart;
+};
+export const isGroupCreated = function () {
+  if (state.groups.length === 0) return false;
 };
 export const createObjCard = async function () {
   try {

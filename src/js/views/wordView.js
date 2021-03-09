@@ -4,7 +4,6 @@ import icons from '../../img/icons.svg';
 
 class WordView extends View {
   _parentElement = document.querySelector('.aside');
-  // _plusButtons = document.querySelectorAll('.btn--plus-sm');
 
   _messageError =
     'You have no results. Please try again or search another one. You can also create new word and add him into group.';
@@ -88,7 +87,6 @@ class WordView extends View {
         </div>
     `;
   }
-  _toggleClass() {}
 
   _generateMarkupDefinitions(def, index) {
     return `

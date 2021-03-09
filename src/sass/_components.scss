@@ -56,36 +56,6 @@
   height: 5.6rem;
 }
 
-// @mixin form2 {
-//   display: flex;
-//   background-color: $color-primary2;
-//   font-family: inherit;
-//   font-size: 1.7rem;
-//   align-items: center;
-//   font-size: 1.8rem;
-//   outline: 1px solid black;
-//   height: 5.6rem;
-
-//   .field {
-//     background-color: $color-secondary3;
-
-//     height: 5.6rem;
-//     width: 40rem;
-//     color: inherit;
-//     padding-left: 1rem;
-//     border: none;
-
-//     &::placeholder {
-//       color: $color-primary2;
-//       font-size: 1.8rem;
-//     }
-//   }
-
-//   &__btn {
-//     @extend %btn;
-//   }
-// }
-
 %nav-bar {
   font-size: 3.5rem;
   text-transform: uppercase;

@@ -21,6 +21,8 @@
       color: inherit;
       padding-left: 1rem;
       border: none;
+      font-size: 2rem;
+      font-family: inherit;
 
       &::placeholder {
         color: $color-primary2;

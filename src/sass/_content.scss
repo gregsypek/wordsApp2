@@ -3,16 +3,21 @@
   grid-area: words;
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .message-nogroup {
+    margin: 0 auto;
     width: 80%;
     height: 20rem;
 
     p {
       @extend %message;
+      height: auto;
     }
   }
   // BUTTON CREATE NEW GROUP WITH PLUS

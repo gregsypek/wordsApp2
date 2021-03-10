@@ -7,7 +7,7 @@ import wordClickView from './views/wordClickView.js';
 
 import 'core-js/stable'; // allows old browser display our code
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
-import groupView from './views/groupView.js';
+import noGroupView from './views/noGroupView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -58,7 +58,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
   // model.isGroupCreated();
 
-  if (!model.isGroupCreated()) groupView.renderMessage();
+  if (!model.isGroupCreated()) noGroupView.renderMessage();
 };
 const controlClickPlusBtn = function () {
   //1.create card object
@@ -72,7 +72,7 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender(controlSearchWords);
   wordView.addHandlerRender();
-  // groupView.renderMessage();
+  // noGroupView.renderMessage();
   // controlCards();
 };
 init();

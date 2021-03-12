@@ -13,7 +13,7 @@ export const state = {
     activeBtn: false,
     clickedBtn: 1,
   },
-
+  activeGroup: '',
   cards: [],
   groups: [],
 };
@@ -96,6 +96,13 @@ export const createObjGroup = async function (name) {
     };
     state.groups.push(group);
     console.log(state.groups);
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const saveGroupAsActive = async function (name) {
+  try {
+    state.activeGroup = name;
   } catch (err) {
     console.log(err);
   }

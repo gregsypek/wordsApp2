@@ -1,7 +1,7 @@
 .main {
   margin-top: 8rem;
   grid-area: words;
-  // background-image: url(../img/book.png);
+  background-image: url(../img/book.png);
   background-repeat: no-repeat;
 
   &__nav {
@@ -30,7 +30,8 @@
     @extend %nav-bar;
 
     p {
-      margin: 0 auto;
+      width: 60rem;
+      padding-left: 3rem;
     }
 
     // &:hover .main__btn,
@@ -93,8 +94,14 @@
   }
 
   //MAIN NAVIGATION BAR
+  &__group-edit {
+    // width: 100%;
+
+    margin: auto auto;
+  }
   &__bar {
     @extend %nav-bar;
+    width: auto;
   }
   &__btns {
     display: flex;
@@ -102,6 +109,7 @@
   // name of the new created group
   &__group {
     margin-left: 3rem;
+    width: 50rem;
   }
   &__btn--edit {
     @extend %btn-icon;

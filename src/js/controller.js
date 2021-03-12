@@ -9,6 +9,7 @@ import 'core-js/stable'; // allows old browser display our code
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
+import groupBarView from './views/groupBarView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -61,7 +62,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
   // model.isGroupCreated();
 
-  if (!model.isGroupCreated()) groupMessageView.renderMessage();
+  if (!model.isGroupCreated()) groupMessageView.renderMessageError();
 };
 
 const controlClickCreateNewGroup = async function () {
@@ -70,6 +71,9 @@ const controlClickCreateNewGroup = async function () {
     if (!group) return;
     console.log(group);
     model.createObjGroup(group);
+    await model.saveGroupAsActive(group);
+    groupBarView.render(model.state.activeGroup);
+    if (model.state.activeGroup) groupMessageView.renderMessage('');
   } catch (err) {
     console.log(err);
   }

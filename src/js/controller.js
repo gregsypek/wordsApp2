@@ -7,7 +7,8 @@ import wordClickView from './views/wordClickView.js';
 
 import 'core-js/stable'; // allows old browser display our code
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
-import noGroupView from './views/noGroupView.js';
+import groupMessageView from './views/groupMessageView.js';
+import groupNavView from './views/groupNavView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -36,6 +37,8 @@ const controlSearchWords = async function () {
     model.saveSearchedWord(model.state.word);
 
     wordView.addHandlerClick(controlClickPartOfSpeech);
+
+    // groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   } catch (err) {
     wordView.renderMessageError();
   }
@@ -58,8 +61,20 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
   // model.isGroupCreated();
 
-  if (!model.isGroupCreated()) noGroupView.renderMessage();
+  if (!model.isGroupCreated()) groupMessageView.renderMessage();
 };
+
+const controlClickCreateNewGroup = async function () {
+  try {
+    const group = groupNavView.getNewGroup();
+    if (!group) return;
+    console.log(group);
+    model.createObjGroup(group);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const controlClickPlusBtn = function () {
   //1.create card object
   model.createObjCard();
@@ -68,11 +83,17 @@ const controlClickPlusBtn = function () {
   cardsView.renderCard(model.state.cards[lastCard]);
 };
 
+const controlShowCreateGroupForm = function () {
+  groupNavView.showFormGroup();
+};
+
 const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender(controlSearchWords);
   wordView.addHandlerRender();
-  // noGroupView.renderMessage();
+  // groupMessageView.renderMessage();
   // controlCards();
+  groupNavView.addHandlerClick(controlShowCreateGroupForm);
+  groupNavView.addHandlerCreate(controlClickCreateNewGroup);
 };
 init();

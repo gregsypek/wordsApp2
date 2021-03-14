@@ -34,8 +34,6 @@ export const loadSearchWord = async function (id) {
       phonetics: word.phonetics[0].text,
       audio: word.phonetics[0].audio,
     };
-
-    console.log(state.word);
   } catch (err) {
     console.error(`${err}🔥🔥🔥`);
     throw err;
@@ -63,8 +61,22 @@ export const saveClickedData = function (link) {
   state.click.activePart = true;
   // return state.click.clickedPart;
 };
-export const isGroupCreated = function () {
-  if (state.groups.length === 0) return false;
+export const isAnyGroupCreated = function () {
+  if (state.groups.length !== 0) return true;
+};
+export const isUserGroupCreated = function () {
+  if (
+    state.groups.length !== 0 &&
+    state.groups.some(group => group.groupName != 'default')
+  )
+    return true;
+};
+export const isDefaultGroupCreated = function () {
+  const isDefaultGroupCreated = state.groups.some(
+    group => group.groupName === 'default'
+  );
+  console.log(isDefaultGroupCreated);
+  return isDefaultGroupCreated;
 };
 export const createObjCard = async function () {
   try {
@@ -87,15 +99,43 @@ export const createObjCard = async function () {
     console.log(err);
   }
 };
+
+export const addCardIntoGroup = async function (card) {
+  try {
+    const nameGroup = state.activeGroup;
+    console.log('nameGroup', nameGroup);
+    console.log(state.groups);
+    const index = state.groups.findIndex(obj => obj.groupName === nameGroup);
+
+    state.groups[index].cards.push(card);
+    console.log('added card into new group', state.groups);
+    console.log('all groups', state.groups);
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const addCardIntoDefaultGroup = async function (card) {
+  try {
+    const index = state.groups.findIndex(obj => obj.groupName === 'default');
+    // const defaultGroup = state.groups.filter(
+    //   group => group.groupName === 'default'
+    // );
+    state.groups[index].cards.push(card);
+    console.log('added card into default group', state.groups);
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const createObjGroup = async function (name) {
   try {
+    const id = state.groups.length === 0 ? 0 : state.groups.length - 1;
     const group = {
-      id: 1,
-      name,
+      id,
+      groupName: name,
       cards: [],
     };
     state.groups.push(group);
-    console.log(state.groups);
+    console.log('craate new objGroup', state.groups);
   } catch (err) {
     console.log(err);
   }
@@ -107,9 +147,3 @@ export const saveGroupAsActive = async function (name) {
     console.log(err);
   }
 };
-
-// group: {
-//     id: '',
-//     name: '',
-//     cards: [],
-//   },

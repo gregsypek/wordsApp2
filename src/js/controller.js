@@ -62,18 +62,32 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
   // model.isGroupCreated();
 
-  if (!model.isGroupCreated()) groupMessageView.renderMessageError();
+  if (!model.isAnyGroupCreated()) groupMessageView.renderMessageError();
 };
 
 const controlClickCreateNewGroup = async function () {
   try {
+    //1. get new created group name
     const group = groupNavView.getNewGroup();
     if (!group) return;
-    console.log(group);
+
+    //2. create obj with future cards inside
     model.createObjGroup(group);
+
+    //3. save group as active
     await model.saveGroupAsActive(group);
+
+    //4. render spinner load
+    groupBarView.renderSpinner();
+
+    //5. render group-bar navigation
     groupBarView.render(model.state.activeGroup);
-    if (model.state.activeGroup) groupMessageView.renderMessage('');
+
+    //6. delete warning message nogroup (trick render empty string and clean parent element before)
+    if (model.state.activeGroup) {
+      groupMessageView.render(model.state.activeGroup);
+    }
+    // console.log(model.state);
   } catch (err) {
     console.log(err);
   }
@@ -84,7 +98,41 @@ const controlClickPlusBtn = function () {
   model.createObjCard();
   //2.render new card
   const lastCard = model.state.cards.length - 1;
-  cardsView.renderCard(model.state.cards[lastCard]);
+  const newCard = model.state.cards[lastCard];
+  console.log(newCard);
+  cardsView.renderCard(newCard);
+
+  // TODO if card has the same id but different part of speech change number 1 into next one
+
+  //3.check if there is a group created
+  //a. there is no group created
+  if (!model.isAnyGroupCreated()) {
+    model.createObjGroup('default');
+    model.addCardIntoDefaultGroup(newCard);
+
+    //b. there is default group only
+  } else if (model.isDefaultGroupCreated() && !model.isUserGroupCreated()) {
+    model.addCardIntoDefaultGroup(newCard);
+
+    //c. there is user group only
+  } else if (!model.isDefaultGroupCreated() && model.isUserGroupCreated()) {
+    model.addCardIntoGroup(newCard);
+
+    //d.there is default group and user group
+  } else if (model.isDefaultGroupCreated() && model.isUserGroupCreated()) {
+    const defaultObjectIndex = model.state.groups.findIndex(
+      obj => obj.groupName === 'default'
+    );
+    //add all cards from default gruop into user group
+    model.state.groups[defaultObjectIndex].cards.forEach(card =>
+      model.addCardIntoGroup(card)
+    );
+    //delete default group
+    model.state.groups.splice(defaultObjectIndex, 1);
+    model.addCardIntoGroup(newCard);
+  } else {
+    return;
+  }
 };
 
 const controlShowCreateGroupForm = function () {
@@ -95,8 +143,7 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender(controlSearchWords);
   wordView.addHandlerRender();
-  // groupMessageView.renderMessage();
-  // controlCards();
+
   groupNavView.addHandlerClick(controlShowCreateGroupForm);
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
 };

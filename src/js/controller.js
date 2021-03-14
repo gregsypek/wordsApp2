@@ -134,6 +134,11 @@ const controlClickPlusBtn = function () {
     return;
   }
 };
+const controlPlayAudio = function (url) {
+  // if (!url) return;
+  const audio = new Audio(url);
+  audio.play();
+};
 
 const controlShowCreateGroupForm = function () {
   groupNavView.showFormGroup();
@@ -146,5 +151,6 @@ const init = function () {
 
   groupNavView.addHandlerClick(controlShowCreateGroupForm);
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
+  cardsView.addHandlerPlay(controlPlayAudio);
 };
 init();

@@ -4,9 +4,19 @@ import icons from '../../img/icons.svg';
 class GroupView extends View {
   _parentElement = document.querySelector('.main__cards-box');
 
+  addHandlerPlay(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const audioBtn = e.target.closest('.main__btn--play');
+      if (!audioBtn) return;
+      const url = audioBtn.dataset.audioUrl;
+      handler(url);
+    });
+  }
+
   _generateMarkup() {
     const card = this._data;
     let index = 1;
+
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
     // TODO SECOND CARD WITH THE SAME NAME  BUT DIFFERENT PART OF SPEECH SHOULD DISPLAY NEXT NUMBER
     return `
@@ -17,7 +27,8 @@ class GroupView extends View {
                   card.phonetics
                 }</button>
                 <div class="card__btns">
-                  <button class="main__btn main__btn--edit">
+                  <button class="main__btn main__btn--edit main__btn--play"
+                  data-audio-url="${card.audio}">
                     <svg class="bar__icon">
                       <use href="${icons}#icon-megaphone"></use>
                     </svg>
@@ -28,6 +39,7 @@ class GroupView extends View {
                     </svg>
                   </button>
                 </div>
+               
               </div>
               <div class="main__card-body">
 

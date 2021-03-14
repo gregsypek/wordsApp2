@@ -139,6 +139,10 @@ const controlPlayAudio = function (url) {
   const audio = new Audio(url);
   audio.play();
 };
+const controlDeleteCard = function (cardId) {
+  console.log('delete me', cardId);
+  model.deleteCard(cardId);
+};
 
 const controlShowCreateGroupForm = function () {
   groupNavView.showFormGroup();
@@ -152,5 +156,6 @@ const init = function () {
   groupNavView.addHandlerClick(controlShowCreateGroupForm);
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
+  cardsView.addHandlerClose(controlDeleteCard);
 };
 init();

@@ -13,10 +13,19 @@ class GroupView extends View {
     });
   }
 
+  addHandlerClose(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const closeBtn = e.target.closest('.main__btn--close');
+      if (!closeBtn) return;
+      const cardId = closeBtn.dataset.cardId;
+      console.log(cardId);
+      handler(cardId);
+    });
+  }
+
   _generateMarkup() {
     const card = this._data;
     let index = 1;
-
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
     // TODO SECOND CARD WITH THE SAME NAME  BUT DIFFERENT PART OF SPEECH SHOULD DISPLAY NEXT NUMBER
     return `
@@ -33,7 +42,9 @@ class GroupView extends View {
                       <use href="${icons}#icon-megaphone"></use>
                     </svg>
                   </button>
-                  <button class="main__btn main__btn--edit">
+                  <button class="main__btn main__btn--edit main__btn--close"  data-card-id=${
+                    card.id
+                  }>
                     <svg class="bar__icon">
                       <use href="${icons}#icon-cross"></use>
                     </svg>

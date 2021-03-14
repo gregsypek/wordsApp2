@@ -103,8 +103,6 @@ export const createObjCard = async function () {
 export const addCardIntoGroup = async function (card) {
   try {
     const nameGroup = state.activeGroup;
-    console.log('nameGroup', nameGroup);
-    console.log(state.groups);
     const index = state.groups.findIndex(obj => obj.groupName === nameGroup);
 
     state.groups[index].cards.push(card);
@@ -113,6 +111,11 @@ export const addCardIntoGroup = async function (card) {
   } catch (err) {
     console.log(err);
   }
+};
+export const deleteCard = function (id) {
+  console.log('I should delete this:', id);
+
+  //  state.groups[index].cards.push(card);
 };
 export const addCardIntoDefaultGroup = async function (card) {
   try {

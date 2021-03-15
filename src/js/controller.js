@@ -10,6 +10,7 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
+import groupNewFormView from './views/groupNewFormView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -53,12 +54,12 @@ const controlClickPartOfSpeech = function (markPartClicked) {
   // console.log(model.state.click);
 
   model.saveClickedData(markPartClicked);
-  // console.log(markPartClicked);
+
   wordClickView.render(model.state);
 
   wordView.addHandlerClick(controlClickPartOfSpeech);
 
-  wordClickView.handleClickPlusBtn(controlClickPlusBtn);
+  wordClickView.handleClickPlusBtn(controAddNewCard);
 
   // model.isGroupCreated();
 
@@ -93,13 +94,13 @@ const controlClickCreateNewGroup = async function () {
   }
 };
 
-const controlClickPlusBtn = function () {
+const controAddNewCard = function () {
   //1.create card object
   model.createObjCard();
   //2.render new card
   const lastCard = model.state.cards.length - 1;
   const newCard = model.state.cards[lastCard];
-  console.log(newCard);
+  console.log('I am new card', newCard);
   cardsView.renderCard(newCard);
 
   // TODO if card has the same id but different part of speech change number 1 into next one
@@ -141,11 +142,18 @@ const controlPlayAudio = function (url) {
 };
 const controlDeleteCard = function (cardId) {
   console.log('delete me', cardId);
-  model.deleteCard(cardId);
+  model.deleteCard(+cardId);
 };
 
 const controlShowCreateGroupForm = function () {
-  groupNavView.showFormGroup();
+  groupNavView.toggleFormCreateGroup();
+};
+// const controlShowCreateGroupForm = function () {
+//   groupNewFormView.render();
+// };
+
+const controlNewGroupFromBar = function () {
+  groupNewFormView.renderCard();
 };
 
 const init = function () {
@@ -157,5 +165,6 @@ const init = function () {
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
+  groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
 };
 init();

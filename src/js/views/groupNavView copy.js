@@ -31,7 +31,7 @@ class GroupNavView extends View {
       });
   }
 
-  showFormGroup() {
+  toggleFormCreateGroup() {
     this._formGroup.classList.remove('hidden');
   }
 

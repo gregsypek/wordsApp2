@@ -1,6 +1,8 @@
 class GroupNavView {
   _parentElement = document.querySelector('.main__nav');
   _formGroup = document.querySelector('.main__input');
+  _showFormCreateGroup = document.querySelector('.main__btn--create-group');
+  _createGroupBtn = document.querySelector('.create');
 
   getNewGroup() {
     const group = this._parentElement.querySelector('.create__field').value;
@@ -10,21 +12,17 @@ class GroupNavView {
   }
 
   addHandlerClick(handler) {
-    this._parentElement
-      .querySelector('.main__btn--create-group')
-      .addEventListener('click', () => handler());
+    this._showFormCreateGroup.addEventListener('click', () => handler());
   }
   addHandlerCreate(handler) {
-    this._formGroup
-      .querySelector('.create')
-      .addEventListener('submit', function (e) {
-        e.preventDefault();
-        handler();
-      });
+    this._createGroupBtn.addEventListener('submit', function (e) {
+      e.preventDefault();
+      handler();
+    });
   }
 
-  showFormGroup() {
-    this._formGroup.classList.remove('hidden');
+  toggleFormCreateGroup() {
+    this._formGroup.classList.toggle('hidden');
   }
 }
 export default new GroupNavView();

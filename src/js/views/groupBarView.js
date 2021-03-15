@@ -7,6 +7,13 @@ class GroupBarView extends View {
   _message =
     'No group created. All cards will be added into default group. Please create new group to prevent that and then add your words inside';
 
+  addHandlerNewGroup(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const newGroup = e.target.closest('.main__btn--newGroup');
+      if (!newGroup) return;
+      handler();
+    });
+  }
   _generateMarkup() {
     const name = this._data;
     return `
@@ -19,7 +26,7 @@ class GroupBarView extends View {
                     <use href="${icons}#icon-edit"></use>
                   </svg>
                 </button>
-                <button class="main__btn main__btn--edit">
+                <button class="main__btn main__btn--edit main__btn--newGroup">
                   <svg class="bar__icon">
                     <use href="${icons}#icon-plus"></use>
                   </svg>

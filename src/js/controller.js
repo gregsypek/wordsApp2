@@ -10,7 +10,6 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
-import groupNewFormView from './views/groupNewFormView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -68,6 +67,8 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
 const controlClickCreateNewGroup = async function () {
   try {
+    //0. hide createGroup form
+    groupNavView.toggleFormCreateGroup();
     //1. get new created group name
     const group = groupNavView.getNewGroup();
     if (!group) return;
@@ -153,7 +154,10 @@ const controlShowCreateGroupForm = function () {
 // };
 
 const controlNewGroupFromBar = function () {
-  groupNewFormView.renderCard();
+  console.log(model.state);
+  // groupNewFormView.renderCard();
+  groupNavView.toggleFormCreateGroup();
+  // groupNewFormView.addHandlerCreate(controlClickCreateNewGroup);
 };
 
 const init = function () {

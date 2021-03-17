@@ -1,5 +1,5 @@
 class GroupNavView {
-  _parentElement = document.querySelector('.main__nav');
+  _parentElement = document.querySelector('.main__input');
   _formGroup = document.querySelector('.main__input');
   _showFormCreateGroup = document.querySelector('.main__btn--create-group');
   _createGroupBtn = document.querySelector('.create');
@@ -15,7 +15,8 @@ class GroupNavView {
     this._showFormCreateGroup.addEventListener('click', () => handler());
   }
   addHandlerCreate(handler) {
-    this._createGroupBtn.addEventListener('submit', function (e) {
+    this._createGroupBtn.addEventListener('submit', e => {
+      e.stopPropagation();
       e.preventDefault();
       handler();
     });

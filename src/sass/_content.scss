@@ -4,6 +4,12 @@
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
 
+  &__control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
   &__nav {
     display: flex;
     flex-direction: column;

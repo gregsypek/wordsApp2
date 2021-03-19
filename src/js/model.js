@@ -14,8 +14,11 @@ export const state = {
     clickedBtn: 1,
   },
   activeGroup: '',
+  newGroup: false,
   cards: [],
   groups: [],
+  defaultCards: [],
+  messageDisplay: false,
 };
 
 export const loadSearchWord = async function (id) {
@@ -67,11 +70,15 @@ export const isUserGroupCreated = function () {
   )
     return true;
 };
+export const isActiveGroupChanged = function () {
+  let oldActiveGroup = state.activeGroup;
+
+  if (oldActiveGroup != state.activeGroup) return true;
+};
 export const isDefaultGroupCreated = function () {
   const isDefaultGroupCreated = state.groups.some(
     group => group.groupName === 'default'
   );
-  console.log(isDefaultGroupCreated);
   return isDefaultGroupCreated;
 };
 export const createObjCard = async function () {
@@ -139,14 +146,15 @@ export const addCardIntoDefaultGroup = async function (card) {
 };
 export const createObjGroup = async function (name) {
   try {
-    const id = state.groups.length === 0 ? 0 : state.groups.length - 1;
+    // const id = 1;
+    const id = state.groups.length != 0 ? state.groups.length : 0;
     const group = {
       id,
       groupName: name,
       cards: [],
     };
     state.groups.push(group);
-    console.log('craate new objGroup', state.groups);
+    console.log('create new objGroup', state.groups);
   } catch (err) {
     console.log(err);
   }
@@ -157,4 +165,15 @@ export const saveGroupAsActive = async function (name) {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const getAllCardsFromGroup = function (group = state.activeGroup) {
+  const activeGroupIndex = state.groups.findIndex(
+    obj => obj.groupName === group
+  );
+  const cards = state.groups[activeGroupIndex].cards;
+
+  // cardsView.renderCard(newCard);
+  return cards.length;
+  // model.state.groups[group].cards.forEach(card => model.addCardIntoGroup(card));
 };

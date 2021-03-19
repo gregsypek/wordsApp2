@@ -3,6 +3,7 @@ import icons from '../../img/icons.svg';
 
 class GroupView extends View {
   _parentElement = document.querySelector('.main__cards-box');
+  _message = 'New group created :)';
 
   addHandlerPlay(handler) {
     this._parentElement.addEventListener('click', function (e) {

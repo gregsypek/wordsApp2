@@ -77,3 +77,8 @@ body {
 .hidden {
   opacity: 0;
 }
+.message-info {
+  @extend %message;
+  // align-items: flex-start;
+  // margin-top: 3rem;
+}

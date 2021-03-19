@@ -33,7 +33,7 @@ export default class View {
   //if no argument default value will be set to #messageError
   renderMessageError(message = this._messageError) {
     const markup = `
-     <div class="message message-noword">
+     <div class="message message-info">
             <p>${message}</p>
           </div> -->
     `;
@@ -42,9 +42,9 @@ export default class View {
   }
   renderMessage(message = this._message) {
     const markup = `
-     
+     <div class="message message-info">
             <p>${message}</p>
-       
+          </div> -->
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);

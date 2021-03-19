@@ -10,6 +10,7 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
+import { isDefaultGroupCreated } from './model_copy.js';
 
 const controlSearchWords = async function () {
   try {
@@ -58,7 +59,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
   wordView.addHandlerClick(controlClickPartOfSpeech);
 
-  wordClickView.handleClickPlusBtn(controAddNewCard);
+  wordClickView.handleClickPlusBtn(controlAddNewCard);
 
   // model.isGroupCreated();
 
@@ -76,42 +77,59 @@ const controlClickCreateNewGroup = async function () {
     //2. create obj with future cards inside
     model.createObjGroup(group);
 
-    //3. save group as active
+    //3. clear cards by render message
+    cardsView.renderMessage();
+
+    model.state.messageDisplay = true;
+
+    //4. save group as active
     await model.saveGroupAsActive(group);
 
-    //4. render spinner load
+    // 5 change flag newGroup
+    model.state.newGroup = true;
+    //6. render spinner load
     groupBarView.renderSpinner();
 
-    //5. render group-bar navigation
+    //7. render group-bar navigation
     groupBarView.render(model.state.activeGroup);
 
-    //6. delete warning message nogroup (trick render empty string and clean parent element before)
+    //8. delete warning message nogroup (trick render empty string and clean parent element before)
     if (model.state.activeGroup) {
-      groupMessageView.render(model.state.activeGroup);
+      groupMessageView.render('');
     }
-    // console.log(model.state);
   } catch (err) {
     console.log(err);
   }
 };
 
-const controAddNewCard = function () {
+const controlAddNewCard = function () {
   //1.create card object
   model.createObjCard();
+
   //2.render new card
   const lastCard = model.state.cards.length - 1;
   const newCard = model.state.cards[lastCard];
+
   console.log('I am new card', newCard);
-  cardsView.renderCard(newCard);
+
+  //3. check if there is a message
+  if (model.state.messageDisplay) {
+    //a. clear message
+    cardsView.render(newCard);
+    model.state.messageDisplay = false;
+  } else {
+    //b. add card next to previous
+    cardsView.renderCard(newCard);
+  }
 
   // TODO if card has the same id but different part of speech change number 1 into next one
 
   //3.check if there is a group created
+
   //a. there is no group created
   if (!model.isAnyGroupCreated()) {
     model.createObjGroup('default');
     model.addCardIntoDefaultGroup(newCard);
-
     //b. there is default group only
   } else if (model.isDefaultGroupCreated() && !model.isUserGroupCreated()) {
     model.addCardIntoDefaultGroup(newCard);
@@ -125,12 +143,18 @@ const controAddNewCard = function () {
     const defaultObjectIndex = model.state.groups.findIndex(
       obj => obj.groupName === 'default'
     );
-    //add all cards from default gruop into user group
-    model.state.groups[defaultObjectIndex].cards.forEach(card =>
-      model.addCardIntoGroup(card)
-    );
-    //delete default group
-    model.state.groups.splice(defaultObjectIndex, 1);
+    // //add all cards from default group into user group
+    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
+    //   model.addCardIntoGroup(card)
+    // );
+
+    //4. add all cards from default group into array 'defaultCards'
+    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
+    //   model.state.defaultCards.push(card)
+    // );
+
+    // //delete default group
+    // model.state.groups.splice(defaultObjectIndex, 1);
     model.addCardIntoGroup(newCard);
   } else {
     return;
@@ -149,15 +173,10 @@ const controlDeleteCard = function (cardId) {
 const controlShowCreateGroupForm = function () {
   groupNavView.toggleFormCreateGroup();
 };
-// const controlShowCreateGroupForm = function () {
-//   groupNewFormView.render();
-// };
 
 const controlNewGroupFromBar = function () {
-  console.log(model.state);
-  // groupNewFormView.renderCard();
+  // console.log(model.state);
   groupNavView.toggleFormCreateGroup();
-  // groupNewFormView.addHandlerCreate(controlClickCreateNewGroup);
 };
 
 const init = function () {

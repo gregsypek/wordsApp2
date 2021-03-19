@@ -12,7 +12,9 @@
 
   &__card {
     margin-right: 2rem;
-    max-width: 25rem;
+    // max-width: 25rem;
+    // min-width: 25rem;
+    width: 25rem;
     background-color: $color-secondary3;
 
     margin-bottom: 3rem;

@@ -1,5 +1,6 @@
 import { API_URL, LANGUAGE_CODE } from './config.js';
 import { getJSON } from './helpers.js';
+import cardsView from './views/cardsView.js';
 
 export const state = {
   word: {},
@@ -9,9 +10,9 @@ export const state = {
   },
   click: {
     activePart: false,
-    clickedPart: 10,
-    activeBtn: false,
-    clickedBtn: 1,
+    clickedPart: 1,
+    // activeBtn: false,
+    // clickedBtn: 1,
   },
   activeGroup: '',
   newGroup: false,
@@ -50,8 +51,8 @@ export const resetClickObject = function () {
   state.click = {
     activePart: false,
     clickedPart: 0,
-    activeBtn: false,
-    clickedBtn: 0,
+    // activeBtn: false,
+    // clickedBtn: 0,
   };
 };
 
@@ -115,22 +116,6 @@ export const addCardIntoGroup = async function (card) {
     console.log(err);
   }
 };
-export const deleteCard = function (id) {
-  console.log('I should delete this:', id);
-  console.log(state.groups);
-
-  // if (!state.activeGroup) {
-  //   // const index = state.groups[0].cards.findIndex(index => index.id === id);
-  const cards = state.groups.map(obj => Object.values(obj));
-  const cardsId = cards.map(data => data[2]).flat();
-  const cardsId2 = cardsId.map(data => Object.values(data));
-  const cardsId3 = cardsId2.findIndex(arr => arr.includes(id));
-
-  console.log('cards', cards);
-  console.log('cardsId', cardsId);
-  console.log('cardsId2', cardsId2);
-  console.log('cardsId3', cardsId3);
-};
 
 export const addCardIntoDefaultGroup = async function (card) {
   try {
@@ -167,13 +152,28 @@ export const saveGroupAsActive = async function (name) {
   }
 };
 
-export const getAllCardsFromGroup = function (group = state.activeGroup) {
-  const activeGroupIndex = state.groups.findIndex(
-    obj => obj.groupName === group
-  );
-  const cards = state.groups[activeGroupIndex].cards;
+export const deleteCard = function (id) {
+  console.log('I should delete this:', id);
 
-  // cardsView.renderCard(newCard);
-  return cards.length;
-  // model.state.groups[group].cards.forEach(card => model.addCardIntoGroup(card));
+  // 1. find card to delete
+  let index;
+  if (state.activeGroup) {
+    index = state.groups.findIndex(obj => obj.groupName === state.activeGroup);
+  } else {
+    index = state.groups.findIndex(obj => obj.groupName === 'default');
+  }
+
+  const allRenderedCards = state.groups[index].cards;
+
+  const deleteCardIndex = allRenderedCards.findIndex(obj => obj.id === id);
+
+  //2. delete card
+  allRenderedCards.splice(deleteCardIndex, 1);
+};
+
+export const loadAllCardsFromGroup = function (group) {
+  return state.groups
+    .filter(obj => obj.groupName === group)
+    .map(obj => obj.cards)
+    .flat();
 };

@@ -10,7 +10,6 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
-import { isDefaultGroupCreated } from './model_copy.js';
 
 const controlSearchWords = async function () {
   try {
@@ -160,14 +159,30 @@ const controlAddNewCard = function () {
     return;
   }
 };
+const controlLoadAllCardsFromGroup = function (group) {
+  //1.get all cards
+  const cards = model.loadAllCardsFromGroup(group);
+  //2.clear cards container
+  cardsView.clear();
+  //3.render cards
+  cards.map(card => cardsView.renderCard(card));
+};
+
 const controlPlayAudio = function (url) {
   // if (!url) return;
   const audio = new Audio(url);
   audio.play();
 };
 const controlDeleteCard = function (cardId) {
-  console.log('delete me', cardId);
+  //1. delete card from state object
   model.deleteCard(+cardId);
+
+  //2. check which group render again default or active
+  if (model.state.activeGroup) {
+    controlLoadAllCardsFromGroup(model.state.activeGroup);
+  } else {
+    controlLoadAllCardsFromGroup('default');
+  }
 };
 
 const controlShowCreateGroupForm = function () {

@@ -13,6 +13,9 @@ class GroupView extends View {
       handler(url);
     });
   }
+  clear() {
+    this._parentElement.innerHTML = '';
+  }
 
   addHandlerClose(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -26,6 +29,7 @@ class GroupView extends View {
 
   _generateMarkup() {
     const card = this._data;
+
     let index = 1;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
     // TODO SECOND CARD WITH THE SAME NAME  BUT DIFFERENT PART OF SPEECH SHOULD DISPLAY NEXT NUMBER

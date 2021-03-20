@@ -61,6 +61,39 @@ export const saveClickedData = function (link) {
   state.click.activePart = true;
   // return state.click.clickedPart;
 };
+export const saveCardIntoCorrectGroup = function (newCard) {
+  //a. there is no group yet
+  if (!isAnyGroupCreated()) {
+    createObjGroup('default');
+    addCardIntoDefaultGroup(newCard);
+    //b. there is default group only
+  } else if (isDefaultGroupCreated() && !isUserGroupCreated()) {
+    addCardIntoDefaultGroup(newCard);
+    //c. there is user group only
+  } else if (!isDefaultGroupCreated() && isUserGroupCreated()) {
+    addCardIntoGroup(newCard);
+    //d.there is default group and user group
+  } else if (isDefaultGroupCreated() && isUserGroupCreated()) {
+    addCardIntoGroup(newCard);
+    // const defaultObjectIndex = model.state.groups.findIndex(
+    //   obj => obj.groupName === 'default'
+    // );
+    // //add all cards from default group into user group
+    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
+    //   model.addCardIntoGroup(card)
+    // );
+
+    //4. add all cards from default group into array 'defaultCards'
+    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
+    //   model.state.defaultCards.push(card)
+    // );
+
+    // //delete default group
+    // model.state.groups.splice(defaultObjectIndex, 1);
+  } else {
+    return;
+  }
+};
 export const isAnyGroupCreated = function () {
   if (state.groups.length !== 0) return true;
 };
@@ -71,11 +104,7 @@ export const isUserGroupCreated = function () {
   )
     return true;
 };
-export const isActiveGroupChanged = function () {
-  let oldActiveGroup = state.activeGroup;
 
-  if (oldActiveGroup != state.activeGroup) return true;
-};
 export const isDefaultGroupCreated = function () {
   const isDefaultGroupCreated = state.groups.some(
     group => group.groupName === 'default'
@@ -104,6 +133,22 @@ export const createObjCard = async function () {
   }
 };
 
+export const createObjGroup = async function (name) {
+  try {
+    // const id = 1;
+    const id = state.groups.length != 0 ? state.groups.length : 0;
+    const group = {
+      id,
+      groupName: name,
+      cards: [],
+    };
+    state.groups.push(group);
+    console.log('create new objGroup', state.groups);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const addCardIntoGroup = async function (card) {
   try {
     const nameGroup = state.activeGroup;
@@ -120,30 +165,14 @@ export const addCardIntoGroup = async function (card) {
 export const addCardIntoDefaultGroup = async function (card) {
   try {
     const index = state.groups.findIndex(obj => obj.groupName === 'default');
-    // const defaultGroup = state.groups.filter(
-    //   group => group.groupName === 'default'
-    // );
     state.groups[index].cards.push(card);
+
     console.log('added card into default group', state.groups);
   } catch (err) {
     console.log(err);
   }
 };
-export const createObjGroup = async function (name) {
-  try {
-    // const id = 1;
-    const id = state.groups.length != 0 ? state.groups.length : 0;
-    const group = {
-      id,
-      groupName: name,
-      cards: [],
-    };
-    state.groups.push(group);
-    console.log('create new objGroup', state.groups);
-  } catch (err) {
-    console.log(err);
-  }
-};
+
 export const saveGroupAsActive = async function (name) {
   try {
     state.activeGroup = name;
@@ -162,7 +191,6 @@ export const deleteCard = function (id) {
   } else {
     index = state.groups.findIndex(obj => obj.groupName === 'default');
   }
-
   const allRenderedCards = state.groups[index].cards;
 
   const deleteCardIndex = allRenderedCards.findIndex(obj => obj.id === id);
@@ -170,7 +198,12 @@ export const deleteCard = function (id) {
   //2. delete card
   allRenderedCards.splice(deleteCardIndex, 1);
 };
+export const loadNewCard = function () {
+  const newCard = state.cards[state.cards.length - 1];
 
+  console.log('I am new card', newCard);
+  return newCard;
+};
 export const loadAllCardsFromGroup = function (group) {
   return state.groups
     .filter(obj => obj.groupName === group)

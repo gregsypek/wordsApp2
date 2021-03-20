@@ -14,9 +14,7 @@ import groupBarView from './views/groupBarView.js';
 const controlSearchWords = async function () {
   try {
     //1. Get search query
-
     const query = searchView.getQuery();
-
     if (!query) return;
 
     // const id = window.location.hash.slice(1);
@@ -26,12 +24,10 @@ const controlSearchWords = async function () {
     wordView.renderSpinner();
 
     //2. Load search result
-
     // await model.loadSearchWord(id);
     await model.loadSearchWord(query);
 
     //3. Render result
-
     wordView.render(model.state);
 
     //4. Add word and query into search object
@@ -106,10 +102,8 @@ const controlAddNewCard = function () {
   model.createObjCard();
 
   //2.render new card
-  const lastCard = model.state.cards.length - 1;
-  const newCard = model.state.cards[lastCard];
 
-  console.log('I am new card', newCard);
+  const newCard = model.loadNewCard();
 
   //3. check if there is a message
   if (model.state.messageDisplay) {
@@ -117,47 +111,13 @@ const controlAddNewCard = function () {
     cardsView.render(newCard);
     model.state.messageDisplay = false;
   } else {
-    //b. add card next to previous
+    //b. add card next to previous one
     cardsView.renderCard(newCard);
   }
+  //4. save card into state object
+  model.saveCardIntoCorrectGroup(newCard);
 
   // TODO if card has the same id but different part of speech change number 1 into next one
-
-  //3.check if there is a group created
-
-  //a. there is no group created
-  if (!model.isAnyGroupCreated()) {
-    model.createObjGroup('default');
-    model.addCardIntoDefaultGroup(newCard);
-    //b. there is default group only
-  } else if (model.isDefaultGroupCreated() && !model.isUserGroupCreated()) {
-    model.addCardIntoDefaultGroup(newCard);
-
-    //c. there is user group only
-  } else if (!model.isDefaultGroupCreated() && model.isUserGroupCreated()) {
-    model.addCardIntoGroup(newCard);
-
-    //d.there is default group and user group
-  } else if (model.isDefaultGroupCreated() && model.isUserGroupCreated()) {
-    const defaultObjectIndex = model.state.groups.findIndex(
-      obj => obj.groupName === 'default'
-    );
-    // //add all cards from default group into user group
-    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
-    //   model.addCardIntoGroup(card)
-    // );
-
-    //4. add all cards from default group into array 'defaultCards'
-    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
-    //   model.state.defaultCards.push(card)
-    // );
-
-    // //delete default group
-    // model.state.groups.splice(defaultObjectIndex, 1);
-    model.addCardIntoGroup(newCard);
-  } else {
-    return;
-  }
 };
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards
@@ -165,6 +125,7 @@ const controlLoadAllCardsFromGroup = function (group) {
   //2.clear cards container
   cardsView.clear();
   //3.render cards
+
   cards.map(card => cardsView.renderCard(card));
 };
 

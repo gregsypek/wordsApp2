@@ -1,5 +1,13 @@
 .groups {
   @extend .upload;
+
+  &__heading {
+    color: $color-primary;
+    font-size: 5rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5rem;
+  }
   &__list {
     display: flex;
     flex-wrap: wrap;

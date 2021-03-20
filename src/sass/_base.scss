@@ -76,6 +76,7 @@ body {
 
 .hidden {
   opacity: 0;
+   visibility: hidden;
 }
 .message-info {
   @extend %message;

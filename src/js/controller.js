@@ -10,6 +10,7 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
+import allGroupsView from './views/allGroupsView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -154,6 +155,11 @@ const controlNewGroupFromBar = function () {
   // console.log(model.state);
   groupNavView.toggleFormCreateGroup();
 };
+const controlLoadAllGroups = function(){
+ allGroupsView.render(model.state.groups)
+
+ 
+}
 
 const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
@@ -164,6 +170,9 @@ const init = function () {
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
-  groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
+  groupBarView.addHandlerNewGroup(controlNewGroupFromBar)
+  ;
+allGroupsView.addHandleClick(controlLoadAllGroups)
+
 };
 init();

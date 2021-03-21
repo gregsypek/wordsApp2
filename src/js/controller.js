@@ -155,11 +155,28 @@ const controlNewGroupFromBar = function () {
   // console.log(model.state);
   groupNavView.toggleFormCreateGroup();
 };
-const controlLoadAllGroups = function(){
- allGroupsView.render(model.state.groups)
+const controlLoadAllGroups = function () {
+  allGroupsView.render(model.state.groups);
+};
 
- 
-}
+const controlPreviewGroup = async function () {
+  try {
+    //1. save the name of the selected group
+    const group = window.location.hash.slice(1);
+
+    if (!group) return;
+    //2. close modal window
+    allGroupsView.addHandlerPreview();
+    //3.change activeGroup to be able deleting cards
+    model.state.activeGroup = group;
+    //4. render all cards from selected group
+    controlLoadAllCardsFromGroup(group);
+    //5. render bar navigation
+    groupBarView.render(group);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const init = function () {
   searchView.addHandlerSearch(controlSearchWords);
@@ -170,9 +187,8 @@ const init = function () {
   groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
-  groupBarView.addHandlerNewGroup(controlNewGroupFromBar)
-  ;
-allGroupsView.addHandleClick(controlLoadAllGroups)
-
+  groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
+  allGroupsView.addHandleClick(controlLoadAllGroups);
+  allGroupsView.addHandlerRender(controlPreviewGroup);
 };
 init();

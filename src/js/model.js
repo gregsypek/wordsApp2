@@ -1,6 +1,5 @@
 import { API_URL, LANGUAGE_CODE } from './config.js';
 import { getJSON } from './helpers.js';
-import cardsView from './views/cardsView.js';
 
 export const state = {
   word: {},

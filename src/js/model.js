@@ -148,6 +148,10 @@ export const createObjGroup = async function (name) {
   }
 };
 
+const persistGroups = function () {
+  localStorage.setItem('groups', JSON.stringify(state.groups));
+};
+
 export const addCardIntoGroup = async function (card) {
   try {
     const nameGroup = state.activeGroup;
@@ -156,6 +160,8 @@ export const addCardIntoGroup = async function (card) {
     state.groups[index].cards.push(card);
     console.log('added card into new group', state.groups);
     console.log('all groups', state.groups);
+
+    persistGroups();
   } catch (err) {
     console.log(err);
   }
@@ -167,6 +173,8 @@ export const addCardIntoDefaultGroup = async function (card) {
     state.groups[index].cards.push(card);
 
     console.log('added card into default group', state.groups);
+
+    persistGroups();
   } catch (err) {
     console.log(err);
   }
@@ -196,6 +204,8 @@ export const deleteCard = function (id) {
 
   //2. delete card
   allRenderedCards.splice(deleteCardIndex, 1);
+
+  persistGroups();
 };
 export const loadNewCard = function () {
   const newCard = state.cards[state.cards.length - 1];
@@ -209,3 +219,15 @@ export const loadAllCardsFromGroup = function (group) {
     .map(obj => obj.cards)
     .flat();
 };
+
+const init = function () {
+  const storage = localStorage.getItem('groups');
+  if (storage) state.groups = JSON.parse(storage);
+};
+
+init();
+
+const clearGroups = function () {
+  localStorage.clear('groups');
+};
+// clearGroups();

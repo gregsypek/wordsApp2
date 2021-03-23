@@ -14,6 +14,13 @@ class GroupBarView extends View {
       handler();
     });
   }
+  addHandlerRenameGroup(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const rename = e.target.closest('.main__btn--rename');
+      if (!rename) return;
+      handler();
+    });
+  }
   _generateMarkup() {
     const name = this._data;
     return `
@@ -21,7 +28,8 @@ class GroupBarView extends View {
            <div class="main__bar">
               <p class="main__group">${name}</p>
               <div class="main__btns">
-                <button class="main__btn main__btn--edit">
+                <button class="main__btn main__btn--edit
+                main__btn--rename">
                   <svg class="bar__icon">
                     <use href="${icons}#icon-edit"></use>
                   </svg>

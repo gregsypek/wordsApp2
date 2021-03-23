@@ -28,6 +28,33 @@
   border: 1px solid black;
   background-color: $color-secondary2;
 }
+.btn--page {
+  background-color: transparent;
+  width: 3rem;
+  height: 3rem;
+  // outline: none;
+  border: none;
+  cursor: pointer;
+  // padding: 0.2rem;
+  fill: $color-primary; //SVG FILE
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    border: 1px solid $color-primary;
+    padding: 0 0.2rem;
+    width: 3rem;
+  }
+}
+.btn--more {
+  margin: 0 2rem;
+  background-color: transparent;
+  width: 6rem;
+  border: none;
+  font-size: 1.6rem;
+}
 %btn-icon {
   background-color: $color-primary2;
   width: 6rem;
@@ -43,7 +70,7 @@
 }
 %btn-hidden {
   opacity: 0;
-   visibility: hidden;
+  visibility: hidden;
 }
 
 %form {

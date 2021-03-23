@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
   &__nav {
     display: flex;
@@ -73,7 +72,8 @@
     //TODO use javascript to change those value
     // visibility: hidden;
 
-    .create {
+    .create,
+    .rename {
       @extend %form;
 
       &__field {

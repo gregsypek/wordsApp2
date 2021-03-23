@@ -65,7 +65,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 const controlClickCreateNewGroup = async function () {
   try {
     //0. hide createGroup form
-    groupNavView.toggleFormCreateGroup();
+    groupNavView.toggleShowHiddenForm();
     //1. get new created group name
     const group = groupNavView.getNewGroup();
     if (!group) return;
@@ -97,7 +97,9 @@ const controlClickCreateNewGroup = async function () {
     console.log(err);
   }
 };
-
+const controlClickRenameGroup = function () {
+  groupNavView.toggleShowHiddenRenameForm();
+};
 const controlAddNewCard = function () {
   //1.create card object
   model.createObjCard();
@@ -148,13 +150,14 @@ const controlDeleteCard = function (cardId) {
 };
 
 const controlShowCreateGroupForm = function () {
-  groupNavView.toggleFormCreateGroup();
+  groupNavView.toggleShowHiddenForm();
 };
 
 const controlNewGroupFromBar = function () {
   // console.log(model.state);
-  groupNavView.toggleFormCreateGroup();
+  groupNavView.toggleShowHiddenForm();
 };
+
 const controlLoadAllGroups = function () {
   allGroupsView.render(model.state.groups);
 };
@@ -184,7 +187,8 @@ const init = function () {
   wordView.addHandlerRender();
 
   groupNavView.addHandlerClick(controlShowCreateGroupForm);
-  groupNavView.addHandlerCreate(controlClickCreateNewGroup);
+  groupNavView.addHandlerCreateGroup(controlClickCreateNewGroup);
+  groupBarView.addHandlerRenameGroup(controlClickRenameGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
   groupBarView.addHandlerNewGroup(controlNewGroupFromBar);

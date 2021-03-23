@@ -70,25 +70,23 @@ class GroupView extends View {
                 </div>
               </div>
               <div class="main__card-footer">
-               <button class="btn--page">
-              <svg class="bar__icon">
-                <use href="${icons}#icon-chevron-left"></use>
-              </svg>
-            <span>1</span>
-            </button>
-              
-                 <button class="btn--page">
-               <span>2</span>
-              <svg class="bar__icon">
-                <use href="${icons}#icon-chevron-right"></use>
-              </svg>
-            </button>
+
+              <button class="btn--page">
+                <svg class="bar__icon">
+                 <use href="./src/img/icons.svg#icon-chevron-left"></use>
+                </svg>
+              <span>Page 1</span>
+              </button>
+              <button class="btn more__btn">More</button>
+              <button class="btn--page">
+                <span>Page 2</span>
+                <svg class="bar__icon">
+                  <use href="./src/img/icons.svg#icon-chevron-right"></use>
+                </svg>
+              </button>
               </div>
-
-
-        </div>
-
             </div>
+          </div>
     `;
   }
 }

@@ -1,7 +1,10 @@
-class GroupNavView {
+import View from './View.js';
+
+class GroupNavView extends View {
   _parentElement = document.querySelector('.main__input');
   _showFormCreateGroup = document.querySelector('.main__btn--create-group');
   _createGroupBtn = document.querySelector('.create');
+  _renameGroupBtn = document.querySelector('.rename');
 
   getNewGroup() {
     const group = this._parentElement.querySelector('.create__field').value;
@@ -16,16 +19,26 @@ class GroupNavView {
   addHandlerClick(handler) {
     this._showFormCreateGroup.addEventListener('click', () => handler());
   }
-  addHandlerCreate(handler) {
+  addHandlerCreateGroup(handler) {
     this._createGroupBtn.addEventListener('submit', e => {
-      e.stopPropagation();
+      // e.stopPropagation();
+      e.preventDefault();
+      handler();
+    });
+  }
+  addHandlerRenameGroup(handler) {
+    this._renameGroupBtn.addEventListener('submit', e => {
+      // e.stopPropagation();
       e.preventDefault();
       handler();
     });
   }
 
-  toggleFormCreateGroup() {
-    this._parentElement.classList.toggle('hidden');
+  toggleShowHiddenForm() {
+    this._createGroupBtn.classList.toggle('hidden');
+  }
+  toggleShowHiddenRenameForm() {
+    this._renameGroupBtn.classList.toggle('hidden');
   }
 }
 export default new GroupNavView();

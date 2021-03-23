@@ -210,8 +210,6 @@
       </aside>
 
       <main class="main">
-        <!-- TODO IN JS CHANGE VISIBILITY  -->
-
         <!-- ************************* -->
         <!-- ***NO-GROUP MESSAGE****** -->
         <!-- ************************* -->
@@ -221,6 +219,7 @@
         <!-- ***************************** -->
         <!-- **************END************ -->
         <!-- ***************************** -->
+
         <div class="main__control">
           <div class="main__nav">
             <!-- ************************* -->
@@ -276,12 +275,30 @@
             <!-- ***************************** -->
             <!-- **************END************ -->
             <!-- ***************************** -->
+
+            <!-- ****************************** -->
+            <!-- ****GROUP DELETE BAR******** -->
+            <!-- ****************************** -->
+            <div class="main__group-delete">
+              <!-- <div class="main__bar">
+                <p class="main__group main__group--confirm">
+                  Delete group <span class="delete-group">owoce?</span>
+                </p>
+                <div class="main__btns">
+                  <button class="main__btn main__btn--edit">Yes</button>
+                  <button class="main__btn main__btn--edit">No</button>
+                </div>
+              </div> -->
+            </div>
+            <!-- ***************************** -->
+            <!-- **************END************ -->
+            <!-- ***************************** -->
           </div>
           <!-- ****************************** -->
           <!-- ****CREATE GROUP INPUT******** -->
           <!-- ****************************** -->
-          <div class="main__input">
-            <form class="create hidden">
+          <div class="main__input hidden">
+            <form class="creat">
               <input
                 type="text"
                 placeholder="Please name your group..."
@@ -289,7 +306,15 @@
               />
               <button class="btn create__btn">Create</button>
             </form>
-            <form class="rename hidden">
+          </div>
+          <!-- ***************************** -->
+          <!-- **************END************ -->
+          <!-- ***************************** -->
+          <!-- ****************************** -->
+          <!-- ****RENAME GROUP ******** -->
+          <!-- ****************************** -->
+          <div class="main__input hidden">
+            <form class="rename">
               <input
                 type="text"
                 placeholder="Please type your new name..."

@@ -29,8 +29,9 @@ class GroupView extends View {
 
   _generateMarkup() {
     const card = this._data;
-
+    console.log(card);
     let index = 1;
+    // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
     // TODO SECOND CARD WITH THE SAME NAME  BUT DIFFERENT PART OF SPEECH SHOULD DISPLAY NEXT NUMBER
     return `
@@ -60,7 +61,9 @@ class GroupView extends View {
               <div class="main__card-body">
 
                 <div class="card__explanation">
-                  <span class="card__explanation--nr">${index}</span>                 
+                  <span class="card__explanation--nr">${
+                    card.activePartOfSpeech
+                  }</span>                 
                   <span class="card__explanation--role">${
                     card.partOfSpeech
                   }</span>

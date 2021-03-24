@@ -117,6 +117,7 @@ const controlAddNewCard = function () {
     //b. add card next to previous one
     cardsView.renderCard(newCard);
   }
+
   //4. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
 
@@ -180,10 +181,18 @@ const controlPreviewGroup = async function () {
     console.log(err);
   }
 };
+const welcomeBack = function () {
+  const activeGroup = model.state.activeGroup;
+  if (!activeGroup) return;
+  //render all cards and group name in group bar navigation
+  groupBarView.render(activeGroup);
+  controlLoadAllCardsFromGroup(activeGroup);
+  groupMessageView.renderMessage('Welcome back :)');
+};
 
 const init = function () {
+  welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
-  // wordView.addHandlerRender(controlSearchWords);
   wordView.addHandlerRender();
 
   groupNavView.addHandlerClick(controlShowCreateGroupForm);

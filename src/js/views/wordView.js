@@ -22,7 +22,7 @@ class WordView extends View {
         // console.log(clicked);
         if (!clicked) return;
         const markPartClicked = +clicked.dataset.link;
-        // console.log(markPartClicked);
+        console.log(markPartClicked);
 
         clicked.classList.toggle('aside__link--active');
         // console.log(clicked);

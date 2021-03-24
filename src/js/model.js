@@ -60,20 +60,23 @@ export const saveClickedData = function (link) {
   state.click.activePart = true;
   // return state.click.clickedPart;
 };
+export const isCardUnique = function (card, groupName) {
+  groupName.some(cardItem => cardItem.partOfSpeech != card.partOfSpeech);
+};
 export const saveCardIntoCorrectGroup = function (newCard) {
   //a. there is no group yet
   if (!isAnyGroupCreated()) {
     createObjGroup('default');
-    addCardIntoDefaultGroup(newCard);
+    addCardIntoGroup2(newCard, 'default');
     //b. there is default group only
   } else if (isDefaultGroupCreated() && !isUserGroupCreated()) {
-    addCardIntoDefaultGroup(newCard);
+    addCardIntoGroup2(newCard, 'default');
     //c. there is user group only
   } else if (!isDefaultGroupCreated() && isUserGroupCreated()) {
-    addCardIntoGroup(newCard);
+    addCardIntoGroup2(newCard);
     //d.there is default group and user group
   } else if (isDefaultGroupCreated() && isUserGroupCreated()) {
-    addCardIntoGroup(newCard);
+    addCardIntoGroup2(newCard);
     // const defaultObjectIndex = model.state.groups.findIndex(
     //   obj => obj.groupName === 'default'
     // );
@@ -124,6 +127,7 @@ export const createObjCard = async function () {
       audio: word.audio,
       phonetics: word.phonetics,
       partOfSpeech: word.meanings[index].partOfSpeech,
+      activePartOfSpeech: state.click.clickedPart,
       definitions,
     };
     state.cards.push(cardObj);
@@ -152,33 +156,54 @@ const persistGroups = function () {
   localStorage.setItem('groups', JSON.stringify(state.groups));
 };
 
-export const addCardIntoGroup = async function (card) {
+// export const addCardIntoGroup = async function (card) {
+//   try {
+//     const nameGroup = state.activeGroup;
+//     const index = state.groups.findIndex(obj => obj.groupName === nameGroup);
+
+//     state.groups[index].cards.push(card);
+//     console.log('added card into new group', state.groups);
+//     console.log('all groups', state.groups);
+
+//     persistGroups();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+export const addCardIntoGroup2 = async function (
+  card,
+  group = state.activeGroup
+) {
   try {
-    const nameGroup = state.activeGroup;
-    const index = state.groups.findIndex(obj => obj.groupName === nameGroup);
-
-    state.groups[index].cards.push(card);
-    console.log('added card into new group', state.groups);
-    console.log('all groups', state.groups);
-
-    persistGroups();
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const addCardIntoDefaultGroup = async function (card) {
-  try {
-    const index = state.groups.findIndex(obj => obj.groupName === 'default');
-    state.groups[index].cards.push(card);
+    const index = state.groups.findIndex(obj => obj.groupName === group);
+    console.log('grouop', state.activeGroup);
+    console.log('index', index);
+    console.log('here', state.groups);
+    //
+    if (state.groups[index].cards) state.groups[index].cards.push(card);
+    else return;
 
     console.log('added card into default group', state.groups);
-
     persistGroups();
   } catch (err) {
     console.log(err);
   }
 };
+
+// export const addCardIntoDefaultGroup = async function (card) {
+//   try {
+//     const index = state.groups.findIndex(obj => obj.groupName === 'default');
+
+//     console.log(index);
+//     state.groups[index].cards.push(card);
+
+//     console.log('added card into default group', state.groups);
+
+//     persistGroups();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 export const saveGroupAsActive = async function (name) {
   try {
@@ -219,15 +244,22 @@ export const loadAllCardsFromGroup = function (group) {
     .map(obj => obj.cards)
     .flat();
 };
-
-const init = function () {
-  const storage = localStorage.getItem('groups');
-  if (storage) state.groups = JSON.parse(storage);
-};
-
-init();
-
 const clearGroups = function () {
   localStorage.clear('groups');
 };
+
+const initCookie = function () {
+  const storage = localStorage.getItem('groups');
+  console.log('storage', storage);
+  if (storage) {
+    state.groups = JSON.parse(storage);
+
+    //save last created group as activeGroup
+    state.activeGroup = state.groups.slice(-1)[0].groupName;
+    // console.log(state.activeGroup);
+  }
+};
+
+initCookie();
+
 // clearGroups();

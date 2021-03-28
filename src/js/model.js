@@ -60,8 +60,15 @@ export const saveClickedData = function (link) {
   state.click.activePart = true;
   // return state.click.clickedPart;
 };
-export const isCardUnique = function (card, groupName) {
-  groupName.some(cardItem => cardItem.partOfSpeech != card.partOfSpeech);
+export const isCardUnique = function (previousCard, newCard) {
+  // old card has different part of speech
+  if (
+    previousCard.partOfSpeech != newCard.partOfSpeech ||
+    // old card has different name, part of speech doesn't matter
+    previousCard.name != newCard.name
+  )
+    return true;
+  else return false;
 };
 export const saveCardIntoCorrectGroup = function (newCard) {
   //a. there is no group yet
@@ -120,9 +127,11 @@ export const createObjCard = async function () {
     const definitions = word.meanings[index].definitions.map(
       def => def.definition
     );
+    const groupName = state.activeGroup ? state.activeGroup : 'default';
 
     const cardObj = {
       id: Date.now(),
+      groupName,
       name: word.word,
       audio: word.audio,
       phonetics: word.phonetics,
@@ -176,9 +185,9 @@ export const addCardIntoGroup2 = async function (
 ) {
   try {
     const index = state.groups.findIndex(obj => obj.groupName === group);
-    console.log('grouop', state.activeGroup);
-    console.log('index', index);
-    console.log('here', state.groups);
+    // console.log('grouop', state.activeGroup);
+    // console.log('index', index);
+    // console.log('here', state.groups);
     //
     if (state.groups[index].cards) state.groups[index].cards.push(card);
     else return;
@@ -205,12 +214,8 @@ export const addCardIntoGroup2 = async function (
 //   }
 // };
 
-export const saveGroupAsActive = async function (name) {
-  try {
-    state.activeGroup = name;
-  } catch (err) {
-    console.log(err);
-  }
+export const saveGroupAsActive = function (name) {
+  state.activeGroup = name;
 };
 
 export const deleteCard = function (id) {
@@ -234,7 +239,6 @@ export const deleteCard = function (id) {
 };
 export const loadNewCard = function () {
   const newCard = state.cards[state.cards.length - 1];
-
   console.log('I am new card', newCard);
   return newCard;
 };
@@ -250,7 +254,6 @@ const clearGroups = function () {
 
 const initCookie = function () {
   const storage = localStorage.getItem('groups');
-  console.log('storage', storage);
   if (storage) {
     state.groups = JSON.parse(storage);
 

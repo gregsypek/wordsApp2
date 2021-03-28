@@ -22,14 +22,14 @@ class GroupView extends View {
       const closeBtn = e.target.closest('.main__btn--close');
       if (!closeBtn) return;
       const cardId = closeBtn.dataset.cardId;
-      console.log(cardId);
+      // console.log(cardId);
       handler(cardId);
     });
   }
 
   _generateMarkup() {
     const card = this._data;
-    console.log(card);
+    // console.log(card);
     let index = 1;
     // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER

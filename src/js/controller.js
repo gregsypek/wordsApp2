@@ -79,7 +79,7 @@ const controlClickCreateNewGroup = async function () {
     model.state.messageDisplay = true;
 
     //4. save group as active
-    await model.saveGroupAsActive(group);
+    model.saveGroupAsActive(group);
 
     // 5 change flag newGroup
     model.state.newGroup = true;
@@ -104,9 +104,27 @@ const controlAddNewCard = function () {
   //1.create card object
   model.createObjCard();
 
-  //2.render new card
-
+  //2. load new card
   const newCard = model.loadNewCard();
+
+  // 0 load all previous cards if exists
+  const activeGroup = newCard.groupName;
+  console.log('activeGroup', activeGroup);
+  const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
+  console.log('newCard', newCard);
+  console.log('allPreviousCards', allPreviousCards);
+
+  //b check if new card is unique
+  if (allPreviousCards.length > 0) {
+    if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
+      groupMessageView.renderMessage(
+        "You can't add the same card into this group. Try another one"
+      );
+      return;
+    }
+    groupMessageView.render();
+  }
+  //2.render new card
 
   //3. check if there is a message
   if (model.state.messageDisplay) {
@@ -120,8 +138,6 @@ const controlAddNewCard = function () {
 
   //4. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
-
-  // TODO if card has the same id but different part of speech change number 1 into next one
 };
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards

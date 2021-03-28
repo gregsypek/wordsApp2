@@ -10,17 +10,19 @@ export const state = {
   click: {
     activePart: false,
     clickedPart: 1,
-    // activeBtn: false,
-    // clickedBtn: 1,
   },
-  activeGroup: '',
-  newGroup: false,
-  cards: [],
-  groups: [],
-  defaultCards: [],
-  messageDisplay: false,
-  cardResultsPerPage: CARDS_RES_PER_PAGE,
-  page: 1,
+  group: {
+    activeGroup: '',
+    newGroup: false,
+    groups: [],
+  },
+  card: {
+    cards: [],
+    defaultCards: [],
+    messageDisplay: false,
+    cardResultsPerPage: CARDS_RES_PER_PAGE,
+    page: 1,
+  },
 };
 
 export const loadSearchWord = async function (id) {
@@ -86,38 +88,38 @@ export const saveCardIntoCorrectGroup = function (newCard) {
     //d.there is default group and user group
   } else if (isDefaultGroupCreated() && isUserGroupCreated()) {
     addCardIntoGroup2(newCard);
-    // const defaultObjectIndex = model.state.groups.findIndex(
+    // const defaultObjectIndex = model.state.group.groups.findIndex(
     //   obj => obj.groupName === 'default'
     // );
     // //add all cards from default group into user group
-    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
+    // model.state.group.groups[defaultObjectIndex].cards.forEach(card =>
     //   model.addCardIntoGroup(card)
     // );
 
     //4. add all cards from default group into array 'defaultCards'
-    // model.state.groups[defaultObjectIndex].cards.forEach(card =>
-    //   model.state.defaultCards.push(card)
+    // model.state.group.groups[defaultObjectIndex].cards.forEach(card =>
+    //   model.state.card.defaultCards.push(card)
     // );
 
     // //delete default group
-    // model.state.groups.splice(defaultObjectIndex, 1);
+    // model.state.group.groups.splice(defaultObjectIndex, 1);
   } else {
     return;
   }
 };
 export const isAnyGroupCreated = function () {
-  if (state.groups.length !== 0) return true;
+  if (state.group.groups.length !== 0) return true;
 };
 export const isUserGroupCreated = function () {
   if (
-    state.groups.length !== 0 &&
-    state.groups.some(group => group.groupName != 'default')
+    state.group.groups.length !== 0 &&
+    state.group.groups.some(group => group.groupName != 'default')
   )
     return true;
 };
 
 export const isDefaultGroupCreated = function () {
-  const isDefaultGroupCreated = state.groups.some(
+  const isDefaultGroupCreated = state.group.groups.some(
     group => group.groupName === 'default'
   );
   return isDefaultGroupCreated;
@@ -129,7 +131,9 @@ export const createObjCard = async function () {
     const definitions = word.meanings[index].definitions.map(
       def => def.definition
     );
-    const groupName = state.activeGroup ? state.activeGroup : 'default';
+    const groupName = state.group.activeGroup
+      ? state.group.activeGroup
+      : 'default';
 
     const cardObj = {
       id: Date.now(),
@@ -141,7 +145,7 @@ export const createObjCard = async function () {
       activePartOfSpeech: state.click.clickedPart,
       definitions,
     };
-    state.cards.push(cardObj);
+    state.card.cards.push(cardObj);
   } catch (err) {
     console.log(err);
   }
@@ -150,31 +154,31 @@ export const createObjCard = async function () {
 export const createObjGroup = async function (name) {
   try {
     // const id = 1;
-    const id = state.groups.length != 0 ? state.groups.length : 0;
+    const id = state.group.groups.length != 0 ? state.group.groups.length : 0;
     const group = {
       id,
       groupName: name,
       cards: [],
     };
-    state.groups.push(group);
-    console.log('create new objGroup', state.groups);
+    state.group.groups.push(group);
+    console.log('create new objGroup', state.group.groups);
   } catch (err) {
     console.log(err);
   }
 };
 
 const persistGroups = function () {
-  localStorage.setItem('groups', JSON.stringify(state.groups));
+  localStorage.setItem('groups', JSON.stringify(state.group.groups));
 };
 
 // export const addCardIntoGroup = async function (card) {
 //   try {
-//     const nameGroup = state.activeGroup;
-//     const index = state.groups.findIndex(obj => obj.groupName === nameGroup);
+//     const nameGroup = state.group.activeGroup;
+//     const index = state.group.groups.findIndex(obj => obj.groupName === nameGroup);
 
-//     state.groups[index].cards.push(card);
-//     console.log('added card into new group', state.groups);
-//     console.log('all groups', state.groups);
+//     state.group.groups[index].cards.push(card);
+//     console.log('added card into new group', state.group.groups);
+//     console.log('all groups', state.group.groups);
 
 //     persistGroups();
 //   } catch (err) {
@@ -183,18 +187,19 @@ const persistGroups = function () {
 // };
 export const addCardIntoGroup2 = async function (
   card,
-  group = state.activeGroup
+  group = state.group.activeGroup
 ) {
   try {
-    const index = state.groups.findIndex(obj => obj.groupName === group);
-    // console.log('grouop', state.activeGroup);
+    const index = state.group.groups.findIndex(obj => obj.groupName === group);
+    // console.log('grouop', state.group.activeGroup);
     // console.log('index', index);
-    // console.log('here', state.groups);
+    // console.log('here', state.group.groups);
     //
-    if (state.groups[index].cards) state.groups[index].cards.push(card);
+    if (state.group.groups[index].cards)
+      state.group.groups[index].cards.push(card);
     else return;
 
-    console.log('added card into default group', state.groups);
+    console.log('added card into default group', state.group.groups);
     persistGroups();
   } catch (err) {
     console.log(err);
@@ -203,12 +208,12 @@ export const addCardIntoGroup2 = async function (
 
 // export const addCardIntoDefaultGroup = async function (card) {
 //   try {
-//     const index = state.groups.findIndex(obj => obj.groupName === 'default');
+//     const index = state.group.groups.findIndex(obj => obj.groupName === 'default');
 
 //     console.log(index);
-//     state.groups[index].cards.push(card);
+//     state.group.groups[index].cards.push(card);
 
-//     console.log('added card into default group', state.groups);
+//     console.log('added card into default group', state.group.groups);
 
 //     persistGroups();
 //   } catch (err) {
@@ -217,7 +222,7 @@ export const addCardIntoGroup2 = async function (
 // };
 
 export const saveGroupAsActive = function (name) {
-  state.activeGroup = name;
+  state.group.activeGroup = name;
 };
 
 export const deleteCard = function (id) {
@@ -225,12 +230,14 @@ export const deleteCard = function (id) {
 
   // 1. find card to delete
   let index;
-  if (state.activeGroup) {
-    index = state.groups.findIndex(obj => obj.groupName === state.activeGroup);
+  if (state.group.activeGroup) {
+    index = state.group.groups.findIndex(
+      obj => obj.groupName === state.group.activeGroup
+    );
   } else {
-    index = state.groups.findIndex(obj => obj.groupName === 'default');
+    index = state.group.groups.findIndex(obj => obj.groupName === 'default');
   }
-  const allRenderedCards = state.groups[index].cards;
+  const allRenderedCards = state.group.groups[index].cards;
 
   const deleteCardIndex = allRenderedCards.findIndex(obj => obj.id === id);
 
@@ -240,12 +247,12 @@ export const deleteCard = function (id) {
   persistGroups();
 };
 export const loadNewCard = function () {
-  const newCard = state.cards[state.cards.length - 1];
+  const newCard = state.card.cards[state.card.cards.length - 1];
   console.log('I am new card', newCard);
   return newCard;
 };
 export const loadAllCardsFromGroup = function (group) {
-  return state.groups
+  return state.group.groups
     .filter(obj => obj.groupName === group)
     .map(obj => obj.cards)
     .flat();
@@ -254,10 +261,10 @@ const clearGroups = function () {
   localStorage.clear('groups');
 };
 
-export const getCardResultsPage = function (card, page = state.page) {
-  state.page = page;
-  const start = (page - 1) * state.cardResultsPerPage; // 0
-  const end = page * state.cardResultsPerPage; //9
+export const getCardResultsPage = function (card, page = state.card.page) {
+  state.card.page = page;
+  const start = (page - 1) * state.card.cardResultsPerPage; // 0
+  const end = page * state.card.cardResultsPerPage; //9
   console.log(start, end);
   console.log('card', card);
   const definitions = card.definitions.slice(start, end);
@@ -271,11 +278,11 @@ export const getCardResultsPage = function (card, page = state.page) {
 const initCookie = function () {
   const storage = localStorage.getItem('groups');
   if (storage) {
-    state.groups = JSON.parse(storage);
+    state.group.groups = JSON.parse(storage);
 
     //save last created group as activeGroup
-    state.activeGroup = state.groups.slice(-1)[0].groupName;
-    // console.log(state.activeGroup);
+    state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
+    // console.log(state.group.activeGroup);
   }
 };
 

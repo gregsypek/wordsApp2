@@ -77,7 +77,7 @@ const controlClickCreateNewGroup = async function () {
     //3. clear cards by render message
     cardsView.renderMessage();
 
-    model.state.messageDisplay = true;
+    model.state.card.messageDisplay = true;
 
     //4. save group as active
     model.saveGroupAsActive(group);
@@ -88,10 +88,10 @@ const controlClickCreateNewGroup = async function () {
     groupBarView.renderSpinner();
 
     //7. render group-bar navigation
-    groupBarView.render(model.state.activeGroup);
+    groupBarView.render(model.state.group.activeGroup);
 
     //8. delete warning message nogroup (trick render empty string and clean parent element before)
-    if (model.state.activeGroup) {
+    if (model.state.group.activeGroup) {
       groupMessageView.render('');
     }
   } catch (err) {
@@ -126,11 +126,11 @@ const controlAddNewCard = function () {
   //5.render new card
 
   //a. check if there is a message
-  if (model.state.messageDisplay) {
+  if (model.state.card.messageDisplay) {
     //a. clear message
     // cardsView.render(newCard);
     cardsView.render(model.getCardResultsPage(newCard));
-    model.state.messageDisplay = false;
+    model.state.card.messageDisplay = false;
   } else {
     //b. add card next to previous one
     cardsView.renderCard(model.getCardResultsPage(newCard));
@@ -160,8 +160,8 @@ const controlDeleteCard = function (cardId) {
   model.deleteCard(+cardId);
 
   //2. check which group render again default or active
-  if (model.state.activeGroup) {
-    controlLoadAllCardsFromGroup(model.state.activeGroup);
+  if (model.state.group.activeGroup) {
+    controlLoadAllCardsFromGroup(model.state.group.activeGroup);
   } else {
     controlLoadAllCardsFromGroup('default');
   }
@@ -177,7 +177,7 @@ const controlNewGroupFromBar = function () {
 };
 
 const controlLoadAllGroups = function () {
-  allGroupsView.render(model.state.groups);
+  allGroupsView.render(model.state.group.groups);
 };
 
 const controlPreviewGroup = async function () {
@@ -189,7 +189,7 @@ const controlPreviewGroup = async function () {
     //2. close modal window
     allGroupsView.addHandlerPreview();
     //3.change activeGroup to be able deleting cards
-    model.state.activeGroup = group;
+    model.state.group.activeGroup = group;
     //4. render all cards from selected group
     controlLoadAllCardsFromGroup(group);
     //5. render bar navigation
@@ -199,7 +199,7 @@ const controlPreviewGroup = async function () {
   }
 };
 const welcomeBack = function () {
-  const activeGroup = model.state.activeGroup;
+  const activeGroup = model.state.group.activeGroup;
   if (!activeGroup) return;
   //render all cards and group name in group bar navigation
   groupBarView.render(activeGroup);

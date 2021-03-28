@@ -2,6 +2,7 @@ import * as model from './model.js';
 import wordView from './views/wordView.js';
 import searchView from './views/searchView.js';
 import cardsView from './views/cardsView.js';
+import paginationCardView from './views/paginationCardView.js';
 // import welcomeView from './views/welcomeView.js';
 import wordClickView from './views/wordClickView.js';
 
@@ -107,14 +108,12 @@ const controlAddNewCard = function () {
   //2. load new card
   const newCard = model.loadNewCard();
 
-  // 0 load all previous cards if exists
+  //3. load all previous cards if exists
   const activeGroup = newCard.groupName;
-  console.log('activeGroup', activeGroup);
-  const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
-  console.log('newCard', newCard);
-  console.log('allPreviousCards', allPreviousCards);
 
-  //b check if new card is unique
+  const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
+
+  //4 check if new card is unique
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
       groupMessageView.renderMessage(
@@ -124,19 +123,21 @@ const controlAddNewCard = function () {
     }
     groupMessageView.render();
   }
-  //2.render new card
+  //5.render new card
 
-  //3. check if there is a message
+  //a. check if there is a message
   if (model.state.messageDisplay) {
     //a. clear message
-    cardsView.render(newCard);
+    // cardsView.render(newCard);
+    cardsView.render(model.getCardResultsPage(newCard));
     model.state.messageDisplay = false;
   } else {
     //b. add card next to previous one
-    cardsView.renderCard(newCard);
+    cardsView.renderCard(model.getCardResultsPage(newCard));
   }
+  //6 render initial pagination buttons
 
-  //4. save card into state object
+  //7. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
 };
 const controlLoadAllCardsFromGroup = function (group) {

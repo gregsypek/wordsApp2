@@ -94,8 +94,11 @@
         // }
       }
       &__sentance {
-        margin-top: 5rem;
+        margin-top: 3rem;
         font-size: 1.6rem;
+        p:not(:last-of-type) {
+          margin-bottom: 2rem;
+        }
       }
     }
     // FOOTER CARD

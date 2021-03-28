@@ -29,11 +29,11 @@ class GroupView extends View {
 
   _generateMarkup() {
     const card = this._data;
-    // console.log(card);
+    console.log(card);
     let index = 1;
     // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
-    // TODO SECOND CARD WITH THE SAME NAME  BUT DIFFERENT PART OF SPEECH SHOULD DISPLAY NEXT NUMBER
+
     return `
           <div class="main__card">
               <div class="main__card-nav">
@@ -69,7 +69,9 @@ class GroupView extends View {
                   }</span>
                 </div>
                 <div class="card__sentance">
-                  <p>${card.definitions[index - 1]}</p>
+                  <p>${card.definitions
+                    .map(this._generateMarkupDefinitions)
+                    .join('')}</p>
                 </div>
               </div>
               <div class="main__card-footer">
@@ -93,6 +95,12 @@ class GroupView extends View {
 
             </div>
     `;
+  }
+
+  _generateMarkupDefinitions(def) {
+    return `
+      <p>${def}</p>
+      `;
   }
 }
 

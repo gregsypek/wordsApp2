@@ -1,4 +1,4 @@
-import { API_URL, LANGUAGE_CODE } from './config.js';
+import { API_URL, LANGUAGE_CODE, CARDS_RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
 
 export const state = {
@@ -19,6 +19,8 @@ export const state = {
   groups: [],
   defaultCards: [],
   messageDisplay: false,
+  cardResultsPerPage: CARDS_RES_PER_PAGE,
+  page: 1,
 };
 
 export const loadSearchWord = async function (id) {
@@ -250,6 +252,20 @@ export const loadAllCardsFromGroup = function (group) {
 };
 const clearGroups = function () {
   localStorage.clear('groups');
+};
+
+export const getCardResultsPage = function (card, page = state.page) {
+  state.page = page;
+  const start = (page - 1) * state.cardResultsPerPage; // 0
+  const end = page * state.cardResultsPerPage; //9
+  console.log(start, end);
+  console.log('card', card);
+  const definitions = card.definitions.slice(start, end);
+
+  card.definitions = definitions;
+
+  return card;
+  // return card.definitions.slice(start, end);
 };
 
 const initCookie = function () {

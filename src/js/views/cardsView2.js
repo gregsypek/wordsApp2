@@ -22,16 +22,15 @@ class GroupView extends View {
       const closeBtn = e.target.closest('.main__btn--close');
       if (!closeBtn) return;
       const cardId = closeBtn.dataset.cardId;
-      console.log(cardId);
+      // console.log(cardId);
       handler(cardId);
     });
   }
 
   _generateMarkup() {
     const card = this._data;
-    const definitions = this._data.renderDefinitions;
     console.log(card);
-
+    let index = 1;
     // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
 
@@ -70,70 +69,32 @@ class GroupView extends View {
                   }</span>
                 </div>
                 <div class="card__sentance">
-                  <p>${definitions
+                  <p>${card.definitions
                     .map(this._generateMarkupDefinitions)
                     .join('')}</p>
                 </div>
               </div>
               <div class="main__card-footer">
+               <button class="btn--page">
+              <svg class="bar__icon">
+                <use href="${icons}#icon-chevron-left"></use>
+              </svg>
+            <span>1</span>
+            </button>
+              
+                 <button class="btn--page">
+               <span>2</span>
+              <svg class="bar__icon">
+                <use href="${icons}#icon-chevron-right"></use>
+              </svg>
+            </button>
+              </div>
 
-              ${this._generateFooterCard()}
-               
+
+        </div>
+
             </div>
-          </div>
-
-
-       
-
-           
     `;
-  }
-  _generateFooterCard() {
-    const curPage = this._data.page;
-    const numPages = this._data.numPages;
-    //Page 1, and there are other pages
-    console.log('curPage', curPage);
-    console.log('numPages', numPages);
-    if (curPage === 1 && numPages > 1) {
-      return `
-        <button data-goto="${curPage + 1}" class="btn--page btn--next">
-          <span>Page ${curPage + 1}</span>
-            <svg class="bar__icon">
-              <use href="${icons}#icon-chevron-right"></use>
-            </svg>
-        </button>
-      `;
-    }
-    //Last page
-    if (curPage === numPages && numPages > 1)
-      return `
-        <button data-goto="${curPage - 1}" class="btn--page btn--prev">
-          <svg class="bar__icon">
-            <use href="${icons}#icon-chevron-left"></use>
-          </svg>
-          <span>Page ${curPage - 1}</span>
-        </button>
-      `;
-
-    //Other page
-    if (curPage < numPages) {
-      return `
-       <button data-goto="${curPage + 1}" class="btn--page btn--next">
-        <span>Page ${curPage + 1}</span>
-          <svg class="bar__icon">
-            <use href="${icons}#icon-chevron-right"></use>
-          </svg>
-        </button>
-         <button data-goto="${curPage - 1}" class="btn--page btn--prev">
-          <svg class="bar__icon">
-            <use href="${icons}#icon-chevron-left"></use>
-          </svg>
-          <span>Page ${curPage - 1}</span>
-        </button>
-      `;
-    }
-    //Page 1, and tere anr no other pages
-    return '';
   }
 
   _generateMarkupDefinitions(def) {

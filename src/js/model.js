@@ -17,6 +17,7 @@ export const state = {
     groups: [],
   },
   card: {
+    activeCard: '',
     cards: [],
     defaultCards: [],
     messageDisplay: false,
@@ -195,11 +196,12 @@ export const addCardIntoGroup2 = async function (
     // console.log('index', index);
     // console.log('here', state.group.groups);
     //
+    console.log(state.group.groups);
     if (state.group.groups[index].cards)
       state.group.groups[index].cards.push(card);
     else return;
 
-    console.log('added card into default group', state.group.groups);
+    console.log('added card into  group', state.group.groups);
     persistGroups();
   } catch (err) {
     console.log(err);
@@ -238,11 +240,12 @@ export const deleteCard = function (id) {
     index = state.group.groups.findIndex(obj => obj.groupName === 'default');
   }
   const allRenderedCards = state.group.groups[index].cards;
-
+  console.log('allRenderedCards', allRenderedCards);
   const deleteCardIndex = allRenderedCards.findIndex(obj => obj.id === id);
 
   //2. delete card
-  allRenderedCards.splice(deleteCardIndex, 1);
+  // allRenderedCards.splice(deleteCardIndex, 1);
+  state.group.groups[index].cards.splice(deleteCardIndex, 1);
 
   persistGroups();
 };
@@ -266,11 +269,16 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   const start = (page - 1) * state.card.cardResultsPerPage; // 0
   const end = page * state.card.cardResultsPerPage; //9
   console.log(start, end);
-  console.log('card', card);
-  const definitions = card.definitions.slice(start, end);
-
-  card.definitions = definitions;
-
+  console.log('card', card.definitions);
+  // console.log(state.card.activeCard);
+  const renderDefinitions = card.definitions.slice(start, end);
+  const numPages = Math.ceil(
+    card.definitions.length / state.card.cardResultsPerPage
+  );
+  card.renderDefinitions = renderDefinitions;
+  card.numPages = numPages;
+  card.page = page;
+  console.log(card);
   return card;
   // return card.definitions.slice(start, end);
 };
@@ -288,4 +296,4 @@ const initCookie = function () {
 
 initCookie();
 
-// clearGroups();
+clearGroups();

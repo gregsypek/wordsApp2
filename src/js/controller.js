@@ -82,8 +82,8 @@ const controlClickCreateNewGroup = async function () {
     //4. save group as active
     model.saveGroupAsActive(group);
 
-    // 5 change flag newGroup
-    model.state.newGroup = true;
+    // // 5 change flag newGroup
+    // model.state.newGroup = true;
     //6. render spinner load
     groupBarView.renderSpinner();
 
@@ -101,6 +101,7 @@ const controlClickCreateNewGroup = async function () {
 const controlClickRenameGroup = function () {
   groupNavView.toggleShowHiddenRenameForm();
 };
+////////////////////////////////
 const controlAddNewCard = function () {
   //1.create card object
   model.createObjCard();
@@ -124,7 +125,7 @@ const controlAddNewCard = function () {
     groupMessageView.render();
   }
   //5.render new card
-
+  model.state.card.activeCard = newCard;
   //a. check if there is a message
   if (model.state.card.messageDisplay) {
     //a. clear message
@@ -143,10 +144,12 @@ const controlAddNewCard = function () {
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards
   const cards = model.loadAllCardsFromGroup(group);
+  console.log('cards to load', cards);
   //2.clear cards container
   cardsView.clear();
   //3.render cards
-
+  console.log('cards to load', cards);
+  //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   cards.map(card => cardsView.renderCard(card));
 };
 
@@ -162,6 +165,7 @@ const controlDeleteCard = function (cardId) {
   //2. check which group render again default or active
   if (model.state.group.activeGroup) {
     controlLoadAllCardsFromGroup(model.state.group.activeGroup);
+    console.log(model.state.group.activeGroup);
   } else {
     controlLoadAllCardsFromGroup('default');
   }

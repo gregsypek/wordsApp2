@@ -103,10 +103,16 @@
     }
     // FOOTER CARD
     &-footer {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 1.5rem;
-
+      // display: flex;
+      // justify-content: space-between;
+      margin-top: 2rem;
+      background-color: $color-secondary2;
+      padding: 0rem 1.5rem;
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
       .more__btn {
         background-color: $color-secondary2;
         &:hover {

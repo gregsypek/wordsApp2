@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/sass/main.scss" />
+    <script defer src="./src/js/script.js"></script>
+    <script defer src="./src/js/controller.js"></script>
+    <title>wordsApp</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="./src/img/logo-white.svg" alt="logo" class="header__logo" />
+        <form action="" class="search">
+          <input
+            type="text"
+            placeholder="Search a word from dictionary..."
+            class="search__field"
+          />
+          <button class="btn search__btn">Search</button>
+        </form>
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--add-word">
+                <svg class="nav__icon">
+                  <use href="./src/img/icons.svg#icon-plus"></use>
+                </svg>
+                <span>Add word</span>
+              </button>
+            </li>
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--bookmarks">
+                <svg class="bar__icon">
+                  <use href="./src/img/icons.svg#icon-bookmark"></use>
+                </svg>
+                <span>Groups</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <aside class="aside">
+        <!-- ************************* -->
+        <!-- ***MESSAGE START ****** -->
+        <!-- ************************* -->
+
+        <div class="aside__info">
+          <h1>
+            Application built to help you learn new words by grouping them and
+            print on special preformated lists.
+          </h1>
+        </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+
+        <!-- ************************* -->
+        <!-- ***SPINNER ****** -->
+        <!-- ************************* -->
+
+        <!-- <div class="spinner">
+          <svg>
+            <use href="./src/img/icons.svg#icon-spinner"></use>
+          </svg>
+        </div> -->
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+
+        <!-- ************************* -->
+        <!-- ***WORDS LIST RESULTS****** -->
+        <!-- ************************* -->
+        <!-- <div class="aside__results">
+          <ul class="aside__list">
+            <li class="aside__item">
+              <strong class="aside__link--eng">apple</strong>&nbsp;
+              <div class="aside__link" data-link="1">
+                <dfn class="aside__link--data">
+                  <span class="aside__link--type">noun</span>
+                  <span class="aside__link--meanings">
+                    <em class="aside__link--nr">1</em>
+                    <em class="aside__link--def">jabłko</em>
+                  </span>
+                  <span class="aside__link--meanings">
+                    <em class="aside__link--nr">2</em>
+                    <em class="aside__link--def">firma firma</em>
+                  </span>
+                </dfn>
+                <button class="btn--plus-sm btn__active--1">
+                  <svg class="nav__icon">
+                    <use href="./src/img/icons.svg#icon-plus"></use>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="aside__link" data-link="2">
+                <dfn class="aside__link--data">
+                  <span class="aside__link--type"> adjective</span>
+                  <span class="aside__link--meanings">
+                    <em class="aside__link--nr">1</em>
+                    <em class="aside__link--def">firma z kupertino</em>
+                  </span>
+                  <span class="aside__link--meanings">
+                    <em class="aside__link--nr">2</em>
+                    <em class="aside__link--def">firma firma</em>
+                  </span>
+                </dfn>
+                <button class="btn--plus-sm btn__active--2">
+                  <svg class="nav__icon">
+                    <use href="./src/img/icons.svg#icon-plus"></use>
+                  </svg>
+                </button>
+              </div>
+            </li>
+          </ul>
+          <div class="aside__footer">
+            <button class="btn--page">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-chevron-left"></use>
+              </svg>
+              <span>Page 1</span>
+            </button>
+            <button class="btn--page">
+              <span>Page 2</span>
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
+            <button class="btn--print">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-print"></use>
+              </svg>
+            </button>
+          </div> -->
+        <!-- ************************* -->
+        <!-- ***MESSAGE NO-WORDS****** -->
+        <!-- ************************* -->
+        <!-- <div class="message message-info">
+            <p>You have no results. Please search a new word</p>
+          </div> -->
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+        <!-- </div> -->
+
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+
+        <!-- ************************* -->
+        <!-- ***WORDS LIST2 RESULTS****** -->
+        <!-- ************************* -->
+        <!-- <div class="aside__results">
+          <ul class="aside__list">
+            <div class="aside__letter">A</div>
+            <li class="aside__item2">
+              <a href="#" class="aside__link">
+                <span class="aside__link--eng">apple</span> -
+                <span class="aside__link--pl">jabłko</span>
+                <span class="aside__link--type">noun</span>
+              </a>
+            </li>
+            <div class="aside__letter">B</div>
+            <li class="aside__item">
+              <a href="#" class="aside__link">
+                <span class="aside__link--eng">banan</span> -
+                <span class="aside__link--pl">banan</span>
+                <span class="aside__link--type">noun</span>
+              </a>
+            </li>
+          </ul>
+          <div class="aside__footer">
+            <button class="btn--page">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-chevron-left"></use>
+              </svg>
+              <span>Page 1</span>
+            </button>
+            <button class="btn--page">
+              <span>Page 2</span>
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
+            <button class="btn--print">
+              <svg class="bar__icon">
+                <use href="./src/img/icons.svg#icon-print"></use>
+              </svg>
+            </button>
+          </div>
+        </div> -->
+
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+        <!-- </div> -->
+        <footer>
+          <p class="copyright">&copy; Copyright by gregsypek 2021</p>
+        </footer>
+      </aside>
+
+      <main class="main">
+        <!-- TODO IN JS CHANGE VISIBILITY  -->
+
+        <!-- ************************* -->
+        <!-- ***NO-GROUP MESSAGE****** -->
+        <!-- ************************* -->
+        <div class="message message-nogroup">
+          <!-- <p>No groups yet. Find any word and create new group...</p> -->
+        </div>
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+        <div class="main__control">
+          <div class="main__nav">
+            <!-- ************************* -->
+            <!-- ***CREATE GROUP BAR****** -->
+            <!-- ************************* -->
+            <div class="main__create-group">
+              <p>Create new group</p>
+              <button class="main__btn main__btn--create-group">
+                <svg class="nav__icon">
+                  <use href="./src/img/icons.svg#icon-plus"></use>
+                </svg>
+              </button>
+            </div>
+            <!-- ***************************** -->
+            <!-- **************END************ -->
+            <!-- ***************************** -->
+
+            <!-- ****************************** -->
+            <!-- ****GROUP EDIT BAR******** -->
+            <!-- ****************************** -->
+            <div class="main__group-edit">
+              <!-- <div class="main__bar">
+              <p class="main__group">Owoce</p>
+              <div class="main__btns">
+                <button class="main__btn main__btn--edit">
+                  <svg class="bar__icon">
+                    <use href="./src/img/icons.svg#icon-edit"></use>
+                  </svg>
+                </button>
+                <button class="main__btn main__btn--edit">
+                  <svg class="bar__icon">
+                    <use href="./src/img/icons.svg#icon-plus"></use>
+                  </svg>
+                </button>
+                <button class="main__btn main__btn--edit">
+                  <svg class="bar__icon">
+                    <use href="./src/img/icons.svg#icon-minus"></use>
+                  </svg>
+                </button>
+                <button class="main__btn main__btn--edit">
+                  <svg class="bar__icon">
+                    <use href="./src/img/icons.svg#icon-bar-graph"></use>
+                  </svg>
+                </button>
+                <button class="main__btn main__btn--edit">
+                  <svg class="bar__icon">
+                    <use href="./src/img/icons.svg#icon-print"></use>
+                  </svg>
+                </button>
+              </div>
+            </div> -->
+            </div>
+            <!-- ***************************** -->
+            <!-- **************END************ -->
+            <!-- ***************************** -->
+          </div>
+          <!-- ****************************** -->
+          <!-- ****CREATE GROUP INPUT******** -->
+          <!-- ****************************** -->
+          <div class="main__input">
+            <form class="create hidden">
+              <input
+                type="text"
+                placeholder="Please name your group..."
+                class="field create__field"
+              />
+              <button class="btn create__btn">Create</button>
+            </form>
+            <form class="rename hidden">
+              <input
+                type="text"
+                placeholder="Please type your new name..."
+                class="field rename__field"
+              />
+              <button class="btn rename__btn">Rename</button>
+            </form>
+          </div>
+          <!-- ***************************** -->
+          <!-- **************END************ -->
+          <!-- ***************************** -->
+        </div>
+        <!-- ****************************** -->
+        <!-- ****CARDS DISPLAY GRID******** -->
+        <!-- ****************************** -->
+        <div class="main__cards">
+          <div class="main__cards-box">
+            <!-- <div class="main__card">
+              <div class="main__card-nav">
+                <h3 class="card__word">Apple</h3>
+                <img
+                  src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
+                  alt=""
+                  class="card__phonetic"
+                  tabindex="-1"
+                />
+                <div class="card__btns">
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-megaphone"></use>
+                    </svg>
+                  </button>
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-cross"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="main__card-body">
+                <div class="card__explanation">
+                  <span class="card__explanation--nr">1</span>
+                  <span class="card__explanation--role">rzeczownik</span>
+                </div>
+                <div class="card__sentance">
+                  <p>I'll just have an apple. (Po prostu zjem jabłko.)</p>
+                </div>
+              </div>
+              <div class="main__card-footer">
+                <button class="btn more__btn">More</button>
+              </div>
+            </div>
+            <div class="main__card">
+              <div class="main__card-nav">
+                <h3 class="card__word">Apple</h3>
+                <button class="card__phonetic" tabindex="-1">/kæt/</button>
+                <div class="card__btns">
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-megaphone"></use>
+                    </svg>
+                  </button>
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-cross"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="main__card-body">
+                <div class="card__explanation">
+                  <span class="card__explanation--nr">1</span>
+                  <span class="card__explanation--word">jabłko</span>
+                  <span class="card__explanation--role">rzeczownik</span>
+                </div>
+                <div class="card__sentance">
+                  <p>I'll just have an apple. (Po prostu zjem jabłko.)</p>
+                </div>
+              </div>
+              <div class="main__card-footer">
+                <button class="btn more__btn">More</button>
+              </div>
+            </div>
+            <div class="main__card">
+              <div class="main__card-nav">
+                <h3 class="card__word">Appe</h3>
+                <img
+                  src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
+                  alt=""
+                  class="card__phonetic"
+                  tabindex="-1"
+                />
+                <div class="card__btns">
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-megaphone"></use>
+                    </svg>
+                  </button>
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-cross"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="main__card-body">
+                <div class="card__explanation">
+                  <span class="card__explanation--nr">1</span>
+                  <span class="card__explanation--word">jabłko</span>
+                  <span class="card__explanation--role">rzeczownik</span>
+                </div>
+                <div class="card__sentance">
+                  <p>I'll just have an apple. (Po prostu zjem jabłko.)</p>
+                </div>
+              </div>
+              <div class="main__card-footer">
+                <button class="btn more__btn">More</button>
+              </div>
+            </div>
+            <div class="main__card">
+              <div class="main__card-nav">
+                <h3 class="card__word">Apple</h3>
+                <img
+                  src="https://etutor-images-common.s3.eu-central-1.amazonaws.com/en/transcriptions/apple.png"
+                  alt=""
+                  class="card__phonetic"
+                  tabindex="-1"
+                />
+                <div class="card__btns">
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-megaphone"></use>
+                    </svg>
+                  </button>
+                  <button class="main__btn main__btn--edit">
+                    <svg class="bar__icon">
+                      <use href="./src/img/icons.svg#icon-cross"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="main__card-body">
+                <div class="card__explanation">
+                  <span class="card__explanation--nr">1</span>
+                  <span class="card__explanation--word">jabłko</span>
+                  <span class="card__explanation--role">rzeczownik</span>
+                </div>
+                <div class="card__sentance">
+                  <p>I'll just have an apple. (Po prostu zjem jabłko.)</p>
+                </div>
+              </div>
+              <div class="main__card-footer">
+                <button class="btn more__btn">More</button>
+              </div>
+            </div>
+            -->
+          </div>
+        </div>
+
+        <!-- ***************************** -->
+        <!-- **************END************ -->
+        <!-- ***************************** -->
+      </main>
+    </div>
+    <!-- ****************************** -->
+    <!-- ****NEW WORDS FORM******* -->
+    <!-- ****************************** -->
+    <!-- <div class="overlay2 hidden"></div>
+    <div class="add-word-window hidden">
+      <button class="btn--close-modal2">
+       &times;
+      </button>
+      <form class="upload">
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="definition1">definition 1</label>
+            <button class="btn--plus">
+              <svg>
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="definition1"
+              required
+              name="definition"
+              placeholder="Enter your new word..."
+            />
+          </div>
+        </div>
+
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="definition2">definition 2</label>
+            <button class="btn--plus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="definition2"
+              required
+              name="definition"
+              placeholder="Enter your new word..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="explanation1">explanation 1</label>
+            <button class="btn--plus">
+              <svg>
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="explanation1"
+              required
+              name="explanation1"
+              placeholder="Enter your explanation..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="sentance">sample sentance 1</label>
+            <button class="btn--plus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="sentance"
+              required
+              name="sentance"
+              placeholder="Enter your sentance..."
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <select name="group" id="group">
+              <option>owoce</option>
+              <option>zakupy</option>
+            </select>
+            <button class="btn--down">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-triangle-down"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn create__btn btn--submit">
+          Create
+        </button>
+      </form>
+    </div> -->
+    <!-- ***************************** -->
+    <!-- **************END************ -->
+    <!-- ***************************** -->
+
+    <!-- ****************************** -->
+    <!-- ****GROUPS EDITING LIST******* -->
+    <!-- ****************************** -->
+
+    <div class="overlay hidden"></div>
+    <div class="groups-window hidden">
+      <button class="btn--close-modal">&times;</button>
+      <div class="groups">
+        <!-- <ul class="groups__list">
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">mar</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizyfghdfgh</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+          <li class="preview">
+            <a href="#" class="preview__link">markizy</a>
+            <button class="btn--minus">
+              <svg class="nav__icon">
+                <use href="./src/img/icons.svg#icon-minus"></use>
+              </svg>
+            </button>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+
+    <!-- ***************************** -->
+    <!-- **************END************ -->
+    <!-- ***************************** -->
+  </body>
+</html>

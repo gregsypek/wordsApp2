@@ -2,8 +2,9 @@ import View from './View.js';
 import icons from '../../img/icons.svg';
 
 class GroupView extends View {
-  _parentElement = document.querySelector('.main__cards-box');
+  _parentElement = document.querySelector('.main__cards');
   _message = 'New group created :)';
+  _cardBox = document.querySelector('.main__card-box');
 
   addHandlerPlay(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -17,6 +18,21 @@ class GroupView extends View {
     this._parentElement.innerHTML = '';
   }
 
+  addHandlerPage(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--page');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+
+      const card = e.target.closest('.main__card-box');
+      if (!card) return;
+      const cardId = +card.dataset.id;
+      console.log(cardId);
+      console.log(goToPage);
+      handler(cardId, goToPage);
+    });
+  }
+
   addHandlerClose(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const closeBtn = e.target.closest('.main__btn--close');
@@ -26,16 +42,50 @@ class GroupView extends View {
       handler(cardId);
     });
   }
+  updateMarkup(card) {
+    const cardBoxes = this._parentElement.querySelectorAll('.main__card-box');
+
+    const cardBoxesIDs = Array.from(cardBoxes).map(card => card.dataset.id);
+    console.log('cardBoxesIDs', cardBoxesIDs);
+    const index = cardBoxesIDs.findIndex(id => Number(id) === card.id);
+    const cardToUpdate = cardBoxes[index];
+    console.log('cardToUpdate', cardToUpdate);
+
+    // const oldDefinitions = [
+    //   ...cardToUpdate.querySelectorAll('.definition'),
+    // ].map(p => p.innerHTML);
+    const newDefinitions = card.renderDefinitions;
+    // console.log(oldDefinitions);
+    console.log('newDefinitions', newDefinitions);
+
+    cardToUpdate.querySelector(
+      '.card__sentance'
+    ).innerHTML = newDefinitions.map(this._generateMarkupDefinitions).join('');
+    //////////////
+    cardToUpdate.querySelector(
+      '.main__card-footer'
+    ).innerHTML = this._generateFooterCard();
+    /////////////
+
+    // newDefinitions.forEach((newD, i) => {
+    //   const curD = oldDefinitions[i];
+    //   curD.textContent = newD.textContent;
+    // });
+    // console.log(newDefinitions);
+    // definitions.map(this._generateMarkupDefinitions(card.renderDefinitions));
+  }
 
   _generateMarkup() {
     const card = this._data;
-    const definitions = this._data.renderDefinitions;
+    // const definitions = this._data.renderDefinitions;
     console.log(card);
 
     // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
-
+    const curPage = this._data.page;
+    const numPages = this._data.numPages;
     return `
+     <div class="main__card-box" data-id="${card.id}">
           <div class="main__card">
               <div class="main__card-nav">
                 <h3 class="card__word">${card.name}</h3>
@@ -60,7 +110,6 @@ class GroupView extends View {
                
               </div>
               <div class="main__card-body">
-
                 <div class="card__explanation">
                   <span class="card__explanation--nr">${
                     card.activePartOfSpeech
@@ -70,16 +119,16 @@ class GroupView extends View {
                   }</span>
                 </div>
                 <div class="card__sentance">
-                  <p>${definitions
-                    .map(this._generateMarkupDefinitions)
-                    .join('')}</p>
+                 ${this._data.renderDefinitions
+                   .map(this._generateMarkupDefinitions)
+                   .join('')}
                 </div>
               </div>
-              <div class="main__card-footer">
-
-              ${this._generateFooterCard()}
-               
+              
             </div>
+            <div class="main__card-footer">
+            ${this._generateFooterCard()}
+          </div>
           </div>
 
 
@@ -88,9 +137,10 @@ class GroupView extends View {
            
     `;
   }
-  _generateFooterCard() {
-    const curPage = this._data.page;
-    const numPages = this._data.numPages;
+  _generateFooterCard(page) {
+    console.log(this._data);
+    const curPage = this._data.page ? this._data.page : page.page;
+    const numPages = this._data.numPages ? this._data.numPages : page.numPages;
     //Page 1, and there are other pages
     console.log('curPage', curPage);
     console.log('numPages', numPages);
@@ -138,7 +188,7 @@ class GroupView extends View {
 
   _generateMarkupDefinitions(def) {
     return `
-      <p>${def}</p>
+      <p class="definition">${def}</p>
       `;
   }
 }

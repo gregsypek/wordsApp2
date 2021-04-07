@@ -2,7 +2,6 @@ import * as model from './model.js';
 import wordView from './views/wordView.js';
 import searchView from './views/searchView.js';
 import cardsView from './views/cardsView.js';
-import paginationCardView from './views/paginationCardView.js';
 // import welcomeView from './views/welcomeView.js';
 import wordClickView from './views/wordClickView.js';
 
@@ -102,10 +101,11 @@ const controlClickRenameGroup = function () {
   groupNavView.toggleShowHiddenRenameForm();
 };
 ////////////////////////////////
-const controlAddNewCard = function () {
+const controlAddNewCard = async function () {
   //1.create card object
   model.createObjCard();
-
+  //1. reset footer page start
+  model.state.card.page = 1;
   //2. load new card
   const newCard = model.loadNewCard();
 
@@ -124,6 +124,8 @@ const controlAddNewCard = function () {
     }
     groupMessageView.render();
   }
+
+  // cardsView.addHandlerNewFooter();
   //5.render new card
   model.state.card.activeCard = newCard;
   //a. check if there is a message
@@ -132,15 +134,21 @@ const controlAddNewCard = function () {
     // cardsView.render(newCard);
     cardsView.render(model.getCardResultsPage(newCard));
     model.state.card.messageDisplay = false;
+
+    // cardsView.addHandlerNewFooter();
   } else {
     //b. add card next to previous one
     cardsView.renderCard(model.getCardResultsPage(newCard));
+    // cardsView.addHandlerNewFooter();
   }
+
   //6 render initial pagination buttons
 
+  // controlLoadFooterCard(newCard);
   //7. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
 };
+
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards
   const cards = model.loadAllCardsFromGroup(group);
@@ -202,6 +210,23 @@ const controlPreviewGroup = async function () {
     console.log(err);
   }
 };
+
+const controlCardPagination = function (cardId, goToPage) {
+  console.log(model.state.card.cards);
+  // if (model.state.card.cards.length > 0) {
+  console.log(model.state.card.cards);
+  const cardToChange = model.state.card.cards.filter(
+    card => card.id === cardId
+  );
+  console.log('cardToChange', cardToChange);
+  console.log('goToPage', goToPage);
+  // cardsView.render(model.getCardResultsPage(cardToChange[0], goToPage));
+  console.log(model.getCardResultsPage(cardToChange[0], goToPage));
+  cardsView.updateMarkup(model.getCardResultsPage(cardToChange[0], goToPage));
+
+  // } else return;
+};
+
 const welcomeBack = function () {
   const activeGroup = model.state.group.activeGroup;
   if (!activeGroup) return;
@@ -212,6 +237,7 @@ const welcomeBack = function () {
 };
 
 const init = function () {
+  console.log(model.state.card.cards);
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   wordView.addHandlerRender();
@@ -221,6 +247,7 @@ const init = function () {
   groupBarView.addHandlerRenameGroup(controlClickRenameGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
+  cardsView.addHandlerPage(controlCardPagination);
   groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
   allGroupsView.addHandleClick(controlLoadAllGroups);
   allGroupsView.addHandlerRender(controlPreviewGroup);

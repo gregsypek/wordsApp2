@@ -1,28 +1,30 @@
 .main {
   &__cards {
-    width: 100%;
+    // width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  &__card {
+    // margin-right: 2rem;
+    // max-width: 25rem;
+    // min-width: 25rem;
+    // width: 25rem;
+    background-color: $color-secondary3;
+
+    // margin-bottom: 3rem;
+
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
     &-box {
       margin-top: 5rem;
       padding: 2rem;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-evenly;
+      flex-direction: column;
+      width: 31rem;
     }
-  }
-
-  &__card {
-    margin-right: 2rem;
-    // max-width: 25rem;
-    // min-width: 25rem;
-    width: 25rem;
-    background-color: $color-secondary3;
-
-    margin-bottom: 3rem;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
     // NAVIGATION CARD
     &-nav {
       // height: 4rem;
@@ -105,9 +107,10 @@
     &-footer {
       // display: flex;
       // justify-content: space-between;
-      margin-top: 2rem;
+      // margin-top: 2rem;
       background-color: $color-secondary2;
       padding: 0rem 1.5rem;
+      height: 3.5rem;
       &::after {
         content: '';
         display: table;

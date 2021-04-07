@@ -21,6 +21,7 @@ export const state = {
     cards: [],
     defaultCards: [],
     messageDisplay: false,
+
     cardResultsPerPage: CARDS_RES_PER_PAGE,
     page: 1,
   },
@@ -75,20 +76,24 @@ export const isCardUnique = function (previousCard, newCard) {
     return true;
   else return false;
 };
-export const saveCardIntoCorrectGroup = function (newCard) {
+export const saveCardIntoCorrectGroup = async function (newCard) {
   //a. there is no group yet
   if (!isAnyGroupCreated()) {
     createObjGroup('default');
     addCardIntoGroup2(newCard, 'default');
+
     //b. there is default group only
   } else if (isDefaultGroupCreated() && !isUserGroupCreated()) {
     addCardIntoGroup2(newCard, 'default');
+
     //c. there is user group only
   } else if (!isDefaultGroupCreated() && isUserGroupCreated()) {
     addCardIntoGroup2(newCard);
+
     //d.there is default group and user group
   } else if (isDefaultGroupCreated() && isUserGroupCreated()) {
     addCardIntoGroup2(newCard);
+
     // const defaultObjectIndex = model.state.group.groups.findIndex(
     //   obj => obj.groupName === 'default'
     // );
@@ -196,12 +201,12 @@ export const addCardIntoGroup2 = async function (
     // console.log('index', index);
     // console.log('here', state.group.groups);
     //
-    console.log(state.group.groups);
+    // console.log(state.group.groups);
     if (state.group.groups[index].cards)
       state.group.groups[index].cards.push(card);
     else return;
 
-    console.log('added card into  group', state.group.groups);
+    // console.log('added card into  group', state.group.groups);
     persistGroups();
   } catch (err) {
     console.log(err);
@@ -271,14 +276,15 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   console.log(start, end);
   console.log('card', card.definitions);
   // console.log(state.card.activeCard);
-  const renderDefinitions = card.definitions.slice(start, end);
+  let renderDefinitions = card.definitions.slice(start, end);
+  console.log('renderDefinitions', renderDefinitions);
   const numPages = Math.ceil(
     card.definitions.length / state.card.cardResultsPerPage
   );
   card.renderDefinitions = renderDefinitions;
   card.numPages = numPages;
   card.page = page;
-  console.log(card);
+  // console.log(card);
   return card;
   // return card.definitions.slice(start, end);
 };
@@ -296,4 +302,4 @@ const initCookie = function () {
 
 initCookie();
 
-clearGroups();
+// clearGroups();

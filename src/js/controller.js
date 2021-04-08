@@ -152,11 +152,11 @@ const controlAddNewCard = async function () {
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards
   const cards = model.loadAllCardsFromGroup(group);
-  console.log('cards to load', cards);
+  // console.log('cards to load', cards);
   //2.clear cards container
   cardsView.clear();
   //3.render cards
-  console.log('cards to load', cards);
+  // console.log('cards to load', cards);
   //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   cards.map(card => cardsView.renderCard(card));
 };
@@ -212,16 +212,16 @@ const controlPreviewGroup = async function () {
 };
 
 const controlCardPagination = function (cardId, goToPage) {
-  console.log(model.state.card.cards);
+  // console.log(model.state.card.cards);
   // if (model.state.card.cards.length > 0) {
-  console.log(model.state.card.cards);
+  // console.log(model.state.card.cards);
   const cardToChange = model.state.card.cards.filter(
     card => card.id === cardId
   );
-  console.log('cardToChange', cardToChange);
-  console.log('goToPage', goToPage);
+  // console.log('cardToChange', cardToChange);
+  // console.log('goToPage', goToPage);
   // cardsView.render(model.getCardResultsPage(cardToChange[0], goToPage));
-  console.log(model.getCardResultsPage(cardToChange[0], goToPage));
+  // console.log(model.getCardResultsPage(cardToChange[0], goToPage));
   cardsView.updateMarkup(model.getCardResultsPage(cardToChange[0], goToPage));
 
   // } else return;
@@ -230,6 +230,13 @@ const controlCardPagination = function (cardId, goToPage) {
 const welcomeBack = function () {
   const activeGroup = model.state.group.activeGroup;
   if (!activeGroup) return;
+
+  //load all cards from groups into cards array  to be able change page on each card
+  if (!model.state.group.groups) return;
+  model.state.card.cards = model.state.group.groups.flatMap(group =>
+    model.loadAllCardsFromGroup(group.groupName)
+  );
+
   //render all cards and group name in group bar navigation
   groupBarView.render(activeGroup);
   controlLoadAllCardsFromGroup(activeGroup);
@@ -237,7 +244,6 @@ const welcomeBack = function () {
 };
 
 const init = function () {
-  console.log(model.state.card.cards);
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   wordView.addHandlerRender();

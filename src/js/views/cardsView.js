@@ -27,8 +27,8 @@ class GroupView extends View {
       const card = e.target.closest('.main__card-box');
       if (!card) return;
       const cardId = +card.dataset.id;
-      console.log(cardId);
-      console.log(goToPage);
+      // console.log(cardId);
+      // console.log(goToPage);
       handler(cardId, goToPage);
     });
   }
@@ -38,7 +38,7 @@ class GroupView extends View {
       const closeBtn = e.target.closest('.main__btn--close');
       if (!closeBtn) return;
       const cardId = closeBtn.dataset.cardId;
-      console.log(cardId);
+      // console.log(cardId);
       handler(cardId);
     });
   }
@@ -46,17 +46,17 @@ class GroupView extends View {
     const cardBoxes = this._parentElement.querySelectorAll('.main__card-box');
 
     const cardBoxesIDs = Array.from(cardBoxes).map(card => card.dataset.id);
-    console.log('cardBoxesIDs', cardBoxesIDs);
+    // console.log('cardBoxesIDs', cardBoxesIDs);
     const index = cardBoxesIDs.findIndex(id => Number(id) === card.id);
     const cardToUpdate = cardBoxes[index];
-    console.log('cardToUpdate', cardToUpdate);
+    // console.log('cardToUpdate', cardToUpdate);
 
     // const oldDefinitions = [
     //   ...cardToUpdate.querySelectorAll('.definition'),
     // ].map(p => p.innerHTML);
     const newDefinitions = card.renderDefinitions;
     // console.log(oldDefinitions);
-    console.log('newDefinitions', newDefinitions);
+    // console.log('newDefinitions', newDefinitions);
 
     cardToUpdate.querySelector(
       '.card__sentance'
@@ -64,7 +64,7 @@ class GroupView extends View {
     //////////////
     cardToUpdate.querySelector(
       '.main__card-footer'
-    ).innerHTML = this._generateFooterCard();
+    ).innerHTML = this._generateFooterCard(card);
     /////////////
 
     // newDefinitions.forEach((newD, i) => {
@@ -78,7 +78,7 @@ class GroupView extends View {
   _generateMarkup() {
     const card = this._data;
     // const definitions = this._data.renderDefinitions;
-    console.log(card);
+    // console.log(card);
 
     // let index = this._data.click.clickedPart;
     // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
@@ -137,13 +137,14 @@ class GroupView extends View {
            
     `;
   }
-  _generateFooterCard(page) {
-    console.log(this._data);
-    const curPage = this._data.page ? this._data.page : page.page;
-    const numPages = this._data.numPages ? this._data.numPages : page.numPages;
+  _generateFooterCard(pageData = false) {
+    // console.log('this._data');
+
+    const curPage = pageData ? pageData.page : this._data.page;
+    const numPages = pageData ? pageData.numPages : this._data.numPages;
     //Page 1, and there are other pages
-    console.log('curPage', curPage);
-    console.log('numPages', numPages);
+    // console.log('curPage', curPage);
+    // console.log('numPages', numPages);
     if (curPage === 1 && numPages > 1) {
       return `
         <button data-goto="${curPage + 1}" class="btn--page btn--next">

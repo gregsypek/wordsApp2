@@ -24,6 +24,7 @@ export const state = {
 
     cardResultsPerPage: CARDS_RES_PER_PAGE,
     page: 1,
+    mumPages: 1,
   },
 };
 
@@ -167,7 +168,7 @@ export const createObjGroup = async function (name) {
       cards: [],
     };
     state.group.groups.push(group);
-    console.log('create new objGroup', state.group.groups);
+    // console.log('create new objGroup', state.group.groups);
   } catch (err) {
     console.log(err);
   }
@@ -256,7 +257,7 @@ export const deleteCard = function (id) {
 };
 export const loadNewCard = function () {
   const newCard = state.card.cards[state.card.cards.length - 1];
-  console.log('I am new card', newCard);
+  // console.log('I am new card', newCard);
   return newCard;
 };
 export const loadAllCardsFromGroup = function (group) {
@@ -273,11 +274,11 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   state.card.page = page;
   const start = (page - 1) * state.card.cardResultsPerPage; // 0
   const end = page * state.card.cardResultsPerPage; //9
-  console.log(start, end);
-  console.log('card', card.definitions);
+  // console.log(start, end);
+  // console.log('card', card.definitions);
   // console.log(state.card.activeCard);
   let renderDefinitions = card.definitions.slice(start, end);
-  console.log('renderDefinitions', renderDefinitions);
+  // console.log('renderDefinitions', renderDefinitions);
   const numPages = Math.ceil(
     card.definitions.length / state.card.cardResultsPerPage
   );
@@ -285,7 +286,8 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   card.numPages = numPages;
   card.page = page;
   // console.log(card);
-  return card;
+  state.card.activeCard = card;
+  return state.card.activeCard;
   // return card.definitions.slice(start, end);
 };
 

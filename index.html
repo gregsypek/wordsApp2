@@ -364,11 +364,10 @@
     <!-- ****************************** -->
     <!-- ****NEW WORDS FORM******* -->
     <!-- ****************************** -->
-    <!-- <div class="overlay2 hidden"></div>
+    <div class="overlay2 hidden"></div>
     <div class="add-word-window hidden">
-      <button class="btn--close-modal2">
-       &times;
-      </button>
+      <button class="btn--close-modal2">&times;</button>
+      <h1 class="add-word__heading">Create your new word</h1>
       <form class="upload">
         <div class="upload__row">
           <div class="upload__column">
@@ -384,31 +383,13 @@
               type="text"
               id="definition1"
               required
-              name="definition"
+              name="definition1"
+              value="apple"
               placeholder="Enter your new word..."
             />
           </div>
         </div>
 
-        <div class="upload__row">
-          <div class="upload__column">
-            <label for="definition2">definition 2</label>
-            <button class="btn--plus">
-              <svg class="nav__icon">
-                <use href="./src/img/icons.svg#icon-plus"></use>
-              </svg>
-            </button>
-          </div>
-          <div class="upload__column">
-            <input
-              type="text"
-              id="definition2"
-              required
-              name="definition"
-              placeholder="Enter your new word..."
-            />
-          </div>
-        </div>
         <div class="upload__row">
           <div class="upload__column">
             <label for="explanation1">explanation 1</label>
@@ -425,10 +406,11 @@
               required
               name="explanation1"
               placeholder="Enter your explanation..."
+              value="jabłko"
             />
           </div>
         </div>
-        <div class="upload__row">
+        <!-- <div class="upload__row hidden">
           <div class="upload__column">
             <label for="sentance">sample sentance 1</label>
             <button class="btn--plus">
@@ -441,13 +423,15 @@
             <input
               type="text"
               id="sentance"
-              required
               name="sentance"
               placeholder="Enter your sentance..."
             />
           </div>
-        </div>
+        </div> -->
         <div class="upload__row">
+          <div class="upload__column">
+            <h3>Choose group where to add new word...</h3>
+          </div>
           <div class="upload__column">
             <select name="group" id="group">
               <option>owoce</option>
@@ -460,11 +444,9 @@
             </button>
           </div>
         </div>
-        <button type="submit" class="btn create__btn btn--submit">
-          Create
-        </button>
+        <button class="btn create__btn btn--submit">Create</button>
       </form>
-    </div> -->
+    </div>
     <!-- ***************************** -->
     <!-- **************END************ -->
     <!-- ***************************** -->

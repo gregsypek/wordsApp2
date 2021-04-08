@@ -4,13 +4,15 @@ import searchView from './views/searchView.js';
 import cardsView from './views/cardsView.js';
 // import welcomeView from './views/welcomeView.js';
 import wordClickView from './views/wordClickView.js';
+import createWordView from './views/createWordView';
 
-import 'core-js/stable'; // allows old browser display our code
-import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
 import allGroupsView from './views/allGroupsView.js';
+
+import 'regenerator-runtime/runtime'; //polyfiling async await functions
+import 'core-js/stable'; // allows old browser display our code
 
 const controlSearchWords = async function () {
   try {
@@ -243,6 +245,10 @@ const welcomeBack = function () {
   groupMessageView.renderMessage('Welcome back :)');
 };
 
+const controlAddWord = function (newWord) {
+  console.log(newWord);
+};
+
 const init = function () {
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
@@ -257,5 +263,7 @@ const init = function () {
   groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
   allGroupsView.addHandleClick(controlLoadAllGroups);
   allGroupsView.addHandlerRender(controlPreviewGroup);
+  createWordView.addHandlerUpload(controlAddWord);
 };
 init();
+//TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

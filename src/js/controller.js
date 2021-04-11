@@ -83,7 +83,7 @@ const controlClickCreateNewGroup = async function () {
 
     //4. save group as active
     model.saveGroupAsActive(group);
-
+    // console.log(group);
     // // 5 change flag newGroup
     // model.state.newGroup = true;
     //6. render spinner load
@@ -96,6 +96,9 @@ const controlClickCreateNewGroup = async function () {
     if (model.state.group.activeGroup) {
       groupMessageView.render('');
     }
+
+    //9. change Id in URL
+    window.history.pushState(null, '', `#${group}`);
   } catch (err) {
     console.log(err);
   }
@@ -228,7 +231,13 @@ const controlCardPagination = function (cardId, goToPage) {
 
 const welcomeBack = function () {
   const activeGroup = model.state.group.activeGroup;
-  if (!activeGroup) return;
+  if (!activeGroup) {
+    //TODO if there is a better way to reset url do it!
+    //reset url
+    window.history.pushState(null, '', `#${''}`);
+
+    return;
+  }
 
   //load all cards from groups into cards array  to be able change page on each card
   if (!model.state.group.groups) return;
@@ -240,12 +249,13 @@ const welcomeBack = function () {
   groupBarView.render(activeGroup);
   controlLoadAllCardsFromGroup(activeGroup);
   groupMessageView.renderMessage('Welcome back :)');
+  setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
 };
 
 const controlAddWord = async function (newWord) {
   try {
     //Show loading spinner
-    createWordView.renderSpinner();
+    // createWordView.renderSpinner();
     //Upload the new word data
     const newCard = await model.uploadWord(newWord);
     //Render word
@@ -261,17 +271,24 @@ const controlAddWord = async function (newWord) {
 
     cardsView.renderCard(model.getCardResultsPage(newCard));
     // const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
-
-    window.history.pushState(null, '', `#${newCard.groupName}`);
+    const groupName = model.state.group.activeGroup
+      ? model.state.group.activeGroup
+      : 'default';
+    window.history.pushState(null, '', `#${groupName}`);
     model.saveCardIntoCorrectGroup(newCard);
-
+    console.log(newCard);
     //Success message
-    createWordView.renderMessage();
+    // createWordView.renderMessage();
+    groupMessageView.renderMessage('New word was successfully created :)');
+
+    setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
     //Close form window
 
-    setTimeout(function () {
-      createWordView.toggleWindow();
-    }, MODAL_CLOSE_SEC * 1000);
+    // setTimeout(function () {
+    //   createWordView.toggleWindow();
+    // }, MODAL_CLOSE_SEC * 1000);
+
+    createWordView.toggleWindow();
   } catch (err) {
     console.error('☠️', err);
     createWordView.renderMessageError(err.message);

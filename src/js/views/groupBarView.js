@@ -4,8 +4,7 @@ class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
   _messageError = '';
-  _message =
-    'No group created. All cards will be added into default group. Please create new group to prevent that and then add your words inside';
+  // _message = '';
 
   addHandlerNewGroup(handler) {
     this._parentElement.addEventListener('click', function (e) {

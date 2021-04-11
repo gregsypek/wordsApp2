@@ -327,7 +327,7 @@ export const uploadWord = async function (newWord) {
   // console.log(Object.entries(newWord));
   try {
     console.log(newWord);
-    const group = state.group.activeGroup;
+    // const group = state.group.activeGroup;
     const word = {
       id: Date.now(),
       name: newWord.definition,
@@ -337,7 +337,7 @@ export const uploadWord = async function (newWord) {
       activePartOfSpeech: state.click.clickedPart,
       definitions: [newWord.explanation],
       // groupName: newWord.group,
-      groupName: group,
+      // groupName: group,
     };
 
     return word;

@@ -28,6 +28,25 @@ export const state = {
   },
 };
 
+// const createWordObject = function (data) {
+//   const { newWord } = data;
+//   return {
+//     word: newWord.definition1,
+//     meanings: [
+//       {
+//         definitions: [newWord.explanation1],
+//         partOfSpeech: newWord.partOfSpeech,
+//       },
+//     ],
+//     phonetics: [
+//       {
+//         text: newWord.phonetic,
+//         audio: newWord.audio,
+//       },
+//     ],
+//   };
+// };
+
 export const loadSearchWord = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${LANGUAGE_CODE}${id}`);
@@ -304,4 +323,27 @@ const initCookie = function () {
 
 initCookie();
 
-// clearGroups();
+export const uploadWord = async function (newWord) {
+  // console.log(Object.entries(newWord));
+  try {
+    console.log(newWord);
+    const group = state.group.activeGroup;
+    const word = {
+      id: Date.now(),
+      name: newWord.definition,
+      audio: newWord.audio,
+      phonetics: newWord.phonetics,
+      partOfSpeech: newWord.partOfSpeech,
+      activePartOfSpeech: state.click.clickedPart,
+      definitions: [newWord.explanation],
+      // groupName: newWord.group,
+      groupName: group,
+    };
+
+    return word;
+  } catch (err) {
+    throw err;
+  }
+};
+
+clearGroups();

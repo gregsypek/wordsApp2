@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 import wordView from './views/wordView.js';
 import searchView from './views/searchView.js';
 import cardsView from './views/cardsView.js';
@@ -214,16 +215,12 @@ const controlPreviewGroup = async function () {
 };
 
 const controlCardPagination = function (cardId, goToPage) {
-  // console.log(model.state.card.cards);
-  // if (model.state.card.cards.length > 0) {
-  // console.log(model.state.card.cards);
+  //1.find card where user click page btn
   const cardToChange = model.state.card.cards.filter(
     card => card.id === cardId
   );
-  // console.log('cardToChange', cardToChange);
-  // console.log('goToPage', goToPage);
-  // cardsView.render(model.getCardResultsPage(cardToChange[0], goToPage));
-  // console.log(model.getCardResultsPage(cardToChange[0], goToPage));
+
+  //2.update body and footer of selected card
   cardsView.updateMarkup(model.getCardResultsPage(cardToChange[0], goToPage));
 
   // } else return;
@@ -245,8 +242,40 @@ const welcomeBack = function () {
   groupMessageView.renderMessage('Welcome back :)');
 };
 
-const controlAddWord = function (newWord) {
-  console.log(newWord);
+const controlAddWord = async function (newWord) {
+  try {
+    //Show loading spinner
+    createWordView.renderSpinner();
+    //Upload the new word data
+    const newCard = await model.uploadWord(newWord);
+    //Render word
+    console.log(model.state.card.cards);
+    await model.state.card.cards.push(newCard);
+    console.log(newCard);
+    console.log(model.state.group.activeGroup);
+
+    //3. load all previous cards if exists
+    const activeGroup = newCard.groupName;
+
+    // cardsView.renderCard(newCard);
+
+    cardsView.renderCard(model.getCardResultsPage(newCard));
+    // const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
+
+    window.history.pushState(null, '', `#${newCard.groupName}`);
+    model.saveCardIntoCorrectGroup(newCard);
+
+    //Success message
+    createWordView.renderMessage();
+    //Close form window
+
+    setTimeout(function () {
+      createWordView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (err) {
+    console.error('☠️', err);
+    createWordView.renderMessageError(err.message);
+  }
 };
 
 const init = function () {

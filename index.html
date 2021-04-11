@@ -367,11 +367,11 @@
     <div class="overlay2 hidden"></div>
     <div class="add-word-window hidden">
       <button class="btn--close-modal2">&times;</button>
-      <h1 class="add-word__heading">Create your new word</h1>
       <form class="upload">
+        <h1 class="add-word__heading">Create your new word</h1>
         <div class="upload__row">
           <div class="upload__column">
-            <label for="definition1">definition 1</label>
+            <label for="definition1">definition</label>
             <button class="btn--plus">
               <svg>
                 <use href="./src/img/icons.svg#icon-plus"></use>
@@ -383,7 +383,7 @@
               type="text"
               id="definition1"
               required
-              name="definition1"
+              name="definition"
               value="apple"
               placeholder="Enter your new word..."
             />
@@ -392,7 +392,7 @@
 
         <div class="upload__row">
           <div class="upload__column">
-            <label for="explanation1">explanation 1</label>
+            <label for="explanation1">explanation</label>
             <button class="btn--plus">
               <svg>
                 <use href="./src/img/icons.svg#icon-plus"></use>
@@ -404,13 +404,13 @@
               type="text"
               id="explanation1"
               required
-              name="explanation1"
+              name="explanation"
               placeholder="Enter your explanation..."
               value="jabłko"
             />
           </div>
         </div>
-        <!-- <div class="upload__row hidden">
+        <!--<!-- <div class="upload__row hidden">
           <div class="upload__column">
             <label for="sentance">sample sentance 1</label>
             <button class="btn--plus">
@@ -427,21 +427,54 @@
               placeholder="Enter your sentance..."
             />
           </div>
-        </div> -->
+        </div> -->-->
         <div class="upload__row">
           <div class="upload__column">
-            <h3>Choose group where to add new word...</h3>
-          </div>
-          <div class="upload__column">
-            <select name="group" id="group">
-              <option>owoce</option>
-              <option>zakupy</option>
-            </select>
-            <button class="btn--down">
-              <svg class="nav__icon">
-                <use href="./src/img/icons.svg#icon-triangle-down"></use>
+            <label for="partOfSpeech">Part of speech</label>
+            <button class="btn--plus">
+              <svg>
+                <use href="./src/img/icons.svg#icon-plus"></use>
               </svg>
             </button>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="partOfSpeech"
+              required
+              name="partOfSpeech"
+              value="noun"
+              placeholder="Enter your part of speech"
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="phonetic">Phonetic</label>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="phonetic"
+              required
+              name="phonetics"
+              value="kət/"
+              placeholder="Enter your phonetic"
+            />
+          </div>
+        </div>
+        <div class="upload__row">
+          <div class="upload__column">
+            <label for="audio">Audio</label>
+          </div>
+          <div class="upload__column">
+            <input
+              type="text"
+              id="audio"
+              name="audio"
+              value="https://lex-audio.useremarkable.com/mp3/apple_us_1.mp3"
+              placeholder="Enter complete address of the link "
+            />
           </div>
         </div>
         <button class="btn create__btn btn--submit">Create</button>

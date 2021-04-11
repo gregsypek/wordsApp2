@@ -1,9 +1,9 @@
 //.js is optional
 import View from './View.js';
-import icons from '../../img/icons.svg';
 
 class CreateWordView extends View {
   _parentElement = document.querySelector('.upload');
+  _message = 'New word was successfully created';
   _window = document.querySelector('.add-word-window');
   _overlay = document.querySelector('.overlay2');
   _btnOpen = document.querySelector('.nav__btn--add-word');
@@ -31,13 +31,14 @@ class CreateWordView extends View {
       e.preventDefault();
       const dataArr = [...new FormData(this)];
       const data = Object.fromEntries(dataArr);
+      // console.log(data);
       handler(data);
     });
   }
 
   _generateMarkup() {
     return `
-     
+ 
     `;
   }
 }

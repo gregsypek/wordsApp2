@@ -14,7 +14,7 @@
     background-color: $color-secondary3;
 
     // margin-bottom: 3rem;
-
+    height: 40rem;
     // display: flex;
     // flex-direction: column;
     // justify-content: space-between;
@@ -54,7 +54,7 @@
       }
       &__btns {
         display: flex;
-
+        margin-left: auto;
         align-items: center;
         // padding: 0;
         height: 4.5rem;

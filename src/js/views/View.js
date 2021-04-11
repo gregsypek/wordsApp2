@@ -43,7 +43,7 @@ export default class View {
     const markup = `
      <div class="message message-info">
             <p>${message}</p>
-          </div> -->
+          </div>
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -52,7 +52,7 @@ export default class View {
     const markup = `
      <div class="message message-info">
             <p>${message}</p>
-          </div> -->
+          </div>
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);

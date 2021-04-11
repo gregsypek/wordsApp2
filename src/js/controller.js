@@ -252,47 +252,52 @@ const welcomeBack = function () {
   setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
 };
 
-const controlAddWord = async function (newWord) {
-  try {
-    //Show loading spinner
-    // createWordView.renderSpinner();
-    //Upload the new word data
-    const newCard = await model.uploadWord(newWord);
-    //Render word
-    console.log(model.state.card.cards);
-    await model.state.card.cards.push(newCard);
-    console.log(newCard);
-    console.log(model.state.group.activeGroup);
+const controlAddWord = function (newWord) {
+  //1. Upload the new word data
+  const newCard = model.uploadWord(newWord);
 
-    //3. load all previous cards if exists
-    const activeGroup = newCard.groupName;
+  //2. check if new card is unique
+  const activeGroup = newCard.groupName;
+  const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
 
-    // cardsView.renderCard(newCard);
-
-    cardsView.renderCard(model.getCardResultsPage(newCard));
-    // const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
-    const groupName = model.state.group.activeGroup
-      ? model.state.group.activeGroup
-      : 'default';
-    window.history.pushState(null, '', `#${groupName}`);
-    model.saveCardIntoCorrectGroup(newCard);
-    console.log(newCard);
-    //Success message
-    // createWordView.renderMessage();
-    groupMessageView.renderMessage('New word was successfully created :)');
-
-    setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
-    //Close form window
-
-    // setTimeout(function () {
-    //   createWordView.toggleWindow();
-    // }, MODAL_CLOSE_SEC * 1000);
-
-    createWordView.toggleWindow();
-  } catch (err) {
-    console.error('☠️', err);
-    createWordView.renderMessageError(err.message);
+  //3.prevent to add the same card
+  if (allPreviousCards.length > 0) {
+    if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
+      groupMessageView.renderMessage(
+        `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
+      );
+      createWordView.toggleWindow();
+      return;
+    }
+    groupMessageView.render();
   }
+
+  //4. Render new created word
+  model.state.card.cards.push(newCard);
+
+  if (model.state.card.messageDisplay) {
+    //a. clear message
+    cardsView.render(model.getCardResultsPage(newCard));
+    model.state.card.messageDisplay = false;
+  } else {
+    //b. add card next to previous one
+    cardsView.renderCard(model.getCardResultsPage(newCard));
+  }
+
+  //5.change ID in URL
+  window.history.pushState(null, '', `#${activeGroup}`);
+
+  //6. save card into group
+  model.saveCardIntoCorrectGroup(newCard);
+
+  //7. Display success message
+  groupMessageView.renderMessage('New word was successfully created :)');
+
+  //8. hide success message
+  setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+
+  //9. Close form window
+  createWordView.toggleWindow();
 };
 
 const init = function () {

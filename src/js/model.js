@@ -323,27 +323,23 @@ const initCookie = function () {
 
 initCookie();
 
-export const uploadWord = async function (newWord) {
+export const uploadWord = function (newWord) {
   // console.log(Object.entries(newWord));
-  try {
-    console.log(newWord);
-    // const group = state.group.activeGroup;
-    const word = {
-      id: Date.now(),
-      name: newWord.definition,
-      audio: newWord.audio,
-      phonetics: newWord.phonetics,
-      partOfSpeech: newWord.partOfSpeech,
-      activePartOfSpeech: state.click.clickedPart,
-      definitions: [newWord.explanation],
-      // groupName: newWord.group,
-      // groupName: group,
-    };
 
-    return word;
-  } catch (err) {
-    throw err;
-  }
+  const group = state.group.activeGroup ? state.group.activeGroup : 'default';
+  const word = {
+    id: Date.now(),
+    name: newWord.definition,
+    audio: newWord.audio,
+    phonetics: newWord.phonetics,
+    partOfSpeech: newWord.partOfSpeech,
+    activePartOfSpeech: state.click.clickedPart,
+    definitions: [newWord.explanation],
+    // groupName: newWord.group,
+    groupName: group,
+  };
+
+  return word;
 };
 
 clearGroups();

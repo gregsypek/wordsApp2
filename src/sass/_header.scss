@@ -54,7 +54,7 @@
       font-size: 1.6rem;
       // font-weight: bold;
       text-transform: uppercase;
-      background-color: $color-secondary;
+      background-color: $color-primary2;
       border: 1px solid black;
       cursor: pointer;
       padding: 0 1.5rem;
@@ -76,7 +76,7 @@
       }
 
       &:hover {
-        background-color: $color-primary2;
+        background-color: $color-secondary;
       }
     }
   }

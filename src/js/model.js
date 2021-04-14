@@ -193,7 +193,7 @@ export const createObjGroup = async function (name) {
   }
 };
 
-const persistGroups = function () {
+export const persistGroups = function () {
   localStorage.setItem('groups', JSON.stringify(state.group.groups));
 };
 
@@ -216,21 +216,21 @@ export const addCardIntoGroup2 = async function (
   group = state.group.activeGroup
 ) {
   try {
-    const index = state.group.groups.findIndex(obj => obj.groupName === group);
-    // console.log('grouop', state.group.activeGroup);
-    // console.log('index', index);
-    // console.log('here', state.group.groups);
-    //
-    // console.log(state.group.groups);
-    if (state.group.groups[index].cards)
-      state.group.groups[index].cards.push(card);
-    else return;
+    // const index = state.group.groups.findIndex(obj => obj.groupName === group);
+    const index = findGroupsIndex(group);
+
+    const cards = state.group.groups[index];
+    if (!cards) return;
+    cards.cards.push(card);
 
     // console.log('added card into  group', state.group.groups);
     persistGroups();
   } catch (err) {
     console.log(err);
   }
+};
+export const findGroupsIndex = function (name) {
+  return state.group.groups.findIndex(obj => obj.groupName === name);
 };
 
 // export const addCardIntoDefaultGroup = async function (card) {
@@ -342,4 +342,4 @@ export const uploadWord = function (newWord) {
   return word;
 };
 
-clearGroups();
+// clearGroups();

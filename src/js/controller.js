@@ -14,6 +14,7 @@ import allGroupsView from './views/allGroupsView.js';
 
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import 'core-js/stable'; // allows old browser display our code
+import { Object } from 'core-js';
 
 const controlSearchWords = async function () {
   try {
@@ -103,7 +104,10 @@ const controlClickCreateNewGroup = async function () {
     console.log(err);
   }
 };
-const controlClickRenameGroup = function () {
+const controlShowRenameGroupFromBar = function () {
+  //hide other form
+  groupNavView.hideCreateForm();
+  //show rename form
   groupNavView.toggleShowHiddenRenameForm();
 };
 ////////////////////////////////
@@ -186,10 +190,14 @@ const controlDeleteCard = function (cardId) {
 };
 
 const controlShowCreateGroupForm = function () {
+  //show create form
   groupNavView.toggleShowHiddenForm();
 };
 
-const controlNewGroupFromBar = function () {
+//THIS IS A PLUS BTN
+const controlShowNewGroupFormFromBar = function () {
+  //   //hide other form
+  groupNavView.hideRenameForm();
   // console.log(model.state);
   groupNavView.toggleShowHiddenForm();
 };
@@ -198,23 +206,37 @@ const controlLoadAllGroups = function () {
   allGroupsView.render(model.state.group.groups);
 };
 
-const controlPreviewGroup = async function () {
-  try {
-    //1. save the name of the selected group
-    const group = window.location.hash.slice(1);
+// const controlPreviewGroup = async function () {
+//   try {
+//     //1. save the name of the selected group
+//     const group = window.location.hash.slice(1);
 
-    if (!group) return;
-    //2. close modal window
-    allGroupsView.addHandlerPreview();
-    //3.change activeGroup to be able deleting cards
-    model.state.group.activeGroup = group;
-    //4. render all cards from selected group
-    controlLoadAllCardsFromGroup(group);
-    //5. render bar navigation
-    groupBarView.render(group);
-  } catch (err) {
-    console.log(err);
-  }
+//     if (!group) return;
+//     //2. close modal window
+//     allGroupsView.addHandlerPreview();
+//     //3.change activeGroup to be able deleting cards
+//     model.state.group.activeGroup = group;
+//     //4. render all cards from selected group
+//     controlLoadAllCardsFromGroup(group);
+//     //5. render bar navigation
+//     groupBarView.render(group);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+const controlPreviewGroup = function () {
+  //1. save the name of the selected group
+  const group = window.location.hash.slice(1);
+
+  if (!group) return;
+  //2. close modal window
+  allGroupsView.addHandlerPreview();
+  //3.change activeGroup to be able deleting cards
+  model.state.group.activeGroup = group;
+  //4. render all cards from selected group
+  controlLoadAllCardsFromGroup(group);
+  //5. render bar navigation
+  groupBarView.render(group);
 };
 
 const controlCardPagination = function (cardId, goToPage) {
@@ -226,10 +248,11 @@ const controlCardPagination = function (cardId, goToPage) {
   //2.update body and footer of selected card
   cardsView.updateMarkup(model.getCardResultsPage(cardToChange[0], goToPage));
 
-  // } else return;
+  // } else return;ń
 };
 
 const welcomeBack = function () {
+  // allGroupsView.render(model.state.group.groups);
   const activeGroup = model.state.group.activeGroup;
   if (!activeGroup) {
     //TODO if there is a better way to reset url do it!
@@ -250,6 +273,7 @@ const welcomeBack = function () {
   controlLoadAllCardsFromGroup(activeGroup);
   groupMessageView.renderMessage('Welcome back :)');
   setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+  // allGroupsView.render(model.state.group.groups);
 };
 
 const controlAddWord = function (newWord) {
@@ -300,18 +324,57 @@ const controlAddWord = function (newWord) {
   createWordView.toggleWindow();
 };
 
+const controlRenameGroup = function () {
+  //get old name of the group
+  const oldName = window.location.hash.slice(1);
+
+  //get new name from the rename form
+  const newName = groupNavView.getNewName();
+
+  //replace old name with new name
+  model.saveGroupAsActive(newName);
+
+  // const index = model.state.group.groups.findIndex(
+  //   obj => obj.groupName === oldName
+  // );
+
+  const index = model.findGroupsIndex(oldName);
+  const groups = model.state.group.groups;
+  const oldGroup = groups[index];
+  if (!oldGroup) {
+    groupBarView.render(newName);
+    // window.history.pushState(null, '', `#${newName}`);
+    return;
+  }
+  oldGroup.groupName = newName;
+
+  oldGroup.cards.map(card => (card.groupName = newName));
+  // model.state.group.groups.splice(index, 0, oldGroup);
+
+  window.history.pushState(null, '', `#${newName}`);
+  model.persistGroups();
+  // model.initCookie();
+  groupBarView.render(newName);
+  // allGroupsView.render(model.state.group.groups);
+};
+
 const init = function () {
+  console.log(model.state.group.groups);
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   wordView.addHandlerRender();
 
   groupNavView.addHandlerClick(controlShowCreateGroupForm);
+
   groupNavView.addHandlerCreateGroup(controlClickCreateNewGroup);
-  groupBarView.addHandlerRenameGroup(controlClickRenameGroup);
+  groupNavView.addHandlerRenameGroup(controlRenameGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
   cardsView.addHandlerPage(controlCardPagination);
-  groupBarView.addHandlerNewGroup(controlNewGroupFromBar);
+
+  groupBarView.addHandlerShowNewGroupForm(controlShowNewGroupFormFromBar);
+  groupBarView.addHandlerShowRenameGroupForm(controlShowRenameGroupFromBar);
+
   allGroupsView.addHandleClick(controlLoadAllGroups);
   allGroupsView.addHandlerRender(controlPreviewGroup);
   createWordView.addHandlerUpload(controlAddWord);

@@ -3,23 +3,25 @@ import icons from '../../img/icons.svg';
 class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
+  _renameBtn = document.querySelector('.main__btn--rename');
   _messageError = '';
   // _message = '';
 
-  addHandlerNewGroup(handler) {
+  addHandlerShowNewGroupForm(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const newGroup = e.target.closest('.main__btn--newGroup');
       if (!newGroup) return;
       handler();
     });
   }
-  addHandlerRenameGroup(handler) {
+  addHandlerShowRenameGroupForm(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const rename = e.target.closest('.main__btn--rename');
       if (!rename) return;
       handler();
     });
   }
+
   _generateMarkup() {
     const name = this._data;
     return `

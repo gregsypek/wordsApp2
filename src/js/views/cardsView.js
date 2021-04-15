@@ -81,7 +81,7 @@ class GroupView extends View {
     // console.log(card);
 
     // let index = this._data.click.clickedPart;
-    // TODO CARD DISPLAY ONLY ONE FIRST EXPLANATION. ADD MORE IN A LIST OF CHOOSE LATER
+
     const curPage = this._data.page;
     const numPages = this._data.numPages;
     return `

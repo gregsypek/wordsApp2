@@ -21,10 +21,19 @@ class AllGroupsView extends View {
       handler();
     });
   }
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(event =>
-      window.addEventListener(event, handler)
-    );
+  // addHandlerRender(handler) {
+  //   ['hashchange', 'load'].forEach(event =>
+  //     window.addEventListener(event, handler)
+  //   );
+  // }
+  addHandlerLoadSelectedGroup(handler) {
+    this._parentElement.addEventListener('click', e => {
+      const selectedGroup = e.target.closest('.preview__link');
+      if (!selectedGroup) return;
+      const goToGroup = selectedGroup.dataset.group;
+      console.log(selectedGroup, goToGroup);
+      handler(goToGroup);
+    });
   }
 
   addHandlerPreview() {
@@ -58,8 +67,8 @@ class AllGroupsView extends View {
      ${groups
        .map(group => {
          return `
-          <li class="preview">
-              <a href="#${group.groupName}" class="preview__link">${group.groupName}</a>
+          <li class="preview" >
+              <a href="#${group.groupName}" class="preview__link" data-group="${group.groupName}">${group.groupName}</a>
               <button class="btn--minus">
             
             

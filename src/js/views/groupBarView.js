@@ -3,7 +3,7 @@ import icons from '../../img/icons.svg';
 class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
-  _renameBtn = document.querySelector('.main__btn--rename');
+  _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
   _messageError = '';
   // _message = '';
 
@@ -20,6 +20,10 @@ class GroupBarView extends View {
       if (!rename) return;
       handler();
     });
+  }
+  addHandlerDeleteGroup(handler) {
+    if (!this._deleteGroupBtn) return;
+    this._deleteGroupBtn.addEventListener('click', () => handler());
   }
 
   _generateMarkup() {
@@ -40,7 +44,7 @@ class GroupBarView extends View {
                     <use href="${icons}#icon-plus"></use>
                   </svg>
                 </button>
-                <button class="main__btn main__btn--edit">
+                <button class="main__btn main__btn--edit main__btn--deleteGroup">
                   <svg class="bar__icon">
                     <use href="${icons}#icon-minus"></use>
                   </svg>

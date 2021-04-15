@@ -9,9 +9,9 @@ class WordView extends View {
     'You have no results. Please try again or search another one. You can also create new word and add him into group.';
   _message = '';
 
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
-  }
+  // addHandlerRender(handler) {
+  //   ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
+  // }
 
   addHandlerClick(handler) {
     this._parentElement

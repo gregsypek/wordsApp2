@@ -101,6 +101,7 @@ const controlClickCreateNewGroup = async function () {
     //9. change Id in URL
     window.history.pushState(null, '', `#${group}`);
     model.persistGroups();
+    groupBarView.addHandlerDeleteGroup(controlDeleteGroup);
   } catch (err) {
     console.log(err);
   }
@@ -207,6 +208,10 @@ const controlShowNewGroupFormFromBar = function () {
 const controlLoadAllGroups = function () {
   allGroupsView.render(model.state.group.groups);
 };
+const controlLoadBar = function (group) {
+  //check if there is any group created
+  if (model.state.group.groups.length > 0) groupBarView.render(group);
+};
 
 // const controlPreviewGroup = async function () {
 //   try {
@@ -272,10 +277,10 @@ const welcomeBack = function () {
 
   //render all cards and group name in group bar navigation
   //OLD VERSION
-  // groupBarView.render(activeGroup);
-  // controlLoadAllCardsFromGroup(activeGroup);
-  groupBarView.render(window.location.hash.slice(1));
-  controlLoadAllCardsFromGroup(window.location.hash.slice(1));
+  groupBarView.render(activeGroup);
+  controlLoadAllCardsFromGroup(activeGroup);
+  // groupBarView.render(window.location.hash.slice(1));
+  // controlLoadAllCardsFromGroup(window.location.hash.slice(1));
   // allGroupsView.render(model.state.group.groups);
   groupMessageView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
@@ -358,9 +363,11 @@ const controlRenameGroup = function () {
   // model.state.group.groups.splice(index, 0, oldGroup);
 
   window.history.pushState(null, '', `#${newName}`);
+
+  groupBarView.render(newName);
+
   model.persistGroups();
   // model.initCookie();
-  groupBarView.render(newName);
   // allGroupsView.render(model.state.group.groups);
 };
 const controlDeleteGroup = function () {
@@ -382,6 +389,8 @@ const controlLoadSelectedGroup = function (goToGroup) {
 };
 
 const init = function () {
+  console.log(model.state.group.activeGroup);
+  groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender();

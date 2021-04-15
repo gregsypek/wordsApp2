@@ -26,6 +26,7 @@ class AllGroupsView extends View {
   //     window.addEventListener(event, handler)
   //   );
   // }
+
   addHandlerLoadSelectedGroup(handler) {
     this._parentElement.addEventListener('click', e => {
       const selectedGroup = e.target.closest('.preview__link');

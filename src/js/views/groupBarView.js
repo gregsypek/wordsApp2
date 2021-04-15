@@ -6,6 +6,9 @@ class GroupBarView extends View {
   _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
   _messageError = '';
   // _message = '';
+  addHandlerRender(handler) {
+    window.addEventListener('load', handler);
+  }
 
   addHandlerShowNewGroupForm(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -22,10 +25,12 @@ class GroupBarView extends View {
     });
   }
   addHandlerDeleteGroup(handler) {
-    if (!this._deleteGroupBtn) return;
-    this._deleteGroupBtn.addEventListener('click', () => handler());
+    this._parentElement.addEventListener('click', function (e) {
+      const deleteBtn = e.target.closest('.main__btn--deleteGroup');
+      if (!deleteBtn) return;
+      handler();
+    });
   }
-
   _generateMarkup() {
     const name = this._data;
     return `

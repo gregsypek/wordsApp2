@@ -6,8 +6,7 @@ class GroupNavView extends View {
   _createGroupFromBar = document.querySelector('.main__btn--newGroup');
   _createGroupBtnForm = document.querySelector('.create');
   _renameGroupBtnForm = document.querySelector('.rename');
-  _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
-
+  // _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
   getNewGroup() {
     const group = this._parentElement
       .querySelector('.create__field')
@@ -31,6 +30,7 @@ class GroupNavView extends View {
   _clearInput() {
     this._parentElement.querySelector('.create__field').value = '';
   }
+
   addHandlerClick(handler) {
     this._showFormCreateGroup.addEventListener('click', () => handler());
   }

@@ -26,6 +26,9 @@ export default class View {
   _clear() {
     this._parentElement.innerHTML = '';
   }
+  clear() {
+    this._parentElement.innerHTML = '';
+  }
 
   renderSpinner() {
     const markup = `

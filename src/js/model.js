@@ -187,6 +187,7 @@ export const createObjGroup = async function (name) {
       cards: [],
     };
     state.group.groups.push(group);
+    saveGroupAsActive(name);
     // console.log('create new objGroup', state.group.groups);
   } catch (err) {
     console.log(err);
@@ -194,7 +195,8 @@ export const createObjGroup = async function (name) {
 };
 
 export const persistGroups = function () {
-  localStorage.setItem('groups', JSON.stringify(state.group.groups));
+  // localStorage.setItem('groups', JSON.stringify(state.group.groups));
+  localStorage.setItem('group', JSON.stringify(state.group));
 };
 
 // export const addCardIntoGroup = async function (card) {
@@ -311,13 +313,13 @@ export const getCardResultsPage = function (card, page = state.card.page) {
 };
 
 const initCookie = function () {
-  const storage = localStorage.getItem('groups');
+  const storage = localStorage.getItem('group');
   if (storage) {
-    state.group.groups = JSON.parse(storage);
+    state.group = JSON.parse(storage);
 
     //save last created group as activeGroup
-    state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
-    // console.log(state.group.activeGroup);
+    // if (!state.group.activeGroup) return;
+    // state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
   }
 };
 

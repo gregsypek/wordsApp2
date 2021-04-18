@@ -11,11 +11,11 @@ import groupMessageView from './views/groupMessageView.js';
 import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
 import allGroupsView from './views/allGroupsView.js';
-import initialCreateNewGroupView from './views/initialCreateNewGroupView.js';
 
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import 'core-js/stable'; // allows old browser display our code
 import { Object } from 'core-js';
+import initialCreateNewGroupView from './views/initialCreateNewGroupView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -40,6 +40,8 @@ const controlSearchWords = async function () {
     model.saveSearchedWord(model.state.word);
 
     wordView.addHandlerClick(controlClickPartOfSpeech);
+
+    // groupNavView.addHandlerCreate(controlClickCreateNewGroup);
   } catch (err) {
     wordView.renderMessageError();
   }
@@ -67,9 +69,8 @@ const controlClickPartOfSpeech = function (markPartClicked) {
 
 const controlClickCreateNewGroup = async function () {
   try {
-    //0. hide createGroup form and initial create new Group
+    //0. hide createGroup form
     groupNavView.toggleShowHiddenForm();
-    initialCreateNewGroupView.clear();
     //1. get new created group name
     const group = groupNavView.getNewGroup();
     if (!group) return;
@@ -83,7 +84,7 @@ const controlClickCreateNewGroup = async function () {
     model.state.card.messageDisplay = true;
 
     //4. save group as active
-    // model.saveGroupAsActive(group);
+    model.saveGroupAsActive(group);
     // console.log(group);
     // // 5 change flag newGroup
     // model.state.newGroup = true;
@@ -101,7 +102,7 @@ const controlClickCreateNewGroup = async function () {
     //9. change Id in URL
     window.history.pushState(null, '', `#${group}`);
     model.persistGroups();
-    console.log(model.state.group.activeGroup);
+    groupBarView.addHandlerDeleteGroup(controlDeleteGroup);
   } catch (err) {
     console.log(err);
   }
@@ -259,28 +260,18 @@ const controlCardPagination = function (cardId, goToPage) {
 };
 
 const welcomeBack = function () {
-  console.log(model.state.group.activeGroup);
-  console.log(model.state.group.groups);
-  initialCreateNewGroupView.clear();
-  // groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
   // allGroupsView.render(model.state.group.groups);
-  // const lastGroup =
-  //   model.state.group.groups[model.state.group.groups.length - 1].groupName;
-  const activeGroup = model.state.group.activeGroup
-    ? model.state.group.activeGroup
-    : '';
-  // model.state.group.groups[model.state.group.groups.length - 1].groupName;
-
-  // if (!lastGroup) {
+  const activeGroup = model.state.group.activeGroup;
   if (!activeGroup) {
     //TODO if there is a better way to reset url do it!
-    initialCreateNewGroupView.render();
+    //reset url
     window.history.pushState(null, '', `#${''}`);
+
     return;
   }
 
   //load all cards from groups into cards array  to be able change page on each card
-
+  if (!model.state.group.groups) return;
   model.state.card.cards = model.state.group.groups.flatMap(group =>
     model.loadAllCardsFromGroup(group.groupName)
   );
@@ -295,9 +286,6 @@ const welcomeBack = function () {
   groupMessageView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
   setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
-};
-const welcome = function () {
-  initialCreateNewGroupView.render();
 };
 
 const controlAddWord = function (newWord) {
@@ -384,39 +372,19 @@ const controlRenameGroup = function () {
   // allGroupsView.render(model.state.group.groups);
 };
 const controlDeleteGroup = function () {
-  //find active group
   console.log(model.state.group.activeGroup);
+  console.log('delete');
+  //find active group
   const index = model.findGroupsIndex(model.state.group.activeGroup);
-
-  // delete it
   model.state.group.groups.splice(index, 1);
-  console.log('1', model.state.group.activeGroup);
-
-  //change active group
-  if (model.state.group.groups.length > 0) {
-    model.state.group.activeGroup =
-      model.state.group.groups[model.state.group.groups.length - 1].groupName;
-  } else {
-    model.state.group.activeGroup = '';
-    groupBarView.clear();
-    initialCreateNewGroupView.render();
-    window.history.pushState(null, '', `#${''}`);
-    cardsView.clear();
-  }
-  //load all groups in modal view
-  controlLoadAllGroups();
-
-  //load all cards from last group
-  controlLoadAllCardsFromGroup(model.state.group.activeGroup);
-
-  //change navigation with proper name group
-  groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
-
+  console.log(model.state.group.groups);
+  // delete it
   //reset url
-  window.history.pushState(null, '', `#${model.state.group.activeGroup}`);
-  console.log('2', model.state.group.activeGroup);
-
-  model.persistGroups();
+  window.history.pushState(null, '', `#${''}`);
+  controlLoadAllGroups();
+  // initialCreateNewGroupView.render();
+  //rerender rest groups
+  // model.persistGroups();
 };
 const controlLoadSelectedGroup = function (goToGroup) {
   //1. save the name of the selected group
@@ -426,24 +394,21 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //2. close modal window
   allGroupsView.addHandlerPreview();
   //3.change activeGroup to be able deleting cards
-  // model.state.group.activeGroup = group;
-  model.saveGroupAsActive(group);
-  console.log('i changed active group to: ', group);
+  model.state.group.activeGroup = group;
   //4. render all cards from selected group
   controlLoadAllCardsFromGroup(group);
   //5. render bar navigation
   groupBarView.render(group);
-  model.persistGroups();
 };
 
 const init = function () {
-  welcome();
-
+  console.log(model.state.group.activeGroup);
+  groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender();
 
-  initialCreateNewGroupView.addHandlerClick(controlShowCreateGroupForm);
+  groupNavView.addHandlerClick(controlShowCreateGroupForm);
 
   groupNavView.addHandlerCreateGroup(controlClickCreateNewGroup);
   groupNavView.addHandlerRenameGroup(controlRenameGroup);

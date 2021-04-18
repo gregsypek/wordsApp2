@@ -14,9 +14,9 @@ class GroupView extends View {
       handler(url);
     });
   }
-  clear() {
-    this._parentElement.innerHTML = '';
-  }
+  // clear() {
+  //   this._parentElement.innerHTML = '';
+  // }
 
   addHandlerPage(handler) {
     this._parentElement.addEventListener('click', function (e) {

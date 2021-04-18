@@ -2,7 +2,7 @@ import View from './View.js';
 
 class GroupNavView extends View {
   _parentElement = document.querySelector('.main__input');
-  _showFormCreateGroup = document.querySelector('.main__btn--create-group');
+  // _showFormCreateGroup = document.querySelector('.main__btn--create-group');
   _createGroupFromBar = document.querySelector('.main__btn--newGroup');
   _createGroupBtnForm = document.querySelector('.create');
   _renameGroupBtnForm = document.querySelector('.rename');
@@ -13,7 +13,7 @@ class GroupNavView extends View {
       .value.toUpperCase()
       .trim();
     this._clearInput();
-    console.log(group);
+    console.log('new group', group);
     return group;
   }
   getNewName() {
@@ -31,9 +31,11 @@ class GroupNavView extends View {
     this._parentElement.querySelector('.create__field').value = '';
   }
 
-  addHandlerClick(handler) {
-    this._showFormCreateGroup.addEventListener('click', () => handler());
-  }
+  // addHandlerClick(handler) {
+  //   // if (!this._showFormCreateGroup) return;
+
+  //   this._showFormCreateGroup.addEventListener('click', () => handler());
+  // }
   addHandlerPlus(handler) {
     this._createGroupFromBar.addEventListener('click', () => handler());
   }
@@ -66,26 +68,5 @@ class GroupNavView extends View {
     //move up form rename to be in place create form place
     this._renameGroupBtnForm.style.transform = 'translateY(-5.6rem)';
   }
-
-  // _generateMarkup() {
-  //   return `
-  //     <form class="create hidden">
-  //         <input
-  //           type="text"
-  //           placeholder="Please name your group..."
-  //           class="field create__field"
-  //         />
-  //         <button class="btn create__btn">Create</button>
-  //       </form>
-  //       <form class="rename hidden">
-  //         <input
-  //           type="text"
-  //           placeholder="Please type your new name..."
-  //           class="field rename__field"
-  //         />
-  //         <button class="btn rename__btn">Rename</button>
-  //     </form>
-  //   `;
-  // }
 }
 export default new GroupNavView();

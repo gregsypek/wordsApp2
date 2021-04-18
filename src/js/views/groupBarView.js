@@ -3,7 +3,7 @@ import icons from '../../img/icons.svg';
 class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
-  _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
+
   _messageError = '';
   // _message = '';
   addHandlerRender(handler) {
@@ -31,6 +31,13 @@ class GroupBarView extends View {
       handler();
     });
   }
+  addHandlerSortCards(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const sortBtn = e.target.closest('.main__btn--sort');
+      if (!sortBtn) return;
+      handler();
+    });
+  }
   _generateMarkup() {
     const name = this._data;
     return `
@@ -54,7 +61,7 @@ class GroupBarView extends View {
                     <use href="${icons}#icon-minus"></use>
                   </svg>
                 </button>
-                <button class="main__btn main__btn--edit">
+                <button class="main__btn main__btn--edit main__btn--sort">
                   <svg class="bar__icon">
                     <use href="${icons}#icon-bar-graph"></use>
                   </svg>

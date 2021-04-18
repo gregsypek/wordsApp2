@@ -436,6 +436,36 @@ const controlLoadSelectedGroup = function (goToGroup) {
   model.persistGroups();
 };
 
+const controlSortCards = function () {
+  // get all cards from active group
+  const activeGroup = model.state.group.activeGroup;
+  const cards = model.loadAllCardsFromGroup(activeGroup);
+
+  //sort cards
+  cards.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
+  //display spinner
+  cardsView.renderSpinner();
+
+  //replace cards in state object
+  const index = model.findGroupsIndex(activeGroup);
+  model.state.group.groups[index].cards = cards;
+
+  //clear spinner
+  cardsView.clear();
+
+  //render sorted cards
+  cards.map(card => cardsView.renderCard(card));
+};
+
 const init = function () {
   welcome();
 
@@ -459,6 +489,7 @@ const init = function () {
   allGroupsView.addHandlerLoadSelectedGroup(controlLoadSelectedGroup);
   createWordView.addHandlerUpload(controlAddWord);
   groupBarView.addHandlerDeleteGroup(controlDeleteGroup);
+  groupBarView.addHandlerSortCards(controlSortCards);
 };
 init();
 //TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

@@ -4,6 +4,7 @@ class GroupNavView extends View {
   _parentElement = document.querySelector('.main__input');
   // _showFormCreateGroup = document.querySelector('.main__btn--create-group');
   _createGroupFromBar = document.querySelector('.main__btn--newGroup');
+  _sortBtn = document.querySelector('.main__btn--sort');
   _createGroupBtnForm = document.querySelector('.create');
   _renameGroupBtnForm = document.querySelector('.rename');
   // _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');

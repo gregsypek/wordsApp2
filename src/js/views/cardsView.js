@@ -18,6 +18,10 @@ class GroupView extends View {
   //   this._parentElement.innerHTML = '';
   // }
 
+  // addHanlderPrintCards() {
+  //   this._parentElement.classList.add('.printCards');
+  // }
+
   addHandlerPage(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--page');

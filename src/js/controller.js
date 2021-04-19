@@ -231,20 +231,6 @@ const controlLoadBar = function (group) {
 //     console.log(err);
 //   }
 // };
-// const controlPreviewGroup = function () {
-//   //1. save the name of the selected group
-//   const group = window.location.hash.slice(1);
-
-//   if (!group) return;
-//   //2. close modal window
-//   allGroupsView.addHandlerPreview();
-//   //3.change activeGroup to be able deleting cards
-//   model.state.group.activeGroup = group;
-//   //4. render all cards from selected group
-//   controlLoadAllCardsFromGroup(group);
-//   //5. render bar navigation
-//   groupBarView.render(group);
-// };
 
 const controlCardPagination = function (cardId, goToPage) {
   //1.find card where user click page btn
@@ -466,6 +452,13 @@ const controlSortCards = function () {
   cards.map(card => cardsView.renderCard(card));
 };
 
+const controlPrintCards = function () {
+  console.log('print');
+  // window.location = 'printCards.html';
+  window.print();
+  //
+};
+
 const init = function () {
   welcome();
 
@@ -490,6 +483,7 @@ const init = function () {
   createWordView.addHandlerUpload(controlAddWord);
   groupBarView.addHandlerDeleteGroup(controlDeleteGroup);
   groupBarView.addHandlerSortCards(controlSortCards);
+  groupBarView.addHandlerPrintCards(controlPrintCards);
 };
 init();
 //TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

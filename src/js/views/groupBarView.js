@@ -3,7 +3,7 @@ import icons from '../../img/icons.svg';
 class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
-
+  _printCardsElement = document.getElementById('printCards');
   _messageError = '';
   // _message = '';
   addHandlerRender(handler) {
@@ -38,6 +38,29 @@ class GroupBarView extends View {
       handler();
     });
   }
+  // printCards(el) {
+  //   console.log('_printCardsElement', this._printCardsElement);
+  //   // const restorePage = document.body.innerHTML;
+  //   // const printContent = el.innerHTML;
+  //   // document.body.innerHTML = printContent;
+  //   // window.print();
+  //   // const restorePage = document.body.innerHTML;
+  //   const printContent = el.innerHTML;
+  //   document.body.innerHTML = printContent;
+  //   window.print();
+
+  //   // document.body.innerHTML = restorePage;
+  //   location.reload();
+  // }
+  addHandlerPrintCards(handler) {
+    this._parentElement.addEventListener('click', e => {
+      const printBtn = e.target.closest('.main__btn--print');
+      if (!printBtn) return;
+      // this.printCards(this._printCardsElement);
+
+      handler();
+    });
+  }
   _generateMarkup() {
     const name = this._data;
     return `
@@ -66,7 +89,7 @@ class GroupBarView extends View {
                     <use href="${icons}#icon-bar-graph"></use>
                   </svg>
                 </button>
-                <button class="main__btn main__btn--edit">
+                <button class="main__btn main__btn--edit main__btn--print">
                   <svg class="bar__icon">
                     <use href="${icons}#icon-print"></use>
                   </svg>

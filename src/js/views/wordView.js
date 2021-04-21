@@ -68,19 +68,19 @@ class WordView extends View {
           <div class="aside__footer hidden">
             <button class="btn--page">
               <svg class="bar__icon">
-                <use href="./src/img/icons.svg#icon-chevron-left"></use>
+                <use href="${icons}#icon-chevron-left"></use>
               </svg>
               <span>Page 1</span>
             </button>
             <button class="btn--page">
               <span>Page 2</span>
               <svg class="bar__icon">
-                <use href="./src/img/icons.svg#icon-chevron-right"></use>
+                <use href="${icons}#icon-chevron-right"></use>
               </svg>
             </button>
             <button class="btn--print">
               <svg class="bar__icon">
-                <use href="./src/img/icons.svg#icon-print"></use>
+                <use href="${icons}#icon-print"></use>
               </svg>
             </button>
           </div>

@@ -12,6 +12,7 @@ import groupNavView from './views/groupNavView.js';
 import groupBarView from './views/groupBarView.js';
 import allGroupsView from './views/allGroupsView.js';
 import initialCreateNewGroupView from './views/initialCreateNewGroupView.js';
+import listView from './views/listView.js';
 
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import 'core-js/stable'; // allows old browser display our code
@@ -420,6 +421,8 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //5. render bar navigation
   groupBarView.render(group);
   model.persistGroups();
+  //6 render print list
+  listView.render(model.loadAllCardsFromGroup(goToGroup));
 };
 
 const controlSortCards = function () {

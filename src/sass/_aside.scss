@@ -143,15 +143,19 @@
       padding-left: 1rem;
       border: 1px solid $color-primary;
     }
+    &--footer {
+      margin-top: 3rem;
+    }
   }
 
   &__footer {
     display: flex;
     align-content: center;
     background-color: $color-secondary;
+    justify-content: space-around;
     .btn--page {
       display: flex;
-      flex-basis: 50%;
+      // flex-basis: 50%;
       align-items: center;
       justify-content: center;
       font-size: 1.4rem;

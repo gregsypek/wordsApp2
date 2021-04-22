@@ -421,25 +421,30 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //5. render bar navigation
   groupBarView.render(group);
   model.persistGroups();
-  //6 render print list
-  listView.render(model.loadAllCardsFromGroup(goToGroup));
+  //6 render  sorted alphabetically print list
+
+  let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
+  console.log('here', cards);
+  listView.render(cards);
 };
 
 const controlSortCards = function () {
   // get all cards from active group
   const activeGroup = model.state.group.activeGroup;
-  const cards = model.loadAllCardsFromGroup(activeGroup);
+  const cards = model.loadAllCardsFromGroup(model.state.group.activeGroup);
+  console.log('i will sort this:', cards);
 
   //sort cards
-  cards.sort(function (a, b) {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  });
+  // cards.sort(function (a, b) {
+  //   if (a.name < b.name) {
+  //     return -1;
+  //   }
+  //   if (a.name > b.name) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
+  model.sortCards(cards);
 
   //display spinner
   cardsView.renderSpinner();

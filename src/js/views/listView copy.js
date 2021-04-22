@@ -55,7 +55,7 @@ class ListView extends View {
       }, {});
     }
     let groupedLetters = groupBy(cards, 'name');
-    //CARDS ARE ALPHABETICALLY SORTED!
+
     const allLetters = cards.map(card => card.name.slice(0, 1).toUpperCase());
     let uniqueletters = [...new Set(allLetters)];
     console.log(uniqueletters);
@@ -68,52 +68,32 @@ class ListView extends View {
     return `
      <div class="aside__print aside__results">
       <ul class="aside__list">
-    ${uniqueletters
-      .map(letter => {
+    ${cards
+      .map(card => {
         return `
        
-          <p class="nav__icon aside__print--letter">${letter}</p>         
-         
-          ${groupedLetters[letter]
-            .map(card => {
-              return `
-            <li class="aside__item">
-              <strong class="aside__link--eng">${card.name}</strong>&nbsp;          
-                <span class="aside__link--type aside__print--eng">${card.phonetics}
-                </span>
-                <span class="aside__link--type aside__print--eng"><strong>${card.partOfSpeech}</strong>
-                </span>
-                <p class="aside__link--def aside__print--def">${card.definitions[0]}</p>
-            </li>  
-            `;
-            })
-            .join('')}
+          <p class="nav__icon aside__print--letter">${card.name
+            .slice(0, 1)
+            .toUpperCase()}</p>         
+          <li class="aside__item">
+            <strong class="aside__link--eng">${
+              card.name
+            }</strong>&nbsp;          
+              <span class="aside__link--type aside__print--eng">${
+                card.phonetics
+              }
+              </span>
+              <p class="aside__link--def aside__print--def">${
+                card.definitions[0]
+              }</p>
+          </li>  
+      
       `;
       })
       .join('')}
    
          </ul>
-         <div class="aside__footer aside__print--footer">
-          <button class="btn--page">
-            <svg class="bar__icon">
-              <use href="${icons}#icon-chevron-left"></use>
-            </svg>
-            <span>Page 1</span>
-          </button>
-          <button class="btn--page">
-            <span>Page 2</span>
-            <svg class="bar__icon">
-              <use href="${icons}#icon-chevron-right"></use>
-            </svg>
-          </button>
-            <button class="btn--print ">
-              <svg class="bar__icon">
-                <use href="${icons}#icon-print"></use>
-              </svg>
-            </button>
-        </div>
           </div>
-          
     `;
   }
 

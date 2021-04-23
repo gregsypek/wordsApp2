@@ -6,39 +6,24 @@ class ListView extends View {
   _message = '';
 
   addHandlerPage(handler) {
-    // this._parentElement.addEventListener('click', function (e) {
-    //   const btn = e.target.closest('.btn--page');
-    //   if (!btn) return;
-    //   const goToPage = +btn.dataset.goto;
-    //   const card = e.target.closest('.main__card-box');
-    //   if (!card) return;
-    //   const cardId = +card.dataset.id;
-    //   // console.log(cardId);
-    //   // console.log(goToPage);
-    //   handler(cardId, goToPage);
-    // });
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--page');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+      console.log(goToPage);
+      handler(goToPage);
+    });
   }
 
-  updateMarkup(card) {
-    // const cardBoxes = this._parentElement.querySelectorAll('.main__card-box');
-    // const cardBoxesIDs = Array.from(cardBoxes).map(card => card.dataset.id);
-    // const index = cardBoxesIDs.findIndex(id => Number(id) === card.id);
-    // const cardToUpdate = cardBoxes[index];
-    // const newDefinitions = card.renderDefinitions;
-    // // console.log(oldDefinitions);
-    // // console.log('newDefinitions', newDefinitions);
-    // cardToUpdate.querySelector(
-    //   '.card__sentance'
-    // ).innerHTML = newDefinitions.map(this._generateMarkupDefinitions).join('');
-    // //////////////
-    // cardToUpdate.querySelector(
-    //   '.main__card-footer'
-    // ).innerHTML = this._generateFooterCard(card);
-    // /////////////
+  updateFooter(list) {
+    const newList = list.renderResults;
+    this._parentElement.querySelector(
+      '.aside__print--footer'
+    ).innerHTML = this._generateFooterList(list);
   }
 
   _generateMarkup() {
-    const cards = this._data;
+    const cards = this._data.renderResults;
     console.log(cards);
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -67,11 +52,10 @@ class ListView extends View {
     // console.log('he', Object.entries(groupedLetters));
     return `
      <div class="aside__print aside__results">
-      <ul class="aside__list">
+      <ul class="aside__list aside__print--list">
     ${uniqueletters
       .map(letter => {
         return `
-       
           <p class="nav__icon aside__print--letter">${letter}</p>         
          
           ${groupedLetters[letter]
@@ -94,48 +78,36 @@ class ListView extends View {
    
          </ul>
          <div class="aside__footer aside__print--footer">
-          <button class="btn--page">
-            <svg class="bar__icon">
-              <use href="${icons}#icon-chevron-left"></use>
-            </svg>
-            <span>Page 1</span>
-          </button>
-          <button class="btn--page">
-            <span>Page 2</span>
-            <svg class="bar__icon">
-              <use href="${icons}#icon-chevron-right"></use>
-            </svg>
-          </button>
-            <button class="btn--print ">
-              <svg class="bar__icon">
-                <use href="${icons}#icon-print"></use>
-              </svg>
-            </button>
+          ${this._generateFooterList()}
+          
         </div>
           </div>
           
     `;
   }
 
-  _generateFooterCard(pageData = false) {
-    // console.log('this._data');
+  _generateFooterList(pageData = false) {
+    console.log('this._data', this._data);
 
     const curPage = pageData ? pageData.page : this._data.page;
     const numPages = pageData ? pageData.numPages : this._data.numPages;
     //Page 1, and there are other pages
-    // console.log('curPage', curPage);
-    // console.log('numPages', numPages);
+    console.log('curPage', curPage);
+    console.log('numPages', numPages);
     if (curPage === 1 && numPages > 1) {
       return `
+       <button class="btn--page btn--prev">
+          
+        </button>
         <button data-goto="${curPage + 1}" class="btn--page btn--next">
           <span>Page ${curPage + 1}</span>
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-right"></use>
             </svg>
         </button>
-        <button class="btn--print">
+        <button class="btn--print btn__print--print">
             <svg class="bar__icon">
-              <use href="./src/img/icons.svg#icon-print"></use>
+              <use href="${icons}#icon-print"></use>
             </svg>
           </button>
       `;
@@ -149,9 +121,9 @@ class ListView extends View {
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
-        <button class="btn--print">
+        <button class="btn--print btn__print--print">
             <svg class="bar__icon">
-              <use href="./src/img/icons.svg#icon-print"></use>
+              <use href="${icons}#icon-print"></use>
             </svg>
           </button>
       `;
@@ -159,27 +131,38 @@ class ListView extends View {
     //Other page
     if (curPage < numPages) {
       return `
-       <button data-goto="${curPage + 1}" class="btn--page btn--next">
-        <span>Page ${curPage + 1}</span>
-          <svg class="bar__icon">
-            <use href="${icons}#icon-chevron-right"></use>
-          </svg>
-        </button>
-         <button data-goto="${curPage - 1}" class="btn--page btn--prev">
-          <svg class="bar__icon">
-            <use href="${icons}#icon-chevron-left"></use>
-          </svg>
-          <span>Page ${curPage - 1}</span>
-        </button>
-        <button class="btn--print">
+
+        <button data-goto="${curPage - 1}"  class="btn--page btn--next">
             <svg class="bar__icon">
-              <use href="./src/img/icons.svg#icon-print"></use>
+              <use href="${icons}#icon-chevron-left"></use>
+            </svg>
+            <span>${curPage - 1}</span>
+          </button>
+          <button data-goto="${curPage + 1}"  class="btn--page">
+            <span>${curPage + 1}</span>
+            <svg class="bar__icon">
+              <use href="${icons}#icon-chevron-right"></use>
             </svg>
           </button>
+            <button class="btn--print btn__print--print">
+              <svg class="bar__icon">
+                <use href="${icons}#icon-print"></use>
+              </svg>
+            </button>
       `;
     }
     //Page 1, and tere anr no other pages
-    return '';
+    return `
+        <button class="btn--page btn--prev">
+        </button>
+        <button class="btn--page btn--next">
+        </button>
+         <button class="btn--print btn__print--print">
+          <svg class="bar__icon">
+            <use href="${icons}#icon-print"></use>
+          </svg>
+        </button>
+    `;
   }
 }
 

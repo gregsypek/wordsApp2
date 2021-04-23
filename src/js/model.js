@@ -1,4 +1,9 @@
-import { API_URL, LANGUAGE_CODE, CARDS_RES_PER_PAGE } from './config.js';
+import {
+  API_URL,
+  LANGUAGE_CODE,
+  CARDS_RES_PER_PAGE,
+  DEFINITIONS_RES_PER_PAGE,
+} from './config.js';
 import { getJSON } from './helpers.js';
 
 export const state = {
@@ -25,6 +30,12 @@ export const state = {
     cardResultsPerPage: CARDS_RES_PER_PAGE,
     page: 1,
     mumPages: 1,
+  },
+  list: {
+    results: [],
+    listResultsPerPage: DEFINITIONS_RES_PER_PAGE,
+    page: 1,
+    numPages: 1,
   },
 };
 
@@ -310,6 +321,23 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   state.card.activeCard = card;
   return state.card.activeCard;
   // return card.definitions.slice(start, end);
+};
+export const getListResultsPage = function (page = state.list.page) {
+  state.list.page = page;
+  const start = (page - 1) * state.list.listResultsPerPage; // 0
+  const end = page * state.list.listResultsPerPage; //9
+
+  const numPages = Math.ceil(
+    state.list.results.length / state.list.listResultsPerPage
+  );
+
+  state.list.numPages = numPages;
+  console.log('I will cut results:', state.list.results.slice(start, end));
+  const renderResults = state.list.results.slice(start, end);
+  state.list.renderResults = renderResults;
+  // return state.list.results.slice(start, end);
+  console.log('state.🇱🇮 ', state.list);
+  return state.list;
 };
 
 const initCookie = function () {

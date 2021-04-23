@@ -244,6 +244,10 @@ const controlCardPagination = function (cardId, goToPage) {
 
   // } else return
 };
+const controlListPagination = function (goToPage) {
+  listView.render(model.getListResultsPage(goToPage));
+  listView.updateFooter(model.getListResultsPage(goToPage));
+};
 
 const welcomeBack = function () {
   console.log(model.state.group.activeGroup);
@@ -424,8 +428,21 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //6 render  sorted alphabetically print list
 
   let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
+
+  //7save cards into state object
+  model.state.list.results = cards;
   console.log('here', cards);
-  listView.render(cards);
+  ``;
+
+  const numPages = Math.ceil(
+    model.state.list.results.length / model.state.list.listResultsPerPage
+  );
+
+  model.state.list.numPages = numPages;
+  console.log(model.state.list);
+  console.log(model.getListResultsPage());
+  listView.render(model.state.list);
+  // listView.render(model.getListResultsPage());
 };
 
 const controlSortCards = function () {
@@ -433,17 +450,6 @@ const controlSortCards = function () {
   const activeGroup = model.state.group.activeGroup;
   const cards = model.loadAllCardsFromGroup(model.state.group.activeGroup);
   console.log('i will sort this:', cards);
-
-  //sort cards
-  // cards.sort(function (a, b) {
-  //   if (a.name < b.name) {
-  //     return -1;
-  //   }
-  //   if (a.name > b.name) {
-  //     return 1;
-  //   }
-  //   return 0;
-  // });
   model.sortCards(cards);
 
   //display spinner
@@ -492,6 +498,7 @@ const init = function () {
   groupBarView.addHandlerDeleteGroup(controlDeleteGroup);
   groupBarView.addHandlerSortCards(controlSortCards);
   groupBarView.addHandlerPrintCards(controlPrintCards);
+  listView.addHandlerPage(controlListPagination);
 };
 init();
 //TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

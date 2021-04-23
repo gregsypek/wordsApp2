@@ -1,6 +1,7 @@
 .main {
   &__cards {
     // width: 100%;
+    background-color: $color-primary;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

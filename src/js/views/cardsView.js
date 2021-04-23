@@ -14,13 +14,6 @@ class GroupView extends View {
       handler(url);
     });
   }
-  // clear() {
-  //   this._parentElement.innerHTML = '';
-  // }
-
-  // addHanlderPrintCards() {
-  //   this._parentElement.classList.add('.printCards');
-  // }
 
   addHandlerPage(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -81,13 +74,6 @@ class GroupView extends View {
 
   _generateMarkup() {
     const card = this._data;
-    // const definitions = this._data.renderDefinitions;
-    // console.log(card);
-
-    // let index = this._data.click.clickedPart;
-
-    const curPage = this._data.page;
-    const numPages = this._data.numPages;
     return `
      <div class="main__card-box" data-id="${card.id}">
           <div class="main__card">
@@ -134,11 +120,6 @@ class GroupView extends View {
             ${this._generateFooterCard()}
           </div>
           </div>
-
-
-       
-
-           
     `;
   }
   _generateFooterCard(pageData = false) {
@@ -187,7 +168,7 @@ class GroupView extends View {
         </button>
       `;
     }
-    //Page 1, and tere anr no other pages
+    //Page 1, and there are no other pages
     return '';
   }
 

@@ -97,6 +97,7 @@
       text-transform: uppercase;
       font-size: 2rem;
       margin-bottom: -2rem;
+      line-height: 100%;
     }
     &--type {
       margin-top: 1rem;
@@ -126,6 +127,15 @@
     }
   }
   &__print {
+    margin-top: 21rem;
+    height: 120rem;
+    // background-color: $color-primary;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &--list {
+      margin-top: auto;
+    }
     &--def {
       padding: 1rem 2rem;
       max-width: 100%;
@@ -143,8 +153,11 @@
       padding-left: 1rem;
       border: 1px solid $color-primary;
     }
+    &--item {
+      background-color: $color-secondary;
+    }
     &--footer {
-      margin-top: 3rem;
+      margin-top: auto;
     }
   }
 
@@ -152,7 +165,7 @@
     display: flex;
     align-content: center;
     background-color: $color-secondary;
-    justify-content: space-around;
+    justify-content: space-between;
     .btn--page {
       display: flex;
       // flex-basis: 50%;
@@ -163,10 +176,17 @@
       padding: 0.2rem;
       border: none;
       font-family: inherit;
+      flex-basis: 40%;
       // @extend %btn-icon;
     }
     .btn--print {
       font-size: 1.8rem;
+    }
+    .btn__print--print {
+      margin: 0 1.5rem;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
     }
     svg {
       // background-color: $color-secondary3;

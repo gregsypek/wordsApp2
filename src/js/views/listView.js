@@ -15,6 +15,14 @@ class ListView extends View {
     });
   }
 
+  addHandlerPrintList(handler) {
+    this._parentElement.addEventListener('click', e => {
+      const printBtn = e.target.closest('.btn__print--print');
+      if (!printBtn) return;
+
+      handler();
+    });
+  }
   updateFooter(list) {
     const newList = list.renderResults;
     this._parentElement.querySelector(
@@ -87,13 +95,10 @@ class ListView extends View {
   }
 
   _generateFooterList(pageData = false) {
-    console.log('this._data', this._data);
-
     const curPage = pageData ? pageData.page : this._data.page;
     const numPages = pageData ? pageData.numPages : this._data.numPages;
     //Page 1, and there are other pages
-    console.log('curPage', curPage);
-    console.log('numPages', numPages);
+
     if (curPage === 1 && numPages > 1) {
       return `
        <button class="btn--page btn--prev">

@@ -71,8 +71,6 @@ class AllGroupsView extends View {
           <li class="preview" >
               <a href="#${group.groupName}" class="preview__link" data-group="${group.groupName}">${group.groupName}</a>
               <button class="btn--minus">
-            
-            
               <svg class="nav__icon">
                   <use href="${icons}#icon-minus"></use>
                 </svg>

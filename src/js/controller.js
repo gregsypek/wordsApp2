@@ -429,11 +429,15 @@ const controlLoadSelectedGroup = function (goToGroup) {
 
   let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
 
-  //7save cards into state object
+  //7 save cards into state object
   model.state.list.results = cards;
   console.log('here', cards);
   ``;
 
+  //8 reset list page to 1
+  model.state.list.page = 1;
+
+  // 9 calculate number of pages
   const numPages = Math.ceil(
     model.state.list.results.length / model.state.list.listResultsPerPage
   );
@@ -441,6 +445,8 @@ const controlLoadSelectedGroup = function (goToGroup) {
   model.state.list.numPages = numPages;
   console.log(model.state.list);
   console.log(model.getListResultsPage());
+
+  // 10 render list with new data
   listView.render(model.state.list);
   // listView.render(model.getListResultsPage());
 };
@@ -467,10 +473,13 @@ const controlSortCards = function () {
 };
 
 const controlPrintCards = function () {
-  console.log('print');
   // window.location = 'printCards.html';
   window.print();
   //
+};
+const controlPrintList = function () {
+  console.log('print');
+  window.print();
 };
 
 const init = function () {
@@ -499,6 +508,7 @@ const init = function () {
   groupBarView.addHandlerSortCards(controlSortCards);
   groupBarView.addHandlerPrintCards(controlPrintCards);
   listView.addHandlerPage(controlListPagination);
+  listView.addHandlerPrintList(controlPrintList);
 };
 init();
 //TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

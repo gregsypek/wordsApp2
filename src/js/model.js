@@ -337,21 +337,10 @@ export const getListResultsPage = function (page = state.list.page) {
   state.list.renderResults = renderResults;
   // return state.list.results.slice(start, end);
   console.log('state.🇱🇮 ', state.list);
+  // state.list = data;
   return state.list;
+  // return data;
 };
-
-const initCookie = function () {
-  const storage = localStorage.getItem('group');
-  if (storage) {
-    state.group = JSON.parse(storage);
-
-    //save last created group as activeGroup
-    // if (!state.group.activeGroup) return;
-    // state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
-  }
-};
-
-initCookie();
 
 export const uploadWord = function (newWord) {
   // console.log(Object.entries(newWord));
@@ -385,3 +374,24 @@ export const sortCards = function (cards) {
 };
 
 // clearGroups();
+
+export const printDiv = function (divName) {
+  const printContents = document.getElementById(divName).innerHTML;
+  const originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+};
+
+const initCookie = function () {
+  const storage = localStorage.getItem('group');
+  if (storage) {
+    state.group = JSON.parse(storage);
+
+    //save last created group as activeGroup
+    // if (!state.group.activeGroup) return;
+    // state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
+  }
+};
+
+initCookie();

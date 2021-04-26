@@ -3,6 +3,7 @@ import icons from '../../img/icons.svg';
 class GroupBarView extends View {
   // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
+
   _printCardsElement = document.getElementById('printCards');
   _messageError = '';
   // _message = '';
@@ -52,13 +53,17 @@ class GroupBarView extends View {
   //   // document.body.innerHTML = restorePage;
   //   location.reload();
   // }
+
   addHandlerPrintCards(handler) {
     this._parentElement.addEventListener('click', e => {
       const printBtn = e.target.closest('.main__btn--print');
       if (!printBtn) return;
-      // this.printCards(this._printCardsElement);
+      const printDiv = document.querySelector('.print-cards').id;
+      // this.printCards(this._printCardsElement)
+      console.log(printDiv);
+      if (!printDiv) return;
 
-      handler();
+      handler(printDiv);
     });
   }
   _generateMarkup() {

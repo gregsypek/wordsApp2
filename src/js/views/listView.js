@@ -4,6 +4,7 @@ import icons from '../../img/icons.svg';
 class ListView extends View {
   _parentElement = document.querySelector('.aside');
   _message = '';
+  _printArea = document.querySelector('.aside__print');
 
   addHandlerPage(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -19,8 +20,10 @@ class ListView extends View {
     this._parentElement.addEventListener('click', e => {
       const printBtn = e.target.closest('.btn__print--print');
       if (!printBtn) return;
+      const printDiv = this._parentElement.querySelector('.aside__print').id;
 
-      handler();
+      if (!printDiv) return;
+      handler(printDiv);
     });
   }
   updateFooter(list) {
@@ -32,6 +35,7 @@ class ListView extends View {
 
   _generateMarkup() {
     const cards = this._data.renderResults;
+    // const cards = this._data;
     console.log(cards);
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -59,7 +63,7 @@ class ListView extends View {
     console.log(groupedLetters);
     // console.log('he', Object.entries(groupedLetters));
     return `
-     <div class="aside__print aside__results">
+     <div class="aside__print  aside__results" id="printList">
       <ul class="aside__list aside__print--list">
     ${uniqueletters
       .map(letter => {
@@ -101,7 +105,7 @@ class ListView extends View {
 
     if (curPage === 1 && numPages > 1) {
       return `
-       <button class="btn--page btn--prev">
+      
           
         </button>
         <button data-goto="${curPage + 1}" class="btn--page btn--next">
@@ -120,6 +124,7 @@ class ListView extends View {
     //Last page
     if (curPage === numPages && numPages > 1)
       return `
+     
         <button data-goto="${curPage - 1}" class="btn--page btn--prev">
           <svg class="bar__icon">
             <use href="${icons}#icon-chevron-left"></use>
@@ -141,10 +146,10 @@ class ListView extends View {
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-left"></use>
             </svg>
-            <span>${curPage - 1}</span>
+            <span>Page ${curPage - 1}</span>
           </button>
           <button data-goto="${curPage + 1}"  class="btn--page">
-            <span>${curPage + 1}</span>
+            <span> Page ${curPage + 1}</span>
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-right"></use>
             </svg>
@@ -158,10 +163,7 @@ class ListView extends View {
     }
     //Page 1, and tere anr no other pages
     return `
-        <button class="btn--page btn--prev">
-        </button>
-        <button class="btn--page btn--next">
-        </button>
+      
          <button class="btn--print btn__print--print">
           <svg class="bar__icon">
             <use href="${icons}#icon-print"></use>
@@ -172,3 +174,7 @@ class ListView extends View {
 }
 
 export default new ListView();
+// <button class="btn--page btn--prev disabled">
+//       </button>
+//       <button class="btn--page btn--next" disabled>
+//       </button>

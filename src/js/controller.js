@@ -472,34 +472,49 @@ const controlSortCards = function () {
   cards.map(card => cardsView.renderCard(card));
 };
 
-const controlPrintCards = function () {
+const controlPrintCards = function (printDiv) {
   // window.location = 'printCards.html';
-  window.print();
+  model.printDiv(printDiv);
+  // window.print();
+  location.reload();
+
   //
 };
-const controlPrintList = function () {
-  console.log('print');
-  window.print();
+const controlPrintList = function (printDiv) {
+  // let cards = model.sortCards(
+  //   model.loadAllCardsFromGroup(model.state.group.activeGroup)
+  // );
+
+  model.state.list.page = 1;
+
+  model.state.list.listResultsPerPage = model.state.list.results.length;
+
+  // 9 calculate number of pages
+  const numPages = Math.ceil(
+    model.state.list.results.length / model.state.list.listResultsPerPage
+  );
+
+  model.state.list.numPages = numPages;
+
+  //render list with new data
+  listView.render(model.state.list);
+  model.printDiv(printDiv);
+  location.reload();
 };
 
 const init = function () {
   welcome();
-
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
   // wordView.addHandlerRender();
-
   initialCreateNewGroupView.addHandlerClick(controlShowCreateGroupForm);
-
   groupNavView.addHandlerCreateGroup(controlClickCreateNewGroup);
   groupNavView.addHandlerRenameGroup(controlRenameGroup);
   cardsView.addHandlerPlay(controlPlayAudio);
   cardsView.addHandlerClose(controlDeleteCard);
   cardsView.addHandlerPage(controlCardPagination);
-
   groupBarView.addHandlerShowNewGroupForm(controlShowNewGroupFormFromBar);
   groupBarView.addHandlerShowRenameGroupForm(controlShowRenameGroupFromBar);
-
   allGroupsView.addHandleClick(controlLoadAllGroups);
   // allGroupsView.addHandlerRender(controlPreviewGroup);
   allGroupsView.addHandlerLoadSelectedGroup(controlLoadSelectedGroup);

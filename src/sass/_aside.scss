@@ -165,7 +165,7 @@
     display: flex;
     align-content: center;
     background-color: $color-primary3;
-    justify-content: space-between;
+    justify-content: flex-end;
     .btn--page {
       display: flex;
       // flex-basis: 50%;
@@ -181,6 +181,12 @@
       &:hover {
         background: $color-secondary2;
       }
+      &.btn--prev {
+        margin-right: auto;
+      }
+      &.btn--next {
+        margin-left: auto;
+      }
     }
     .btn--print {
       font-size: 1.8rem;
@@ -193,6 +199,7 @@
       border: none;
       background-color: transparent;
       cursor: pointer;
+      // float: left;
     }
     svg {
       // background-color: $color-secondary3;

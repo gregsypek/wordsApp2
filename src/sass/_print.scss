@@ -37,26 +37,27 @@
     display: grid !important;
     grid-template-columns: repeat(3, 160pt);
     grid-column-gap: 5px;
-    grid-row-gap: 25px;
+    grid-row-gap: auto;
 
-    margin: 0;
-    padding: 0;
+    // margin: 0;
+    // padding: 0;
   }
   .main__card {
     font-size: 13pt;
     width: 160pt;
 
-    margin: 0;
+    margin: auto;
     padding: 0;
 
     &-box {
       padding: 0;
-      margin: 0;
+      margin: auto;
       width: 160pt;
       break-inside: avoid;
     }
     &-nav {
       border: 1px solid $color-primary;
+      break-inside: avoid;
     }
 
     &-body {

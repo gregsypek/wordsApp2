@@ -3,23 +3,30 @@
   grid-area: words;
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
+  background-position: top;
+  @media only screen and (max-width: $bp-large) {
+    margin-top: 2rem;
+  }
 
   &__control {
-    background-color: $color-primary;
+    // background-color: $color-primary;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  &__nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  // &__nav {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  // }
 
   .message-nogroup {
     margin: 0 auto;
     width: 80%;
     height: 20rem;
+    // @media only screen and (max-width: $bp-large) {
+    //   height: 12rem;
+    // }
 
     p {
       @extend %message;
@@ -45,6 +52,17 @@
     //   transform: translateX(6rem);
     //   opacity: 1;
     //   cursor: pointer;
+    // }
+  }
+  &__nav {
+    @media only screen and (max-width: $bp-large) {
+      width: 60vw;
+    }
+    @media only screen and (max-width: $bp-small) {
+      width: 80vw;
+    }
+    // @media only screen and (max-width: $bp-small) {
+    //   width: 32rem;
     // }
   }
 
@@ -109,14 +127,28 @@
   &__bar {
     @extend %nav-bar;
     width: auto;
+    flex-wrap: wrap;
+    @media only screen and (max-width: $bp-large) {
+      flex-direction: column;
+    }
   }
   &__btns {
     display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
   }
   // name of the new created group
   &__group {
-    margin-left: 3rem;
-    width: 50rem;
+    // margin-left: 3rem;
+    line-break: anywhere;
+    padding: 0 2rem;
+    min-width: 6rem;
+    // width: 50rem;
+    @media only screen and (max-width: $bp-large) {
+      text-align: center;
+      margin-left: 0;
+    }
   }
   &__btn--edit {
     @extend %btn-icon;

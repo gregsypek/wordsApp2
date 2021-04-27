@@ -124,6 +124,12 @@
   // height: 100%;
   padding: 1.5rem;
   background-color: $color-primary3;
+  @media only screen and (max-width: $bp-large) {
+    background-color: $color-primary;
+    color: $color-secondary3;
+    height: 30rem;
+    align-items: center;
+  }
 }
 
 .spinner {

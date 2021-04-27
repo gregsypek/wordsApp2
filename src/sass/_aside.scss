@@ -7,10 +7,10 @@
   align-items: center;
   margin-top: 24rem;
   @media only screen and (max-width: $bp-large) {
-    margin-top: 21rem;
+    margin-top: 3rem;
   }
   @media only screen and (max-width: $bp-small) {
-    margin-top: 25rem;
+    margin-top: 5rem;
   }
   // INFO displays information about application only in begining
   &__info {
@@ -21,6 +21,9 @@
 
     @media only screen and (max-width: $bp-large) {
       width: 50rem;
+    }
+    @media only screen and (max-width: $bp-large) {
+      margin: auto 0;
     }
     h1 {
       font-weight: 300;
@@ -47,18 +50,21 @@
       width: 30rem;
     }
   }
+  &__print {
+    max-width: 40rem;
+  }
 
   &__list {
     list-style: none;
     margin-top: 2rem;
+
     @media only screen and (max-width: $bp-large) {
       // overflow-y: scroll;
       // max-height: 25rem;
       background-color: $color-secondary3;
 
       min-width: 80%;
-      // margin: 0 auto;
-      // padding: 0 5rem;
+      padding: 1rem;
     }
 
     .btn--plus-sm {
@@ -154,15 +160,15 @@
     }
   }
   &__print {
-    margin-top: 21rem;
-    height: 120rem;
+    // margin-top: 21rem;
+    // height: 120rem;
     // background-color: $color-primary;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    &--list {
-      margin-top: auto;
-    }
+    // &--list {
+    //   // margin-top: auto;
+    // }
     &--def {
       padding: 1rem 2rem;
       max-width: 100%;

@@ -133,6 +133,7 @@ const controlAddNewCard = async function () {
       groupMessageView.renderMessage(
         "You can't add the same card into this group. Try another one"
       );
+      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
       return;
     }
     groupMessageView.render();
@@ -305,6 +306,7 @@ const controlAddWord = function (newWord) {
       groupMessageView.renderMessage(
         `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
       );
+      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
       createWordView.toggleWindow();
       return;
     }

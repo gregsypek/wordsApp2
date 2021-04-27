@@ -19,6 +19,10 @@
     background-color: $color-primary3;
   }
 }
+.create__btn,
+.rename__btn {
+  margin: auto;
+}
 .btn {
   @extend %btn;
   border: 1px solid black;
@@ -91,6 +95,9 @@
   font-size: 1.8rem;
   outline: 1px solid black;
   height: 5.6rem;
+  @media only screen and (max-width: $bp-small) {
+    flex-wrap: wrap;
+  }
 }
 
 %nav-bar {

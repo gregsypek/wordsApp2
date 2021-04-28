@@ -42,9 +42,11 @@
     flex-direction: column;
     justify-content: space-between;
     @media only screen and (max-width: $bp-large) {
-      width: 56rem;
+      width: auto;
+      max-width: 50rem;
       background-color: $color-primary;
       border: none;
+      height: auto;
     }
     @media only screen and (max-width: $bp-small) {
       width: 30rem;
@@ -52,6 +54,7 @@
   }
   &__print {
     max-width: 40rem;
+    background-color: $color-secondary3;
   }
 
   &__list {

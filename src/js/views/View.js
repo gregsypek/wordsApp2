@@ -1,4 +1,5 @@
 import icons from '../../img/icons.svg';
+import { MODAL_CLOSE_SEC } from '../config';
 
 export default class View {
   _data;

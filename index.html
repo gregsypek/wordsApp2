@@ -411,11 +411,11 @@
         <div class="upload__row">
           <div class="upload__column">
             <label for="definition1">definition</label>
-            <button class="btn--plus">
+            <!-- <button class="btn--plus">
               <svg>
                 <use href="./src/img/icons.svg#icon-plus"></use>
               </svg>
-            </button>
+            </button> -->
           </div>
           <div class="upload__column">
             <input
@@ -432,24 +432,24 @@
         <div class="upload__row">
           <div class="upload__column">
             <label for="explanation1">explanation</label>
-            <button class="btn--plus">
+            <!-- <button class="btn--plus">
               <svg>
                 <use href="./src/img/icons.svg#icon-plus"></use>
               </svg>
-            </button>
+            </button> -->
           </div>
           <div class="upload__column">
-            <input
-              type="text"
+            <textarea
               id="explanation1"
               required
               name="explanation"
               placeholder="Enter your explanation..."
               value="jabłko"
-            />
+            >
+            </textarea>
           </div>
         </div>
-        <!--<!-- <div class="upload__row hidden">
+        <!-- <div class="upload__row hidden">
           <div class="upload__column">
             <label for="sentance">sample sentance 1</label>
             <button class="btn--plus">
@@ -466,7 +466,7 @@
               placeholder="Enter your sentance..."
             />
           </div>
-        </div> -->-->
+        </div> -->
         <div class="upload__row">
           <div class="upload__column">
             <label for="partOfSpeech">Part of speech</label>
@@ -475,7 +475,6 @@
             <input
               type="text"
               id="partOfSpeech"
-              required
               name="partOfSpeech"
               value="noun"
               placeholder="Enter your part of speech"
@@ -490,7 +489,6 @@
             <input
               type="text"
               id="phonetic"
-              required
               name="phonetics"
               value="kət/"
               placeholder="Enter your phonetic"

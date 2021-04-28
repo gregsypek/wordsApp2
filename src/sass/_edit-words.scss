@@ -15,42 +15,59 @@
 .upload {
   // width: 80vw;
   margin: 0 auto;
-
+  text-align: center;
   &__row {
-    height: 6rem;
-    flex-basis: 80vw;
+    // height: 6rem;
+    // flex-basis: 80vw;
     display: flex;
     justify-content: center;
+    margin: 1rem 0 0 0;
     &:not(last-of-type) {
-      margin-bottom: 5rem;
+      margin-bottom: 1rem;
+    }
+    @media only screen and (max-width: $bp-large) {
+      flex-direction: column;
     }
   }
 
   &__column {
-    display: flex;
-    font-size: 2rem;
+    // display: flex;
+    font-size: 3rem;
     align-items: center;
     label {
-      // background-color: $color-primary3;
-      width: 40rem;
+      background-color: $color-primary2;
+      width: 35rem;
       // display: flex;
       // align-items: center;
       padding-left: 3rem;
 
       // text-transform: uppercase;
       @extend .main__bar;
+      @media only screen and (max-width: $bp-large) {
+        width: 100%;
+      }
     }
     &:not(last-of-type) {
       margin-right: 5rem;
+      @media only screen and (max-width: $bp-large) {
+        margin-right: 0;
+      }
     }
     input {
       padding: 1rem;
       color: inherit;
-      width: 45rem;
+      width: 35rem;
       height: 6rem;
       font-size: inherit;
       background-color: transparent;
       border: 1px solid $color-primary;
+      @media only screen and (max-width: $bp-large) {
+        width: 100%;
+      }
+    }
+    textarea {
+      @extend input;
+      height: 12rem;
     }
     button {
       // The interactive element label must not appear as a descendant of the button element.

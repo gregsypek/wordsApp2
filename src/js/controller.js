@@ -306,7 +306,7 @@ const controlAddWord = function (newWord) {
       groupMessageView.renderMessage(
         `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
       );
-      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 2000);
       createWordView.toggleWindow();
       return;
     }
@@ -373,8 +373,6 @@ const controlRenameGroup = function () {
   groupBarView.render(newName);
 
   model.persistGroups();
-  // model.initCookie();
-  // allGroupsView.render(model.state.group.groups);
 };
 const controlDeleteGroup = function () {
   //find active group
@@ -421,7 +419,7 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //3.change activeGroup to be able deleting cards
   // model.state.group.activeGroup = group;
   model.saveGroupAsActive(group);
-  console.log('i changed active group to: ', group);
+  console.log("I've changed active group to: ", group);
   //4. render all cards from selected group
   controlLoadAllCardsFromGroup(group);
   //5. render bar navigation
@@ -449,6 +447,16 @@ const controlLoadSelectedGroup = function (goToGroup) {
   console.log(model.getListResultsPage());
 
   // 10 render list with new data
+  if (model.state.list.results.length === 0) {
+    listView.clear();
+    groupMessageView.renderMessage(
+      'There is no cards in this group! Try to add some...)'
+    );
+
+    //8. hide success message
+    setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 2000);
+    return;
+  }
   listView.render(model.state.list);
   // listView.render(model.getListResultsPage());
 };

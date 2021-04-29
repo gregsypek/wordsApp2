@@ -26,7 +26,8 @@
       margin-bottom: 1rem;
     }
     @media only screen and (max-width: $bp-large) {
-      flex-direction: column;
+      // CREATE FUN SHAPES!!!!!!!
+      // flex-direction: column;
     }
   }
 
@@ -37,9 +38,8 @@
     label {
       background-color: $color-primary2;
       width: 35rem;
-      // display: flex;
-      // align-items: center;
-      padding-left: 3rem;
+      text-align: left;
+      padding: 0 1rem;
 
       // text-transform: uppercase;
       @extend .main__bar;

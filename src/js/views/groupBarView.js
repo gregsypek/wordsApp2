@@ -91,7 +91,12 @@ class GroupBarView extends View {
                 </button>
                 <button class="main__btn main__btn--edit main__btn--sort">
                   <svg class="bar__icon">
-                    <use href="${icons}#icon-bar-graph"></use>
+                    <use href="${icons}#icon-sort-alpha-asc"></use>
+                  </svg>
+                </button>
+                <button class="main__btn main__btn--edit main__btn--view">
+                  <svg class="bar__icon">
+                    <use href="${icons}#icon-eye"></use>
                   </svg>
                 </button>
                 <button class="main__btn main__btn--edit main__btn--print">

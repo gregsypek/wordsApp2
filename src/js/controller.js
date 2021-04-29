@@ -35,7 +35,12 @@ const controlSearchWords = async function () {
     await model.loadSearchWord(query);
 
     //3. Render result
+    //   TODO IF THERE ARE ANY CARDS IN ACTIVE GROUP DO NOT DISPLAY MESSAGE BELOW
     wordView.render(model.state);
+
+    initialCreateNewGroupView.renderMessage(
+      'Please select any part of speech and click small "+" button on the right to add card into group!'
+    );
 
     //4. Add word and query into search object
     model.saveSearchedWord(model.state.word);
@@ -115,6 +120,8 @@ const controlShowRenameGroupFromBar = function () {
 };
 ////////////////////////////////
 const controlAddNewCard = async function () {
+  //0. clear message
+  initialCreateNewGroupView.clear();
   //1.create card object
   model.createObjCard();
   //1. reset footer page start
@@ -161,6 +168,8 @@ const controlAddNewCard = async function () {
   // controlLoadFooterCard(newCard);
   //7. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
+  initialCreateNewGroupView.renderMessage('Success! You just add your card...');
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {
@@ -286,7 +295,7 @@ const welcomeBack = function () {
   // allGroupsView.render(model.state.group.groups);
   groupMessageView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
-  setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+  // setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
 };
 const welcome = function () {
   initialCreateNewGroupView.render();

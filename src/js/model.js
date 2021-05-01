@@ -36,6 +36,7 @@ export const state = {
     listResultsPerPage: DEFINITIONS_RES_PER_PAGE,
     page: 1,
     numPages: 1,
+    active: false,
   },
 };
 
@@ -76,13 +77,6 @@ export const loadSearchWord = async function (id) {
   }
 };
 
-export const saveSearchedWord = function (word) {
-  state.search.results.push(word);
-  state.search.query = word.word;
-
-  // console.error(`${err}🔥🔥🔥`);
-  // throw err;
-};
 export const resetClickObject = function () {
   state.click = {
     activePart: false,
@@ -91,11 +85,26 @@ export const resetClickObject = function () {
     // clickedBtn: 0,
   };
 };
+export const saveSearchedWord = function (word) {
+  state.search.results.push(word);
+  state.search.query = word.word;
+
+  // console.error(`${err}🔥🔥🔥`);
+  // throw err;
+};
 
 export const saveClickedData = function (link) {
   state.click.clickedPart = link;
   state.click.activePart = true;
   // return state.click.clickedPart;
+};
+
+export const saveAndGetNewListCards = function (group) {
+  let cards = sortCards(loadAllCardsFromGroup(group));
+  //8 save cards into state object
+  state.list.results = cards;
+  console.log('here', cards);
+  return cards;
 };
 export const isCardUnique = function (previousCard, newCard) {
   // old card has different part of speech
@@ -381,6 +390,20 @@ export const printDiv = function (divName) {
   document.body.innerHTML = printContents;
   window.print();
   document.body.innerHTML = originalContents;
+};
+
+export const toggleActiveList = function () {
+  state.list.active ? (state.list.active = false) : (state.list.active = true);
+};
+export const calculatePages = function () {
+  //reset list page
+  state.list.page = 1;
+  // 9 calculate number of pages
+  const numPages = Math.ceil(
+    state.list.results.length / state.list.listResultsPerPage
+  );
+
+  state.list.numPages = numPages;
 };
 
 const initCookie = function () {

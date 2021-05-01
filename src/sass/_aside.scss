@@ -5,7 +5,7 @@
   justify-content: space-between;
   color: $color-primary;
   align-items: center;
-  margin-top: 24rem;
+  margin-top: 20rem;
   @media only screen and (max-width: $bp-large) {
     margin-top: 3rem;
   }
@@ -53,8 +53,13 @@
     }
   }
   &__print {
-    max-width: 40rem;
+    // max-width: 40rem;
+    width: 60rem;
     background-color: $color-secondary3;
+    height: 80rem;
+    @media only screen and (max-width: $bp-large) {
+      width: 80vw;
+    }
   }
 
   &__list {

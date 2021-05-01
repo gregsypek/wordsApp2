@@ -1,11 +1,12 @@
 .main {
-  margin-top: 8rem;
+  // margin-top: 9rem;
   grid-area: words;
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
   background-position: top;
   @media only screen and (max-width: $bp-large) {
-    margin-top: 2rem;
+    // because message welcome back doesnt jump
+    // margin-top: 66px;
   }
 
   &__control {
@@ -13,6 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 7rem;
   }
   // &__nav {
   //   display: flex;

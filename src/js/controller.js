@@ -17,6 +17,7 @@ import listView from './views/listView.js';
 import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import 'core-js/stable'; // allows old browser display our code
 import { Object } from 'core-js';
+import appInfoView from './views/appInfoView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -118,9 +119,24 @@ const controlShowRenameGroupFromBar = function () {
   //show rename form
   groupNavView.toggleShowHiddenRenameForm();
 };
+
+const controlChangeView = function () {
+  console.log('view');
+
+  model.toggleActiveList();
+  //8 reset list page to 1
+  model.calculatePages();
+  console.log(model.state.list);
+  console.log(model.getListResultsPage());
+  console.log('list results', model.state.list.results);
+
+  if (model.state.list.active) {
+    listView.render(model.state.list);
+  } else controlLoadAllCardsFromGroup(model.state.group.activeGroup);
+};
 ////////////////////////////////
 const controlAddNewCard = async function () {
-  //0. clear message
+  //0. clear  welcome create new group bar
   initialCreateNewGroupView.clear();
   //1.create card object
   model.createObjCard();
@@ -129,19 +145,38 @@ const controlAddNewCard = async function () {
   //2. load new card
   const newCard = model.loadNewCard();
 
-  //3. load all previous cards if exists
   const activeGroup = newCard.groupName;
 
+  //reset cardsList view
+  if (model.state.list.active) {
+    model.state.list.active = false;
+    controlLoadAllCardsFromGroup(activeGroup);
+  }
+  //save new card also into listCards(second View)
+  // model.state.list.results.push(newCard);
+
+  //3. load all previous cards if exists
   const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
 
   //4 check if new card is unique
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
-      groupMessageView.renderMessage(
+      // groupMessageView.renderMessage(
+      //   "You can't add the same card into this group. Try another one"
+      // );
+      // setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+      // return;
+
+      initialCreateNewGroupView.renderMessage(
         "You can't add the same card into this group. Try another one"
       );
-      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+      setTimeout(
+        () => initialCreateNewGroupView.clear(),
+        MODAL_CLOSE_SEC * 1000
+      );
       return;
+    } else {
+      model.state.list.results.push(newCard);
     }
     groupMessageView.render();
   }
@@ -150,7 +185,9 @@ const controlAddNewCard = async function () {
   //5.render new card
   model.state.card.activeCard = newCard;
   //a. check if there is a message
-  if (model.state.card.messageDisplay) {
+
+  console.log('active?', model.state.list.active);
+  if (model.state.card.messageDisplay && model.state.list.active) {
     //a. clear message
     // cardsView.render(newCard);
     cardsView.render(model.getCardResultsPage(newCard));
@@ -293,9 +330,11 @@ const welcomeBack = function () {
   // groupBarView.render(window.location.hash.slice(1));
   // controlLoadAllCardsFromGroup(window.location.hash.slice(1));
   // allGroupsView.render(model.state.group.groups);
-  groupMessageView.renderMessage('Welcome back :)');
+  appInfoView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
-  // setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+  setTimeout(() => appInfoView.render(''), MODAL_CLOSE_SEC * 1000);
+
+  model.saveAndGetNewListCards(activeGroup);
 };
 const welcome = function () {
   initialCreateNewGroupView.render();
@@ -390,7 +429,7 @@ const controlDeleteGroup = function () {
 
   // delete it
   model.state.group.groups.splice(index, 1);
-  console.log('1', model.state.group.activeGroup);
+  // console.log('1', model.state.group.activeGroup);
 
   //change active group
   if (model.state.group.groups.length > 0) {
@@ -416,6 +455,9 @@ const controlDeleteGroup = function () {
   window.history.pushState(null, '', `#${model.state.group.activeGroup}`);
   console.log('2', model.state.group.activeGroup);
 
+  //reset listView
+  model.state.list.active = false;
+
   model.persistGroups();
 };
 const controlLoadSelectedGroup = function (goToGroup) {
@@ -429,6 +471,10 @@ const controlLoadSelectedGroup = function (goToGroup) {
   // model.state.group.activeGroup = group;
   model.saveGroupAsActive(group);
   console.log("I've changed active group to: ", group);
+
+  //change listActive flag(I want to always render cards not list of definitions!)
+  model.state.list.active = false;
+
   //4. render all cards from selected group
   controlLoadAllCardsFromGroup(group);
   //5. render bar navigation
@@ -436,42 +482,37 @@ const controlLoadSelectedGroup = function (goToGroup) {
   model.persistGroups();
   //6 render  sorted alphabetically print list
 
-  let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
+  // let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
+  // //8 save cards into state object
+  // model.state.list.results = cards;
+  // console.log('here', cards);
+  const cards = model.saveAndGetNewListCards(goToGroup);
 
-  //7 save cards into state object
-  model.state.list.results = cards;
-  console.log('here', cards);
-  ``;
+  // 7 render message if there is no cards
+  if (cards.length === 0) {
+    // listView.clear();
+    console.log('render error');
+    cardsView.renderMessageError(
+      `There is no cards in this group! Try to add some...)`
+    );
+    setTimeout(() => cardsView.clear(), MODAL_CLOSE_SEC * 2000);
+    return;
+  }
 
-  //8 reset list page to 1
-  model.state.list.page = 1;
-
-  // 9 calculate number of pages
-  const numPages = Math.ceil(
-    model.state.list.results.length / model.state.list.listResultsPerPage
-  );
-
-  model.state.list.numPages = numPages;
+  // ``;
+  // ////////////////////
+  model.calculatePages();
   console.log(model.state.list);
   console.log(model.getListResultsPage());
 
-  // 10 render list with new data
-  if (model.state.list.results.length === 0) {
-    listView.clear();
-    groupMessageView.renderMessage(
-      'There is no cards in this group! Try to add some...)'
-    );
-
-    //8. hide success message
-    setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 2000);
-    return;
-  }
-  listView.render(model.state.list);
-  // listView.render(model.getListResultsPage());
+  // }
+  // listView.render(model.state.list);
+  // // listView.render(model.getListResultsPage());
 };
 
 const controlSortCards = function () {
   // get all cards from active group
+  if (model.state.list.active) return;
   const activeGroup = model.state.group.activeGroup;
   const cards = model.loadAllCardsFromGroup(model.state.group.activeGroup);
   console.log('i will sort this:', cards);
@@ -504,16 +545,9 @@ const controlPrintList = function (printDiv) {
   //   model.loadAllCardsFromGroup(model.state.group.activeGroup)
   // );
 
-  model.state.list.page = 1;
-
   model.state.list.listResultsPerPage = model.state.list.results.length;
 
-  // 9 calculate number of pages
-  const numPages = Math.ceil(
-    model.state.list.results.length / model.state.list.listResultsPerPage
-  );
-
-  model.state.list.numPages = numPages;
+  model.calculatePages();
 
   //render list with new data
   listView.render(model.state.list);
@@ -534,6 +568,7 @@ const init = function () {
   cardsView.addHandlerPage(controlCardPagination);
   groupBarView.addHandlerShowNewGroupForm(controlShowNewGroupFormFromBar);
   groupBarView.addHandlerShowRenameGroupForm(controlShowRenameGroupFromBar);
+  groupBarView.addHandlerChangeView(controlChangeView);
   allGroupsView.addHandleClick(controlLoadAllGroups);
   // allGroupsView.addHandlerRender(controlPreviewGroup);
   allGroupsView.addHandlerLoadSelectedGroup(controlLoadSelectedGroup);

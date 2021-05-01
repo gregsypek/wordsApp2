@@ -2,13 +2,14 @@ import View from './View.js';
 import icons from '../../img/icons.svg';
 
 class ListView extends View {
-  _parentElement = document.querySelector('.aside');
-  _message = '';
+  // _parentElement = document.querySelector('.aside');
+  _parentElement = document.querySelector('.main__cards');
+  _messageError = 'There is no cards in this group! Try to add some...)';
   _printArea = document.querySelector('.aside__print');
 
   addHandlerPage(handler) {
     this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--page');
+      const btn = e.target.closest('.btn--pageList');
       if (!btn) return;
       const goToPage = +btn.dataset.goto;
       console.log(goToPage);
@@ -108,7 +109,9 @@ class ListView extends View {
       
           
         </button>
-        <button data-goto="${curPage + 1}" class="btn--page btn--next">
+        <button data-goto="${
+          curPage + 1
+        }" class="btn--page btn--next btn--pageList">
           <span>Page ${curPage + 1}</span>
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-right"></use>
@@ -125,7 +128,9 @@ class ListView extends View {
     if (curPage === numPages && numPages > 1)
       return `
      
-        <button data-goto="${curPage - 1}" class="btn--page btn--prev">
+        <button data-goto="${
+          curPage - 1
+        }" class="btn--page btn--prev btn--pageList">
           <svg class="bar__icon">
             <use href="${icons}#icon-chevron-left"></use>
           </svg>
@@ -142,13 +147,15 @@ class ListView extends View {
     if (curPage < numPages) {
       return `
 
-        <button data-goto="${curPage - 1}"  class="btn--page btn--next">
+        <button data-goto="${
+          curPage - 1
+        }"  class="btn--page btn--next btn--pageList">
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-left"></use>
             </svg>
             <span>Page ${curPage - 1}</span>
           </button>
-          <button data-goto="${curPage + 1}"  class="btn--page">
+          <button data-goto="${curPage + 1}"  class="btn--page btn--pageList">
             <span> Page ${curPage + 1}</span>
             <svg class="bar__icon">
               <use href="${icons}#icon-chevron-right"></use>
@@ -174,7 +181,7 @@ class ListView extends View {
 }
 
 export default new ListView();
-// <button class="btn--page btn--prev disabled">
+// <button class="btn--pageList btn--prev disabled">
 //       </button>
-//       <button class="btn--page btn--next" disabled>
+//       <button class="btn--pageList btn--next" disabled>
 //       </button>

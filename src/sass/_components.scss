@@ -32,7 +32,8 @@
   border: 1px solid black;
   background-color: $color-secondary2;
 }
-.btn--page {
+.btn--page,
+.btn--pageList {
   background-color: transparent;
   // width: 3rem;
   height: 3rem;
@@ -127,8 +128,10 @@
   @media only screen and (max-width: $bp-large) {
     background-color: $color-primary;
     color: $color-secondary3;
-    height: 30rem;
+    // height: 30rem;
     align-items: center;
+    position: relative;
+    margin-bottom: -8rem;
   }
 }
 

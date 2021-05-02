@@ -106,6 +106,11 @@ export const saveAndGetNewListCards = function (group) {
   console.log('here', cards);
   return cards;
 };
+export const updateNewListCards = function (group) {
+  let cards = sortCards(loadAllCardsFromGroup(group));
+  //8 save cards into state object
+  state.list.results = cards;
+};
 export const isCardUnique = function (previousCard, newCard) {
   // old card has different part of speech
   if (
@@ -294,6 +299,8 @@ export const deleteCard = function (id) {
   // allRenderedCards.splice(deleteCardIndex, 1);
   state.group.groups[index].cards.splice(deleteCardIndex, 1);
 
+  // updateNewListCards(group);
+
   persistGroups();
 };
 export const loadNewCard = function () {
@@ -410,10 +417,6 @@ const initCookie = function () {
   const storage = localStorage.getItem('group');
   if (storage) {
     state.group = JSON.parse(storage);
-
-    //save last created group as activeGroup
-    // if (!state.group.activeGroup) return;
-    // state.group.activeGroup = state.group.groups.slice(-1)[0].groupName;
   }
 };
 

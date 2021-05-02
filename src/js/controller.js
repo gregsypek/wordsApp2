@@ -62,7 +62,7 @@ const controlClickPartOfSpeech = function (markPartClicked) {
   model.saveClickedData(markPartClicked);
 
   wordClickView.render(model.state);
-
+  //TODO move handlers into init function
   wordView.addHandlerClick(controlClickPartOfSpeech);
 
   wordClickView.handleClickPlusBtn(controlAddNewCard);
@@ -121,16 +121,15 @@ const controlShowRenameGroupFromBar = function () {
 };
 
 const controlChangeView = function () {
-  console.log('view');
-
   model.toggleActiveList();
   //8 reset list page to 1
   model.calculatePages();
-  console.log(model.state.list);
-  console.log(model.getListResultsPage());
-  console.log('list results', model.state.list.results);
+  // console.log(model.state.list);
+  // console.log(model.getListResultsPage());
+  // console.log('list results', model.state.list.results);
 
   if (model.state.list.active) {
+    controlListPagination(1);
     listView.render(model.state.list);
   } else controlLoadAllCardsFromGroup(model.state.group.activeGroup);
 };
@@ -147,9 +146,11 @@ const controlAddNewCard = async function () {
 
   const activeGroup = newCard.groupName;
 
-  //reset cardsList view
   if (model.state.list.active) {
+    //reset cardsList view
     model.state.list.active = false;
+    //save newcard into model.state.list
+    model.updateNewListCards(activeGroup);
     controlLoadAllCardsFromGroup(activeGroup);
   }
   //save new card also into listCards(second View)
@@ -161,12 +162,6 @@ const controlAddNewCard = async function () {
   //4 check if new card is unique
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
-      // groupMessageView.renderMessage(
-      //   "You can't add the same card into this group. Try another one"
-      // );
-      // setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
-      // return;
-
       initialCreateNewGroupView.renderMessage(
         "You can't add the same card into this group. Try another one"
       );
@@ -177,6 +172,7 @@ const controlAddNewCard = async function () {
       return;
     } else {
       model.state.list.results.push(newCard);
+      model.sortCards(model.state.list.results);
     }
     groupMessageView.render();
   }
@@ -230,6 +226,10 @@ const controlPlayAudio = function (url) {
 const controlDeleteCard = function (cardId) {
   //1. delete card from state object
   model.deleteCard(+cardId);
+
+  ////////////////
+  model.updateNewListCards(model.state.group.activeGroup);
+  //////////////
 
   //2. check which group render again default or active
   if (model.state.group.activeGroup) {
@@ -334,7 +334,7 @@ const welcomeBack = function () {
   // allGroupsView.render(model.state.group.groups);
   setTimeout(() => appInfoView.render(''), MODAL_CLOSE_SEC * 1000);
 
-  model.saveAndGetNewListCards(activeGroup);
+  model.updateNewListCards(activeGroup);
 };
 const welcome = function () {
   initialCreateNewGroupView.render();
@@ -346,17 +346,28 @@ const controlAddWord = function (newWord) {
 
   //2. check if new card is unique
   const activeGroup = newCard.groupName;
+
+  //reset cardsList view
+  if (model.state.list.active) {
+    model.state.list.active = false;
+    model.updateNewListCards(activeGroup);
+    controlLoadAllCardsFromGroup(activeGroup);
+  }
+
   const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
 
   //3.prevent to add the same card
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
-      groupMessageView.renderMessage(
+      initialCreateNewGroupView.renderMessage(
         `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
       );
       setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 2000);
       createWordView.toggleWindow();
       return;
+    } else {
+      model.state.list.results.push(newCard);
+      model.sortCards(model.state.list.results);
     }
     groupMessageView.render();
   }
@@ -380,10 +391,12 @@ const controlAddWord = function (newWord) {
   model.saveCardIntoCorrectGroup(newCard);
 
   //7. Display success message
-  groupMessageView.renderMessage('New word was successfully created :)');
+  initialCreateNewGroupView.renderMessage(
+    'New word was successfully created :)'
+  );
 
   //8. hide success message
-  setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 1000);
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 
   //9. Close form window
   createWordView.toggleWindow();

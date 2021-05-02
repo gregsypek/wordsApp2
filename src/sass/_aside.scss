@@ -56,7 +56,8 @@
     // max-width: 40rem;
     width: 60rem;
     background-color: $color-secondary3;
-    height: 80rem;
+    min-height: 90rem;
+    height: auto;
     @media only screen and (max-width: $bp-large) {
       width: 80vw;
     }
@@ -241,6 +242,12 @@
       background-color: transparent;
       cursor: pointer;
       // float: left;
+      display: flex;
+      flex-basis: 18rem;
+      font-family: inherit;
+      align-items: center;
+      justify-content: space-between;
+      text-transform: uppercase;
     }
     svg {
       // background-color: $color-secondary3;

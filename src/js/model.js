@@ -3,6 +3,7 @@ import {
   LANGUAGE_CODE,
   CARDS_RES_PER_PAGE,
   DEFINITIONS_RES_PER_PAGE,
+  MODAL_CLOSE_SEC,
 } from './config.js';
 import { getJSON } from './helpers.js';
 
@@ -175,6 +176,7 @@ export const isDefaultGroupCreated = function () {
   );
   return isDefaultGroupCreated;
 };
+
 export const createObjCard = async function () {
   try {
     const { word } = state;
@@ -357,6 +359,10 @@ export const getListResultsPage = function (page = state.list.page) {
   return state.list;
   // return data;
 };
+export const addNewCardIntoList = function (newCard) {
+  state.list.results.push(newCard);
+  sortCards(state.list.results);
+};
 
 export const uploadWord = function (newWord) {
   // console.log(Object.entries(newWord));
@@ -411,6 +417,7 @@ export const calculatePages = function () {
   );
 
   state.list.numPages = numPages;
+  console.log('drukuj', state.list);
 };
 
 const initCookie = function () {

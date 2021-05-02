@@ -65,8 +65,8 @@ class ListView extends View {
     console.log(groupedLetters);
     // console.log('he', Object.entries(groupedLetters));
     return `
-     <div class="aside__print  aside__results" id="printList">
-      <ul class="aside__list aside__print--list">
+     <div class="aside__print  aside__results" id="printList" >
+      <ul class="aside__list aside__print--list" >
     ${uniqueletters
       .map(letter => {
         return `
@@ -118,7 +118,7 @@ class ListView extends View {
               <use href="${icons}#icon-chevron-right"></use>
             </svg>
         </button>
-        <button class="btn--print btn__print--print">
+        <button class="btn--print btn__print--print">Print all
             <svg class="bar__icon">
               <use href="${icons}#icon-print"></use>
             </svg>
@@ -137,7 +137,7 @@ class ListView extends View {
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
-        <button class="btn--print btn__print--print">
+        <button class="btn--print btn__print--print">Print all
             <svg class="bar__icon">
               <use href="${icons}#icon-print"></use>
             </svg>
@@ -162,7 +162,7 @@ class ListView extends View {
               <use href="${icons}#icon-chevron-right"></use>
             </svg>
           </button>
-            <button class="btn--print btn__print--print">
+            <button class="btn--print btn__print--print">Print all
               <svg class="bar__icon">
                 <use href="${icons}#icon-print"></use>
               </svg>
@@ -172,7 +172,7 @@ class ListView extends View {
     //Page 1, and tere anr no other pages
     return `
       
-         <button class="btn--print btn__print--print">
+         <button class="btn--print btn__print--print">Print all
           <svg class="bar__icon">
             <use href="${icons}#icon-print"></use>
           </svg>

@@ -153,8 +153,6 @@ const controlAddNewCard = async function () {
     model.updateNewListCards(activeGroup);
     controlLoadAllCardsFromGroup(activeGroup);
   }
-  //save new card also into listCards(second View)
-  // model.state.list.results.push(newCard);
 
   //3. load all previous cards if exists
   const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
@@ -171,8 +169,9 @@ const controlAddNewCard = async function () {
       );
       return;
     } else {
-      model.state.list.results.push(newCard);
-      model.sortCards(model.state.list.results);
+      // model.state.list.results.push(newCard);
+      // model.sortCards(model.state.list.results);
+      model.addNewCardIntoList(newCard);
     }
     groupMessageView.render();
   }
@@ -362,14 +361,18 @@ const controlAddWord = function (newWord) {
       initialCreateNewGroupView.renderMessage(
         `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
       );
-      setTimeout(() => groupMessageView.render(''), MODAL_CLOSE_SEC * 2000);
-      createWordView.toggleWindow();
+      setTimeout(
+        () => initialCreateNewGroupView.clear(),
+        MODAL_CLOSE_SEC * 2000
+      );
+      // createWordView.toggleWindow();
       return;
     } else {
-      model.state.list.results.push(newCard);
-      model.sortCards(model.state.list.results);
+      // model.state.list.results.push(newCard);
+      // model.sortCards(model.state.list.results);
+      model.addNewCardIntoList(newCard);
     }
-    groupMessageView.render();
+    // groupMessageView.render();
   }
 
   //4. Render new created word
@@ -554,16 +557,12 @@ const controlPrintCards = function (printDiv) {
   //
 };
 const controlPrintList = function (printDiv) {
-  // let cards = model.sortCards(
-  //   model.loadAllCardsFromGroup(model.state.group.activeGroup)
-  // );
-
+  // calculate all pages to print everything ;
   model.state.list.listResultsPerPage = model.state.list.results.length;
 
   model.calculatePages();
 
-  //render list with new data
-  listView.render(model.state.list);
+  listView.render(model.getListResultsPage());
   model.printDiv(printDiv);
   location.reload();
 };

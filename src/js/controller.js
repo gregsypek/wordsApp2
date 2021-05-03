@@ -42,6 +42,7 @@ const controlSearchWords = async function () {
     initialCreateNewGroupView.renderMessage(
       'Please select any part of speech and click small "+" button on the right to add card into group!'
     );
+    setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
 
     //4. Add word and query into search object
     model.saveSearchedWord(model.state.word);
@@ -85,9 +86,9 @@ const controlClickCreateNewGroup = async function () {
     model.createObjGroup(group);
 
     //3. clear cards by render message
-    cardsView.renderMessage();
-
-    model.state.card.messageDisplay = true;
+    initialCreateNewGroupView.renderMessage('New group created:)');
+    // cardsView.renderMessage();
+    setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 
     //4. save group as active
     // model.saveGroupAsActive(group);
@@ -181,12 +182,10 @@ const controlAddNewCard = async function () {
   model.state.card.activeCard = newCard;
   //a. check if there is a message
 
-  console.log('active?', model.state.list.active);
-  if (model.state.card.messageDisplay && model.state.list.active) {
+  if (model.state.list.active) {
     //a. clear message
     // cardsView.render(newCard);
     cardsView.render(model.getCardResultsPage(newCard));
-    model.state.card.messageDisplay = false;
 
     // cardsView.addHandlerNewFooter();
   } else {
@@ -378,14 +377,8 @@ const controlAddWord = function (newWord) {
   //4. Render new created word
   model.state.card.cards.push(newCard);
 
-  if (model.state.card.messageDisplay) {
-    //a. clear message
-    cardsView.render(model.getCardResultsPage(newCard));
-    model.state.card.messageDisplay = false;
-  } else {
-    //b. add card next to previous one
-    cardsView.renderCard(model.getCardResultsPage(newCard));
-  }
+  //b. add card next to previous one
+  cardsView.renderCard(model.getCardResultsPage(newCard));
 
   //5.change ID in URL
   window.history.pushState(null, '', `#${activeGroup}`);

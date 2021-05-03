@@ -4,17 +4,23 @@
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
   background-position: top;
-  @media only screen and (max-width: $bp-large) {
-    // because message welcome back doesnt jump
-    // margin-top: 66px;
-  }
 
   &__control {
     // background-color: $color-primary;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 7rem;
+    margin-top: 15rem;
+    // height: 32rem;
+    height: 6rem;
+    justify-content: center;
+    @media only screen and (max-width: $bp-medium) {
+      height: auto;
+    }
+  }
+  //svg plus button
+  .bar__icon {
+    fill: $color-primary;
   }
   // &__nav {
   //   display: flex;
@@ -48,12 +54,15 @@
     // visibility: hidden;
     // height: 0rem;
     // cursor: pointer;
+    height: 14rem;
+    // justify-content: flex-start;
 
     @extend %nav-bar;
 
     p {
-      width: 60rem;
-      padding-left: 3rem;
+      // width: 60rem;
+      padding: 0 3rem;
+      text-align: center;
     }
 
     // &:hover .main__btn,
@@ -75,15 +84,16 @@
     // }
   }
 
-  // &__btn--create-group {
-  //   // position: relative;
-  //   // transform: translateX(-6rem);
-  //   // @extend %btn-icon;
-  //   // background-color: $color-primary2;
-  //   // @extend %btn-hidden;
-  //   // width: 6rem;
-  //   // height: 6rem;
-  // }
+  &__btn--create-group {
+    // position: relative;
+    // transform: translateX(-6rem);
+    // @extend %btn-icon;
+    // background-color: $color-primary2;
+    // @extend %btn-hidden;
+    width: 6rem;
+    height: 6rem;
+    padding: 0;
+  }
 
   .nav__icon {
     // position: absolute;
@@ -94,6 +104,9 @@
     // bottom: 0;
 
     fill: $color-primary;
+  }
+  &__input {
+    height: 0;
   }
 
   &__input {

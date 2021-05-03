@@ -26,8 +26,6 @@ export const state = {
     activeCard: '',
     cards: [],
     defaultCards: [],
-    messageDisplay: false,
-
     cardResultsPerPage: CARDS_RES_PER_PAGE,
     page: 1,
     mumPages: 1,

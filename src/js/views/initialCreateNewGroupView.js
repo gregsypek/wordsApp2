@@ -16,8 +16,8 @@ class InitialCreateNewGroupView extends View {
     return `  
          
               <p>Create new group</p>
-              <button class="main__btn main__btn--create-group">
-                <svg class="nav__icon">
+              <button class="main__btn--edit main__btn--create-group">
+                <svg class="bar__icon">
                   <use href="${icons}#icon-plus"></use>
                 </svg>
               </button>

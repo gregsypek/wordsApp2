@@ -16,6 +16,9 @@
     width: 80vw;
     max-width: 800px;
   }
+  @media only screen and (max-width: $bp-large) {
+    width: 95vw;
+  }
 }
 .add-word-window {
   @media only screen and (max-width: $bp-large) {

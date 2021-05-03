@@ -159,7 +159,8 @@
   }
   &__btn--edit {
     @extend %btn-icon;
-    &:hover {
+    &:hover,
+    &:visited {
       background-color: $color-primary3;
     }
   }

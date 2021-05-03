@@ -325,6 +325,7 @@
                 type="text"
                 placeholder="Please name your group..."
                 class="field create__field"
+                required
               />
               <button class="btn create__btn">Create</button>
             </form>
@@ -333,6 +334,7 @@
                 type="text"
                 placeholder="Please type your new name..."
                 class="field rename__field"
+                required
               />
               <button class="btn rename__btn">Rename</button>
             </form>
@@ -423,13 +425,12 @@
               id="definition1"
               required
               name="definition"
-              value="apple"
               placeholder="Enter your new word..."
             />
           </div>
         </div>
 
-        <div class="upload__row">
+        <div class="upload__row upload__row--break">
           <div class="upload__column">
             <label for="explanation1">explanation</label>
             <!-- <button class="btn--plus">
@@ -444,7 +445,6 @@
               required
               name="explanation"
               placeholder="Enter your explanation..."
-              value="jabłko"
             >
             </textarea>
           </div>
@@ -476,7 +476,6 @@
               type="text"
               id="partOfSpeech"
               name="partOfSpeech"
-              value="noun"
               placeholder="Enter your part of speech"
             />
           </div>
@@ -490,12 +489,11 @@
               type="text"
               id="phonetic"
               name="phonetics"
-              value="kət/"
-              placeholder="Enter your phonetic"
+              placeholder="for example, /kæt/"
             />
           </div>
         </div>
-        <div class="upload__row">
+        <div class="upload__row upload__row--break">
           <div class="upload__column">
             <label for="audio">Audio</label>
           </div>
@@ -504,8 +502,7 @@
               type="text"
               id="audio"
               name="audio"
-              value="https://lex-audio.useremarkable.com/mp3/apple_us_1.mp3"
-              placeholder="Enter complete address of the link "
+              placeholder="Link address e.g., https://audio.mp3 "
             />
           </div>
         </div>

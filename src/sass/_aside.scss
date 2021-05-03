@@ -218,7 +218,7 @@
       padding: 0.2rem;
       border: none;
       font-family: inherit;
-      flex-basis: 40%;
+      flex-basis: 35%;
       // @extend %btn-icon;
       &:hover {
         background: $color-secondary2;
@@ -237,13 +237,13 @@
       }
     }
     .btn__print--print {
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       border: none;
       background-color: transparent;
       cursor: pointer;
       // float: left;
       display: flex;
-      flex-basis: 18rem;
+      flex-basis: 30%;
       font-family: inherit;
       align-items: center;
       justify-content: space-between;

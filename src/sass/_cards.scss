@@ -88,6 +88,7 @@
           height: 2.5rem;
           margin-right: 2rem;
           font-size: 1.8rem;
+          cursor: default;
         }
         &--role {
           font-size: 2.5rem;
@@ -100,6 +101,9 @@
       &__sentance {
         margin-top: 3rem;
         font-size: 1.6rem;
+        p {
+          line-break: anywhere;
+        }
         p:not(:last-of-type) {
           margin-bottom: 2rem;
         }

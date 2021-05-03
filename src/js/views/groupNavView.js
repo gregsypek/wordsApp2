@@ -13,6 +13,7 @@ class GroupNavView extends View {
       .querySelector('.create__field')
       .value.toUpperCase()
       .trim();
+
     this._clearInput();
     console.log('new group', group);
     return group;

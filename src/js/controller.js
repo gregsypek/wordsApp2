@@ -39,10 +39,13 @@ const controlSearchWords = async function () {
     //   TODO IF THERE ARE ANY CARDS IN ACTIVE GROUP DO NOT DISPLAY MESSAGE BELOW
     wordView.render(model.state);
 
-    initialCreateNewGroupView.renderMessage(
-      'Please select any part of speech and click small "+" button on the right to add card into group!'
-    );
-    setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
+    // render message instruction but only before first card
+    if (model.state.card.cards.length === 0)
+      //clear any message already rendered
+      // cardsView.clear();
+      cardsView.renderMessage(
+        'Please select any part of speech and click small "+" button on the right to add card into group!'
+      );
 
     //4. Add word and query into search object
     model.saveSearchedWord(model.state.word);
@@ -55,6 +58,7 @@ const controlSearchWords = async function () {
 
 const controlClickPartOfSpeech = function (markPartClicked) {
   //reset data
+
   // console.log(model.state.click);
   model.resetClickObject();
 
@@ -69,8 +73,6 @@ const controlClickPartOfSpeech = function (markPartClicked) {
   wordClickView.handleClickPlusBtn(controlAddNewCard);
 
   // model.isGroupCreated();
-
-  if (!model.isAnyGroupCreated()) groupMessageView.renderMessageError();
 };
 
 const controlClickCreateNewGroup = async function () {
@@ -86,7 +88,7 @@ const controlClickCreateNewGroup = async function () {
     model.createObjGroup(group);
 
     //3. clear cards by render message
-    initialCreateNewGroupView.renderMessage('New group created:)');
+    initialCreateNewGroupView.renderMessage('New group created!');
     // cardsView.renderMessage();
     setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 
@@ -101,15 +103,21 @@ const controlClickCreateNewGroup = async function () {
     //7. render group-bar navigation
     groupBarView.render(model.state.group.activeGroup);
 
-    //8. delete warning message nogroup (trick render empty string and clean parent element before)
-    if (model.state.group.activeGroup) {
-      groupMessageView.render('');
-    }
+    // //8. delete warning message nogroup (trick render empty string and clean parent element before)
+    // if (model.state.group.activeGroup) {
+    //   groupMessageView.render('');
+    // }
 
     //9. change Id in URL
     window.history.pushState(null, '', `#${group}`);
     model.persistGroups();
     console.log(model.state.group.activeGroup);
+    //10. clear mesage no group created...
+    // cardsView.clear();
+    //update list cards for future change
+    model.updateNewListCards(group);
+
+    controlLoadAllCardsFromGroup(group);
   } catch (err) {
     console.log(err);
   }
@@ -136,23 +144,36 @@ const controlChangeView = function () {
 };
 ////////////////////////////////
 const controlAddNewCard = async function () {
-  //0. clear  welcome create new group bar
-  initialCreateNewGroupView.clear();
+  // cardsView.clear();
+
+  console.log(model.state.group.groups);
+  //0. clear  welcome create new group bar but only where there is some group created
+  // if (model.state.group.groups.length > 0 && !model.isDefaultGroupCreated())
+  //   initialCreateNewGroupView.clear();
   //1.create card object
   model.createObjCard();
   //1. reset footer page start
   model.state.card.page = 1;
   //2. load new card
-  const newCard = model.loadNewCard();
 
+  const newCard = model.loadNewCard();
   const activeGroup = newCard.groupName;
+
+  if (activeGroup === 'default') {
+    groupBarView.render('default');
+    // model.persistGroups();
+    model.addNewCardIntoList(newCard);
+  }
+
+  // controlLoadAllCardsFromGroup(activeGroup);
 
   if (model.state.list.active) {
     //reset cardsList view
     model.state.list.active = false;
-    //save newcard into model.state.list
+    // save newcard into model.state.list
     model.updateNewListCards(activeGroup);
     controlLoadAllCardsFromGroup(activeGroup);
+    // model.calculatePages();
   }
 
   //3. load all previous cards if exists
@@ -170,11 +191,9 @@ const controlAddNewCard = async function () {
       );
       return;
     } else {
-      // model.state.list.results.push(newCard);
-      // model.sortCards(model.state.list.results);
       model.addNewCardIntoList(newCard);
     }
-    groupMessageView.render();
+    // groupMessageView.render();
   }
 
   // cardsView.addHandlerNewFooter();
@@ -185,9 +204,7 @@ const controlAddNewCard = async function () {
   if (model.state.list.active) {
     //a. clear message
     // cardsView.render(newCard);
-    cardsView.render(model.getCardResultsPage(newCard));
-
-    // cardsView.addHandlerNewFooter();
+    cardsView.render(model.getListResultsPage());
   } else {
     //b. add card next to previous one
     cardsView.renderCard(model.getCardResultsPage(newCard));
@@ -200,7 +217,7 @@ const controlAddNewCard = async function () {
   //7. save card into state object
   model.saveCardIntoCorrectGroup(newCard);
   initialCreateNewGroupView.renderMessage('Success! You just add your card...');
-  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {
@@ -336,9 +353,21 @@ const welcomeBack = function () {
 };
 const welcome = function () {
   initialCreateNewGroupView.render();
+  if (!model.isAnyGroupCreated())
+    cardsView.renderMessage(
+      'No group created. All cards will be added into default group. Please create new group to prevent that and then add your words inside'
+    );
+  // setTimeout(() => cardsView.clear(), MODAL_CLOSE_SEC * 3000);
 };
 
 const controlAddWord = function (newWord) {
+  // if no group render dafault one
+  if (model.state.group.groups.length === 0) {
+    groupBarView.render('default');
+    // window.history.pushState(null, '', `default`);
+    controlLoadAllCardsFromGroup('default');
+    model.state.group.activeGroup = 'default';
+  }
   //1. Upload the new word data
   const newCard = model.uploadWord(newWord);
 
@@ -357,13 +386,10 @@ const controlAddWord = function (newWord) {
   //3.prevent to add the same card
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
-      initialCreateNewGroupView.renderMessage(
+      groupMessageView.renderMessage(
         `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
       );
-      setTimeout(
-        () => initialCreateNewGroupView.clear(),
-        MODAL_CLOSE_SEC * 2000
-      );
+      setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
       // createWordView.toggleWindow();
       return;
     } else {
@@ -466,7 +492,6 @@ const controlDeleteGroup = function () {
 
   //reset listView
   model.state.list.active = false;
-
   model.persistGroups();
 };
 const controlLoadSelectedGroup = function (goToGroup) {

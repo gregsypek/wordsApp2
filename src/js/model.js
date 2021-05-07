@@ -158,7 +158,9 @@ export const saveCardIntoCorrectGroup = async function (newCard) {
   }
 };
 export const isAnyGroupCreated = function () {
-  if (state.group.groups.length !== 0) return true;
+  if (state.group.groups.length !== 0) {
+    return true;
+  } else return false;
 };
 export const isUserGroupCreated = function () {
   if (
@@ -404,6 +406,13 @@ export const printDiv = function (divName) {
 export const toggleActiveList = function () {
   state.list.active ? (state.list.active = false) : (state.list.active = true);
 };
+export const isListViewActive = function (activeGroup) {
+  if (state.list.active) {
+    state.list.active = false;
+    updateNewListCards(activeGroup);
+    return true;
+  }
+};
 export const calculatePages = function () {
   //reset list page
   state.list.page = 1;
@@ -413,7 +422,6 @@ export const calculatePages = function () {
   );
 
   state.list.numPages = numPages;
-  console.log('drukuj', state.list);
 };
 
 const initCookie = function () {

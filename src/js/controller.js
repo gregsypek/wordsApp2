@@ -144,15 +144,11 @@ const controlChangeView = function () {
 };
 ////////////////////////////////
 const controlAddNewCard = function () {
-  // cardsView.clear();
-
-  console.log(model.state.group.groups);
-
   model.createObjCard();
   //1. reset footer page start
   model.state.card.page = 1;
   //2. load new card
-  if (model.state.group.groups.length === 0) {
+  if (!model.isAnyGroupCreated()) {
     groupBarView.render('default');
     // window.history.pushState(null, '', `default`);
     controlLoadAllCardsFromGroup('default');
@@ -161,9 +157,7 @@ const controlAddNewCard = function () {
   const newCard = model.loadNewCard();
   const activeGroup = newCard.groupName;
 
-  if (model.state.list.active) {
-    model.state.list.active = false;
-    model.updateNewListCards(activeGroup);
+  if (model.isListViewActive(activeGroup)) {
     controlLoadAllCardsFromGroup(activeGroup);
   }
   const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
@@ -366,22 +360,22 @@ const welcome = function () {
 
 const controlAddWord = function (newWord) {
   // if no group render dafault one
-  if (model.state.group.groups.length === 0) {
+  // if (model.state.group.groups.length === 0) {
+  //
+  // }
+  if (!model.isAnyGroupCreated()) {
     groupBarView.render('default');
+
     // window.history.pushState(null, '', `default`);
     controlLoadAllCardsFromGroup('default');
     model.state.group.activeGroup = 'default';
   }
+
   //1. Upload the new word data
   const newCard = model.uploadWord(newWord);
-
-  //2. check if new card is unique
   const activeGroup = newCard.groupName;
 
-  //reset cardsList view
-  if (model.state.list.active) {
-    model.state.list.active = false;
-    model.updateNewListCards(activeGroup);
+  if (model.isListViewActive(activeGroup)) {
     controlLoadAllCardsFromGroup(activeGroup);
   }
 

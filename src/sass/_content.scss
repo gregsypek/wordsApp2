@@ -12,10 +12,13 @@
     align-items: center;
     margin-top: 15rem;
     // height: 32rem;
-    height: 6rem;
+    min-height: 6rem;
     justify-content: center;
-    @media only screen and (max-width: $bp-medium) {
-      height: auto;
+    // @media only screen and (max-width: $bp-medium) {
+    //   height: auto;
+    // }
+    @media only screen and (max-width: $bp-large) {
+      max-height: 4rem;
     }
   }
   //svg plus button

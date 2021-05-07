@@ -136,92 +136,89 @@ const controlChangeView = function () {
   // console.log(model.state.list);
   // console.log(model.getListResultsPage());
   // console.log('list results', model.state.list.results);
-  model.updateNewListCards(model.state.group.activeGroup);
+
   if (model.state.list.active) {
     controlListPagination(1);
     listView.render(model.state.list);
   } else controlLoadAllCardsFromGroup(model.state.group.activeGroup);
 };
 ////////////////////////////////
-const controlAddNewCard = function () {
-  // cardsView.clear();
-
-  console.log(model.state.group.groups);
+const controlAddNewCard = async function () {
+  // model.state.list.active = false;
 
   model.createObjCard();
   //1. reset footer page start
   model.state.card.page = 1;
   //2. load new card
-  if (model.state.group.groups.length === 0) {
-    groupBarView.render('default');
-    // window.history.pushState(null, '', `default`);
-    controlLoadAllCardsFromGroup('default');
-    model.state.group.activeGroup = 'default';
-  }
+
   const newCard = model.loadNewCard();
   const activeGroup = newCard.groupName;
-
-  if (model.state.list.active) {
-    model.state.list.active = false;
-    model.updateNewListCards(activeGroup);
-    controlLoadAllCardsFromGroup(activeGroup);
+  model.state.group.activeGroup = activeGroup;
+  const cards = model.loadAllCardsFromGroup(model.state.group.activeGroup);
+  console.log('cards', cards);
+  if (activeGroup === 'default' && cards.length === 0) {
+    groupBarView.render('default');
+    // model.persistGroups();
+    model.addNewCardIntoList(newCard);
   }
+
+  // controlLoadAllCardsFromGroup(activeGroup);
+
+  //3. load all previous cards if exists
   const allPreviousCards = [...model.loadAllCardsFromGroup(activeGroup)];
+  model.state.card.activeCard = newCard;
 
-  //3.prevent to add the same card
-  if (allPreviousCards.length > 0) {
-    if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
-      groupMessageView.renderMessage(
-        `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
-      );
-      setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
-      // createWordView.toggleWindow();
-      return;
-    } else {
-      // model.state.list.results.push(newCard);
-      // model.sortCards(model.state.list.results);
-      model.addNewCardIntoList(newCard);
-    }
-    // groupMessageView.render();
+  //4 check if new card is unique
+  if (
+    allPreviousCards.length > 0 &&
+    allPreviousCards.some(card => !model.isCardUnique(card, newCard))
+  ) {
+    initialCreateNewGroupView.renderMessage(
+      "You can't add the same card into this group. Try another one"
+    );
+    setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+    // return;
   }
+  // groupMessageView.render();
+  else {
+    model.saveCardIntoCorrectGroup(newCard);
+    model.addNewCardIntoList(newCard);
+  }
+  model.getListResultsPage();
 
-  model.state.card.cards.push(newCard);
-  //b. add card next to previous one
-  cardsView.renderCard(model.getCardResultsPage(newCard));
+  // cardsView.addHandlerNewFooter();
+  //5.render new card
 
-  //5.change ID in URL
-  window.history.pushState(null, '', `#${activeGroup}`);
-
-  //6. save card into group
-  model.saveCardIntoCorrectGroup(newCard);
-
-  //7. Display success message
-  initialCreateNewGroupView.renderMessage(
-    'New word was successfully created :)'
-  );
-
-  //8. hide success message
-  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
   //a. check if there is a message
 
-  // if (model.state.list.active) {
-  //   //a. clear message
-  //   // cardsView.render(newCard);
-  //   // cardsView.render(model.getListResultsPage());
-  //   cardsView.render(model.getCardResultsPage(newCard));
-  // } else {
-  //   //b. add card next to previous one
-  //   cardsView.renderCard(model.getCardResultsPage(newCard));
-  //   // cardsView.addHandlerNewFooter();
-  // }
+  if (model.state.list.active) {
+    //a. clear message
+    // cardsView.render(newCard);
 
+    // controlListPagination(1);
+    // listView.render(model.state.list);
+    cardsView.render(model.getListResultsPage());
+    model.state.list.active = false;
+  } else {
+    //b. add card next to previous one
+    cardsView.renderCard(model.getCardResultsPage(newCard));
+    // cardsView.addHandlerNewFooter();
+  }
+
+  // if (model.state.list.active) {
+  //   //reset cardsList view
+  //   // save newcard into model.state.list
+  //   model.updateNewListCards(activeGroup);
+  //   controlLoadAllCardsFromGroup(activeGroup);
+  //   // model.calculatePages();
+  // }
   //6 render initial pagination buttons
 
   // controlLoadFooterCard(newCard);
   //7. save card into state object
-  // model.saveCardIntoCorrectGroup(newCard);
-  // initialCreateNewGroupView.renderMessage('Success! You just add your card...');
-  // setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
+
+  initialCreateNewGroupView.renderMessage('Success! You just add your card...');
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {

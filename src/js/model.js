@@ -393,8 +393,6 @@ export const sortCards = function (cards) {
   return cards;
 };
 
-// clearGroups();
-
 export const printDiv = function (divName) {
   const printContents = document.getElementById(divName).innerHTML;
   const originalContents = document.body.innerHTML;
@@ -426,3 +424,5 @@ const initCookie = function () {
 };
 
 initCookie();
+
+// clearGroups();

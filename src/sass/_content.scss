@@ -4,6 +4,9 @@
   background-image: url(../img/book.png);
   background-repeat: no-repeat;
   background-position: top;
+  @media only screen and (max-width: $bp-medium) {
+    background-image: url(../img/book-medium.png);
+  }
 
   &__control {
     // background-color: $color-primary;
@@ -162,6 +165,7 @@
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
+    justify-content: center;
   }
   // name of the new created group
   &__group {

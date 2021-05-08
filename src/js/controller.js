@@ -18,6 +18,7 @@ import 'regenerator-runtime/runtime'; //polyfiling async await functions
 import 'core-js/stable'; // allows old browser display our code
 import { Object } from 'core-js';
 import appInfoView from './views/appInfoView.js';
+import confirmView from './views/confirmView.js';
 
 const controlSearchWords = async function () {
   try {
@@ -454,43 +455,16 @@ const controlRenameGroup = function () {
   groupBarView.render(newName);
 
   model.persistGroups();
+  initialCreateNewGroupView.renderMessage(
+    'Success! You have just renamed your group'
+  );
+  // cardsView.renderMessage();
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 };
 const controlDeleteGroup = function () {
   //find active group
   console.log(model.state.group.activeGroup);
-  const index = model.findGroupsIndex(model.state.group.activeGroup);
-
-  // delete it
-  model.state.group.groups.splice(index, 1);
-  // console.log('1', model.state.group.activeGroup);
-
-  //change active group
-  if (model.state.group.groups.length > 0) {
-    model.state.group.activeGroup =
-      model.state.group.groups[model.state.group.groups.length - 1].groupName;
-  } else {
-    model.state.group.activeGroup = '';
-    groupBarView.clear();
-    initialCreateNewGroupView.render();
-    window.history.pushState(null, '', `#${''}`);
-    cardsView.clear();
-  }
-  //load all groups in modal view
-  controlLoadAllGroups();
-
-  //load all cards from last group
-  controlLoadAllCardsFromGroup(model.state.group.activeGroup);
-
-  //change navigation with proper name group
-  groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
-
-  //reset url
-  window.history.pushState(null, '', `#${model.state.group.activeGroup}`);
-  console.log('2', model.state.group.activeGroup);
-
-  //reset listView
-  model.state.list.active = false;
-  model.persistGroups();
+  groupNavView.toggleShowHiddenConfirmForm();
 };
 const controlLoadSelectedGroup = function (goToGroup) {
   //1. save the name of the selected group
@@ -502,7 +476,6 @@ const controlLoadSelectedGroup = function (goToGroup) {
   //3.change activeGroup to be able deleting cards
   // model.state.group.activeGroup = group;
   model.saveGroupAsActive(group);
-  console.log("I've changed active group to: ", group);
 
   //change listActive flag(I want to always render cards not list of definitions!)
   model.state.list.active = false;
@@ -582,6 +555,55 @@ const controlPrintList = function (printDiv) {
   model.printDiv(printDiv);
   location.reload();
 };
+const controlConfirm = function () {
+  groupNavView.toggleShowHiddenConfirmForm();
+  groupNavView.hideRenameForm();
+  groupNavView.hideCreateForm();
+  const index = model.findGroupsIndex(model.state.group.activeGroup);
+
+  // delete it
+  model.state.group.groups.splice(index, 1);
+  // console.log('1', model.state.group.activeGroup);
+
+  //change active group
+  if (model.state.group.groups.length > 0) {
+    model.state.group.activeGroup =
+      model.state.group.groups[model.state.group.groups.length - 1].groupName;
+  } else {
+    model.state.group.activeGroup = '';
+    groupBarView.clear();
+    initialCreateNewGroupView.render();
+    window.history.pushState(null, '', `#${''}`);
+    cardsView.clear();
+  }
+  //load all groups in modal view
+  controlLoadAllGroups();
+
+  //load all cards from last group
+  controlLoadAllCardsFromGroup(model.state.group.activeGroup);
+
+  //change navigation with proper name group
+  groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
+
+  //reset url
+  window.history.pushState(null, '', `#${model.state.group.activeGroup}`);
+  console.log('2', model.state.group.activeGroup);
+
+  //reset listView
+  model.state.list.active = false;
+  model.persistGroups();
+  initialCreateNewGroupView.renderMessage(
+    'Success! You have just deleted your group'
+  );
+  // cardsView.renderMessage();
+  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+};
+
+const controlResign = function () {
+  groupNavView.toggleShowHiddenConfirmForm();
+  // groupNavView.toggleShowHiddenForm();
+  // groupNavView.toggleShowHiddenRenameForm();
+};
 
 const init = function () {
   welcome();
@@ -606,6 +628,8 @@ const init = function () {
   groupBarView.addHandlerPrintCards(controlPrintCards);
   listView.addHandlerPage(controlListPagination);
   listView.addHandlerPrintList(controlPrintList);
+  confirmView.addHandlerYes(controlConfirm);
+  confirmView.addHandlerNo(controlResign);
 };
 init();
 //TODO PREVENT FROM CREATING GROUP WITH THE SAME NAME

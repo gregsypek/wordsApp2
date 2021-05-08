@@ -7,6 +7,7 @@ class GroupNavView extends View {
   _sortBtn = document.querySelector('.main__btn--sort');
   _createGroupBtnForm = document.querySelector('.create');
   _renameGroupBtnForm = document.querySelector('.rename');
+  _confirmForm = document.querySelector('.confirm');
   // _deleteGroupBtn = document.querySelector('.main__btn--deleteGroup');
   getNewGroup() {
     const group = this._parentElement
@@ -69,6 +70,9 @@ class GroupNavView extends View {
     this._renameGroupBtnForm.classList.toggle('hidden');
     //move up form rename to be in place create form place
     this._renameGroupBtnForm.style.transform = 'translateY(-5.6rem)';
+  }
+  toggleShowHiddenConfirmForm() {
+    this._confirmForm.classList.toggle('hidden');
   }
 }
 export default new GroupNavView();

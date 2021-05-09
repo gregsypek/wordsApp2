@@ -65,8 +65,18 @@
     height: 14rem;
     // justify-content: flex-start;
 
-    @extend %nav-bar;
+    // @extend %nav-bar;
+    // border: none;
 
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    background-color: $color-primary3;
+    // height: 6rem;
+    // width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.5s ease;
     p {
       // width: 60rem;
       padding: 0 3rem;
@@ -148,11 +158,25 @@
   .confirm {
     @extend %nav-bar;
 
-    height: 6rem;
+    height: auto;
     border: 1px solid $color-primary;
     transform: translateY(-11.2rem);
+    flex-wrap: wrap;
+    @media only screen and (max-width: $bp-medium) {
+      justify-content: center;
+    }
     p {
       padding: 0 1rem;
+      @media only screen and (max-width: $bp-medium) {
+        // flex-direction: column;
+        font-size: 2rem;
+        padding: 0.5rem 1.5rem;
+      }
+    }
+
+    .yes__btn,
+    .no__btn {
+      height: 6rem;
     }
   }
   //MAIN NAVIGATION BAR

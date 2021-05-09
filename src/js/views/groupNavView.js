@@ -15,7 +15,7 @@ class GroupNavView extends View {
       .value.toUpperCase()
       .trim();
 
-    this._clearInput();
+    this._clearInput('.create__field');
     console.log('new group', group);
     return group;
   }
@@ -24,14 +24,14 @@ class GroupNavView extends View {
       .querySelector('.rename__field')
       .value.toUpperCase()
       .trim();
-    this._clearInput();
+    this._clearInput('.rename__field');
     console.log(name);
     //remove only double-spaces
     return name.replace(/\s\s/g, ' ');
   }
 
-  _clearInput() {
-    this._parentElement.querySelector('.create__field').value = '';
+  _clearInput(field) {
+    this._parentElement.querySelector(field).value = '';
   }
 
   // addHandlerClick(handler) {

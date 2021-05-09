@@ -46,20 +46,6 @@ class GroupBarView extends View {
       handler();
     });
   }
-  // printCards(el) {
-  //   console.log('_printCardsElement', this._printCardsElement);
-  //   // const restorePage = document.body.innerHTML;
-  //   // const printContent = el.innerHTML;
-  //   // document.body.innerHTML = printContent;
-  //   // window.print();
-  //   // const restorePage = document.body.innerHTML;
-  //   const printContent = el.innerHTML;
-  //   document.body.innerHTML = printContent;
-  //   window.print();
-
-  //   // document.body.innerHTML = restorePage;
-  //   location.reload();
-  // }
 
   addHandlerPrintCards(handler) {
     this._parentElement.addEventListener('click', e => {

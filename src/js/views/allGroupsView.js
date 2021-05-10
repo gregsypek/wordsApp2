@@ -21,32 +21,23 @@ class AllGroupsView extends View {
       handler();
     });
   }
-  // addHandlerRender(handler) {
-  //   ['hashchange', 'load'].forEach(event =>
-  //     window.addEventListener(event, handler)
-  //   );
-  // }
 
   addHandlerLoadSelectedGroup(handler) {
     this._parentElement.addEventListener('click', e => {
       const selectedGroup = e.target.closest('.preview__link');
       if (!selectedGroup) return;
       const goToGroup = selectedGroup.dataset.group;
-      console.log(selectedGroup, goToGroup);
       handler(goToGroup);
     });
   }
 
   addHandlerPreview() {
-    // this.toggleWindow();
     this._overlay.classList.add('hidden');
-    console.log('click');
     this._window.classList.add('hidden');
   }
 
   toggleWindow() {
     this._overlay.classList.toggle('hidden');
-    console.log('click');
     this._window.classList.toggle('hidden');
   }
   _addHandlerShowWindow() {
@@ -59,8 +50,6 @@ class AllGroupsView extends View {
   }
 
   _generateMarkup() {
-    console.log(this._data);
-
     const groups = this._data;
     return `
      <h1 class="groups__heading">All groups</h1>
@@ -83,7 +72,4 @@ class AllGroupsView extends View {
     `;
   }
 }
-//  <svg class="nav__icon">
-//    <use href="${icons}#icon-minus"></use>
-//  </svg>;
 export default new AllGroupsView();

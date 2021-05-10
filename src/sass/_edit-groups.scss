@@ -37,7 +37,6 @@
         font-family: $font-family;
         @extend .main__bar;
         width: calc(100% - 6rem);
-        // height: 100%;
         text-align: center;
         cursor: pointer;
         border: none;

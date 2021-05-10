@@ -9,7 +9,6 @@
   }
 
   &__control {
-    // background-color: $color-primary;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,9 +16,6 @@
     // height: 32rem;
     min-height: 6rem;
     justify-content: center;
-    // @media only screen and (max-width: $bp-medium) {
-    //   height: auto;
-    // }
     @media only screen and (max-width: $bp-large) {
       max-height: 4rem;
     }
@@ -28,11 +24,6 @@
   .bar__icon {
     fill: $color-primary;
   }
-  // &__nav {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  // }
 
   .message-nogroup {
     // margin: 0 auto;
@@ -58,37 +49,19 @@
   }
   // BUTTON CREATE NEW GROUP WITH PLUS
   &__create-group {
-    //TODO use javascript to change those value
-    // visibility: hidden;
-    // height: 0rem;
-    // cursor: pointer;
     height: 14rem;
-    // justify-content: flex-start;
-
-    // @extend %nav-bar;
-    // border: none;
 
     font-size: 3.5rem;
     text-transform: uppercase;
     background-color: $color-primary3;
-    // height: 6rem;
-    // width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: transform 0.5s ease;
     p {
-      // width: 60rem;
       padding: 0 3rem;
       text-align: center;
     }
-
-    // &:hover .main__btn,
-    // &:active .main__btn {
-    //   transform: translateX(6rem);
-    //   opacity: 1;
-    //   cursor: pointer;
-    // }
   }
   &__nav {
     @media only screen and (max-width: $bp-large) {
@@ -97,29 +70,16 @@
     @media only screen and (max-width: $bp-small) {
       width: 80vw;
     }
-    // @media only screen and (max-width: $bp-small) {
-    //   width: 32rem;
-    // }
   }
 
   &__btn--create-group {
-    // position: relative;
-    // transform: translateX(-6rem);
-    // @extend %btn-icon;
-    // background-color: $color-primary2;
-    // @extend %btn-hidden;
     width: 6rem;
     height: 6rem;
     padding: 0;
   }
 
   .nav__icon {
-    // position: absolute;
     @extend %btn-icon;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // bottom: 0;
 
     fill: $color-primary;
   }
@@ -152,7 +112,6 @@
       &__btn {
         @extend %btn;
       }
-      // @include form2;
     }
   }
   .confirm {
@@ -202,11 +161,9 @@
   }
   // name of the new created group
   &__group {
-    // margin-left: 3rem;
     line-break: anywhere;
     padding: 0 2rem;
     min-width: 26rem;
-    // width: 50rem;
     @media only screen and (max-width: $bp-large) {
       text-align: center;
       margin-left: 0;

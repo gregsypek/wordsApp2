@@ -9,30 +9,22 @@ class WordView extends View {
     'You have no results. Please try again or search another one. You can also create new word and add him into group.';
   _message = '';
 
-  // addHandlerRender(handler) {
-  //   ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
-  // }
-
   addHandlerClick(handler) {
     this._parentElement
       .querySelector('.aside__item')
       //to have access for WordView object we need implement here arrow function
       .addEventListener('click', e => {
         const clicked = e.target.closest('.aside__link');
-        // console.log(clicked);
         if (!clicked) return;
         const markPartClicked = +clicked.dataset.link;
-        // console.log(markPartClicked);
 
         clicked.classList.toggle('aside__link--active');
-        // console.log(clicked);
         handler(markPartClicked);
       });
   }
 
   _generateMarkup() {
     const { word } = this._data;
-    // const { activePart } = this._data.click;
     const { clickedPart } = this._data.click;
     return `
      <div class="aside__results">

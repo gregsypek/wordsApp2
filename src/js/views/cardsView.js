@@ -24,8 +24,6 @@ class GroupView extends View {
       const card = e.target.closest('.main__card-box');
       if (!card) return;
       const cardId = +card.dataset.id;
-      // console.log(cardId);
-      // console.log(goToPage);
       handler(cardId, goToPage);
     });
   }
@@ -35,7 +33,6 @@ class GroupView extends View {
       const closeBtn = e.target.closest('.main__btn--close');
       if (!closeBtn) return;
       const cardId = closeBtn.dataset.cardId;
-      // console.log(cardId);
       handler(cardId);
     });
   }
@@ -43,17 +40,9 @@ class GroupView extends View {
     const cardBoxes = this._parentElement.querySelectorAll('.main__card-box');
 
     const cardBoxesIDs = Array.from(cardBoxes).map(card => card.dataset.id);
-    // console.log('cardBoxesIDs', cardBoxesIDs);
     const index = cardBoxesIDs.findIndex(id => Number(id) === card.id);
     const cardToUpdate = cardBoxes[index];
-    // console.log('cardToUpdate', cardToUpdate);
-
-    // const oldDefinitions = [
-    //   ...cardToUpdate.querySelectorAll('.definition'),
-    // ].map(p => p.innerHTML);
     const newDefinitions = card.renderDefinitions;
-    // console.log(oldDefinitions);
-    // console.log('newDefinitions', newDefinitions);
 
     cardToUpdate.querySelector(
       '.card__sentance'
@@ -63,13 +52,6 @@ class GroupView extends View {
       '.main__card-footer'
     ).innerHTML = this._generateFooterCard(card);
     /////////////
-
-    // newDefinitions.forEach((newD, i) => {
-    //   const curD = oldDefinitions[i];
-    //   curD.textContent = newD.textContent;
-    // });
-    // console.log(newDefinitions);
-    // definitions.map(this._generateMarkupDefinitions(card.renderDefinitions));
   }
 
   _generateMarkup() {
@@ -123,13 +105,9 @@ class GroupView extends View {
     `;
   }
   _generateFooterCard(pageData = false) {
-    // console.log('this._data');
-
     const curPage = pageData ? pageData.page : this._data.page;
     const numPages = pageData ? pageData.numPages : this._data.numPages;
     //Page 1, and there are other pages
-    // console.log('curPage', curPage);
-    // console.log('numPages', numPages);
     if (curPage === 1 && numPages > 1) {
       return `
         <button data-goto="${curPage + 1}" class="btn--page btn--next">

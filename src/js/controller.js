@@ -3,7 +3,6 @@ import { MODAL_CLOSE_SEC } from './config.js';
 import wordView from './views/wordView.js';
 import searchView from './views/searchView.js';
 import cardsView from './views/cardsView.js';
-// import welcomeView from './views/welcomeView.js';
 import wordClickView from './views/wordClickView.js';
 import createWordView from './views/createWordView';
 
@@ -26,10 +25,6 @@ const controlSearchWords = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
-    // const id = window.location.hash.slice(1);
-    // console.log(id);
-    // if (!id) return;
-
     wordView.renderSpinner();
 
     //2. Load search result
@@ -43,7 +38,6 @@ const controlSearchWords = async function () {
     // render message instruction but only before first card
     if (model.state.card.cards.length === 0)
       //clear any message already rendered
-      // cardsView.clear();
       cardsView.renderMessage(
         'Please select any part of speech and click small "+" button on the right to add card into group!'
       );
@@ -60,10 +54,7 @@ const controlSearchWords = async function () {
 const controlClickPartOfSpeech = function (markPartClicked) {
   //reset data
 
-  // console.log(model.state.click);
   model.resetClickObject();
-
-  // console.log(model.state.click);
 
   model.saveClickedData(markPartClicked);
 
@@ -72,8 +63,6 @@ const controlClickPartOfSpeech = function (markPartClicked) {
   wordView.addHandlerClick(controlClickPartOfSpeech);
 
   wordClickView.handleClickPlusBtn(controlAddNewCard);
-
-  // model.isGroupCreated();
 };
 
 const controlClickCreateNewGroup = async function () {
@@ -93,35 +82,21 @@ const controlClickCreateNewGroup = async function () {
     // cardsView.renderMessage();
     setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
 
-    //4. save group as active
-    // model.saveGroupAsActive(group);
-    // console.log(group);
-    // // 5 change flag newGroup
-    // model.state.newGroup = true;
-    //6. render spinner load
+    //4. render spinner load
     groupBarView.renderSpinner();
 
-    //7. render group-bar navigation
+    //5. render group-bar navigation
     groupBarView.render(model.state.group.activeGroup);
 
-    // //8. delete warning message nogroup (trick render empty string and clean parent element before)
-    // if (model.state.group.activeGroup) {
-    //   groupMessageView.render('');
-    // }
-
-    //9. change Id in URL
+    //6. change Id in URL
     window.history.pushState(null, '', `#${group}`);
     model.persistGroups();
-    console.log(model.state.group.activeGroup);
-    //10. clear mesage no group created...
-    // cardsView.clear();
-    //update list cards for future change
+
+    //7.update list cards for future change
     model.updateNewListCards(group);
 
     controlLoadAllCardsFromGroup(group);
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 const controlShowRenameGroupFromBar = function () {
   //hide other form
@@ -134,9 +109,6 @@ const controlChangeView = function () {
   model.toggleActiveList();
   //8 reset list page to 1
   model.calculatePages();
-  // console.log(model.state.list);
-  // console.log(model.getListResultsPage());
-  // console.log('list results', model.state.list.results);
   model.updateNewListCards(model.state.group.activeGroup);
   if (model.state.list.active) {
     controlListPagination(1);
@@ -173,8 +145,6 @@ const controlAddNewCard = function () {
       // createWordView.toggleWindow();
       return;
     } else {
-      // model.state.list.results.push(newCard);
-      // model.sortCards(model.state.list.results);
       model.addNewCardIntoList(newCard);
     }
     // groupMessageView.render();
@@ -197,38 +167,15 @@ const controlAddNewCard = function () {
 
   //8. hide success message
   setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
-  //a. check if there is a message
-
-  // if (model.state.list.active) {
-  //   //a. clear message
-  //   // cardsView.render(newCard);
-  //   // cardsView.render(model.getListResultsPage());
-  //   cardsView.render(model.getCardResultsPage(newCard));
-  // } else {
-  //   //b. add card next to previous one
-  //   cardsView.renderCard(model.getCardResultsPage(newCard));
-  //   // cardsView.addHandlerNewFooter();
-  // }
-
-  //6 render initial pagination buttons
-
-  // controlLoadFooterCard(newCard);
-  //7. save card into state object
-  // model.saveCardIntoCorrectGroup(newCard);
-  // initialCreateNewGroupView.renderMessage('Success! You just add your card...');
-  // setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {
   //1.get all cards
   const cards = model.loadAllCardsFromGroup(group);
 
-  // console.log('cards to load', cards);
   //2.clear cards container
   cardsView.clear();
   //3.render cards
-  // console.log('cards to load', cards);
-  //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   cards.map(card => cardsView.renderCard(card));
 };
 
@@ -248,7 +195,6 @@ const controlDeleteCard = function (cardId) {
   //2. check which group render again default or active
   if (model.state.group.activeGroup) {
     controlLoadAllCardsFromGroup(model.state.group.activeGroup);
-    console.log(model.state.group.activeGroup);
   } else {
     controlLoadAllCardsFromGroup('default');
   }
@@ -263,7 +209,6 @@ const controlShowCreateGroupForm = function () {
 const controlShowNewGroupFormFromBar = function () {
   //   //hide other form
   groupNavView.hideRenameForm();
-  // console.log(model.state);
   groupNavView.toggleShowHiddenForm();
 };
 
@@ -274,25 +219,6 @@ const controlLoadBar = function (group) {
   //check if there is any group created
   if (model.state.group.groups.length > 0) groupBarView.render(group);
 };
-
-// const controlPreviewGroup = async function () {
-//   try {
-//     //1. save the name of the selected group
-//     const group = window.location.hash.slice(1);
-
-//     if (!group) return;
-//     //2. close modal window
-//     allGroupsView.addHandlerPreview();
-//     //3.change activeGroup to be able deleting cards
-//     model.state.group.activeGroup = group;
-//     //4. render all cards from selected group
-//     controlLoadAllCardsFromGroup(group);
-//     //5. render bar navigation
-//     groupBarView.render(group);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 const controlCardPagination = function (cardId, goToPage) {
   //1.find card where user click page btn
@@ -311,17 +237,10 @@ const controlListPagination = function (goToPage) {
 };
 
 const welcomeBack = function () {
-  console.log(model.state.group.activeGroup);
-  console.log(model.state.group.groups);
   initialCreateNewGroupView.clear();
-  // groupBarView.addHandlerRender(controlLoadBar(model.state.group.activeGroup));
-  // allGroupsView.render(model.state.group.groups);
-  // const lastGroup =
-  //   model.state.group.groups[model.state.group.groups.length - 1].groupName;
   const activeGroup = model.state.group.activeGroup
     ? model.state.group.activeGroup
     : '';
-  // model.state.group.groups[model.state.group.groups.length - 1].groupName;
 
   // if (!lastGroup) {
   if (!activeGroup) {
@@ -341,9 +260,6 @@ const welcomeBack = function () {
   //OLD VERSION
   groupBarView.render(activeGroup);
   controlLoadAllCardsFromGroup(activeGroup);
-  // groupBarView.render(window.location.hash.slice(1));
-  // controlLoadAllCardsFromGroup(window.location.hash.slice(1));
-  // allGroupsView.render(model.state.group.groups);
   appInfoView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
   setTimeout(() => appInfoView.render(''), MODAL_CLOSE_SEC * 1000);
@@ -360,10 +276,6 @@ const welcome = function () {
 };
 
 const controlAddWord = function (newWord) {
-  // if no group render dafault one
-  // if (model.state.group.groups.length === 0) {
-  //
-  // }
   if (!model.isAnyGroupCreated()) {
     groupBarView.render('default');
 
@@ -392,8 +304,6 @@ const controlAddWord = function (newWord) {
       // createWordView.toggleWindow();
       return;
     } else {
-      // model.state.list.results.push(newCard);
-      // model.sortCards(model.state.list.results);
       model.addNewCardIntoList(newCard);
     }
     // groupMessageView.render();
@@ -433,10 +343,6 @@ const controlRenameGroup = function () {
   //replace old name with new name
   model.saveGroupAsActive(newName);
 
-  // const index = model.state.group.groups.findIndex(
-  //   obj => obj.groupName === oldName
-  // );
-
   const index = model.findGroupsIndex(oldName);
   const groups = model.state.group.groups;
   const oldGroup = groups[index];
@@ -463,7 +369,6 @@ const controlRenameGroup = function () {
 };
 const controlDeleteGroup = function () {
   //find active group
-  console.log(model.state.group.activeGroup);
   groupNavView.toggleShowHiddenConfirmForm();
 };
 const controlLoadSelectedGroup = function (goToGroup) {
@@ -487,16 +392,11 @@ const controlLoadSelectedGroup = function (goToGroup) {
   model.persistGroups();
   //6 render  sorted alphabetically print list
 
-  // let cards = model.sortCards(model.loadAllCardsFromGroup(goToGroup));
-  // //8 save cards into state object
-  // model.state.list.results = cards;
-  // console.log('here', cards);
   const cards = model.saveAndGetNewListCards(goToGroup);
 
   // 7 render message if there is no cards
   if (cards.length === 0) {
     // listView.clear();
-    console.log('render error');
     cardsView.renderMessageError(
       `There is no cards in this group! Try to add some...)`
     );
@@ -507,12 +407,6 @@ const controlLoadSelectedGroup = function (goToGroup) {
   // ``;
   // ////////////////////
   model.calculatePages();
-  console.log(model.state.list);
-  console.log(model.getListResultsPage());
-
-  // }
-  // listView.render(model.state.list);
-  // // listView.render(model.getListResultsPage());
 };
 
 const controlSortCards = function () {
@@ -520,7 +414,6 @@ const controlSortCards = function () {
   if (model.state.list.active) return;
   const activeGroup = model.state.group.activeGroup;
   const cards = model.loadAllCardsFromGroup(model.state.group.activeGroup);
-  console.log('i will sort this:', cards);
   model.sortCards(cards);
 
   //display spinner
@@ -563,7 +456,6 @@ const controlConfirm = function () {
 
   // delete it
   model.state.group.groups.splice(index, 1);
-  // console.log('1', model.state.group.activeGroup);
 
   //change active group
   if (model.state.group.groups.length > 0) {
@@ -587,7 +479,6 @@ const controlConfirm = function () {
 
   //reset url
   window.history.pushState(null, '', `#${model.state.group.activeGroup}`);
-  console.log('2', model.state.group.activeGroup);
 
   //reset listView
   model.state.list.active = false;
@@ -601,15 +492,12 @@ const controlConfirm = function () {
 
 const controlResign = function () {
   groupNavView.toggleShowHiddenConfirmForm();
-  // groupNavView.toggleShowHiddenForm();
-  // groupNavView.toggleShowHiddenRenameForm();
 };
 
 const init = function () {
   welcome();
   welcomeBack();
   searchView.addHandlerSearch(controlSearchWords);
-  // wordView.addHandlerRender();
   initialCreateNewGroupView.addHandlerClick(controlShowCreateGroupForm);
   groupNavView.addHandlerCreateGroup(controlClickCreateNewGroup);
   groupNavView.addHandlerRenameGroup(controlRenameGroup);
@@ -620,7 +508,6 @@ const init = function () {
   groupBarView.addHandlerShowRenameGroupForm(controlShowRenameGroupFromBar);
   groupBarView.addHandlerChangeView(controlChangeView);
   allGroupsView.addHandleClick(controlLoadAllGroups);
-  // allGroupsView.addHandlerRender(controlPreviewGroup);
   allGroupsView.addHandlerLoadSelectedGroup(controlLoadSelectedGroup);
   createWordView.addHandlerUpload(controlAddWord);
   groupBarView.addHandlerDeleteGroup(controlDeleteGroup);

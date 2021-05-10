@@ -1,8 +1,3 @@
-// .overlay {
-//   // border: 1px solid white;
-//   // margin-top: 5rem;
-// }
-
 .btn--close {
   @extend %btn-icon;
   display: flex;
@@ -13,12 +8,9 @@
   @extend .groups__heading;
 }
 .upload {
-  // width: 80vw;
   margin: 0 auto;
   text-align: center;
   &__row {
-    // height: 6rem;
-    // flex-basis: 80vw;
     display: flex;
     justify-content: center;
     margin: 1rem 0 0 0;
@@ -33,7 +25,6 @@
   }
 
   &__column {
-    // display: flex;
     font-size: 3rem;
     align-items: center;
 
@@ -44,7 +35,6 @@
       padding: 0 1rem;
       cursor: pointer;
 
-      // text-transform: uppercase;
       @extend .main__bar;
       @media only screen and (max-width: $bp-large) {
         width: 100%;
@@ -103,10 +93,7 @@
       color: inherit;
       @extend label;
       @extend .main__bar;
-      // font-size: 2rem;
       font-family: inherit;
-      // border: none;
-      // -webkit-appearance: none;
       outline: none;
     }
   }

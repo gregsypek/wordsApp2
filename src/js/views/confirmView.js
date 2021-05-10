@@ -1,11 +1,9 @@
 import View from './View.js';
 
 class ConfirmView extends View {
-  // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.confirm');
 
   _messageError = '';
-  // _message = '';
 
   addHandlerYes(handler) {
     this._parentElement.addEventListener('click', function (e) {

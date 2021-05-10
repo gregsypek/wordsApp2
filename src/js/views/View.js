@@ -55,7 +55,4 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
-  // showHideElement(item = this._parentElement) {
-  //   item.classList.toggle('hidden');
-  // }
 }

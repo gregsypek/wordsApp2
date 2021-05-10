@@ -1,6 +1,5 @@
 .main {
   &__cards {
-    // width: 100%;
     background-color: $color-primary;
     display: flex;
     flex-wrap: wrap;
@@ -10,17 +9,8 @@
   }
 
   &__card {
-    // margin-right: 2rem;
-    // max-width: 25rem;
-    // min-width: 25rem;
-    // width: 25rem;
     background-color: $color-secondary3;
 
-    // margin-bottom: 3rem;
-    // height: 34rem;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
     &-box {
       margin-top: 5rem;
       padding: 2rem;
@@ -99,9 +89,6 @@
           font-size: 2.5rem;
           font-weight: 600;
         }
-        // &--role {
-        //   font-size: 1.6rem;
-        // }
       }
       &__sentance {
         margin-top: 3rem;
@@ -116,9 +103,6 @@
     }
     // FOOTER CARD
     &-footer {
-      // display: flex;
-      // justify-content: space-between;
-      // margin-top: 2rem;
       background-color: $color-secondary2;
       padding: 0rem 1.5rem;
       height: 3.5rem;

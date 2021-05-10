@@ -1,7 +1,6 @@
 import View from './View.js';
 import icons from '../../img/icons.svg';
 class InitialCreateNewGroupView extends View {
-  // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__create-group');
 
   addHandlerClick(handler) {
@@ -26,8 +25,5 @@ class InitialCreateNewGroupView extends View {
          
     `;
   }
-  // clear() {
-  //   this._parentElement.innerHTML = '';
-  // }
 }
 export default new InitialCreateNewGroupView();

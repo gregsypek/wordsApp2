@@ -1,12 +1,10 @@
 import View from './View.js';
 import icons from '../../img/icons.svg';
 class GroupBarView extends View {
-  // _parentElement = document.querySelector('.main__group-edit');
   _parentElement = document.querySelector('.main__nav');
 
   _printCardsElement = document.getElementById('printCards');
   _messageError = '';
-  // _message = '';
   addHandlerRender(handler) {
     window.addEventListener('load', handler);
   }
@@ -52,8 +50,6 @@ class GroupBarView extends View {
       const printBtn = e.target.closest('.main__btn--print');
       if (!printBtn) return;
       const printDiv = document.querySelector('.print-cards').id;
-      // this.printCards(this._printCardsElement)
-      console.log(printDiv);
       if (!printDiv) return;
 
       handler(printDiv);

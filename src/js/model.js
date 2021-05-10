@@ -39,25 +39,6 @@ export const state = {
   },
 };
 
-// const createWordObject = function (data) {
-//   const { newWord } = data;
-//   return {
-//     word: newWord.definition1,
-//     meanings: [
-//       {
-//         definitions: [newWord.explanation1],
-//         partOfSpeech: newWord.partOfSpeech,
-//       },
-//     ],
-//     phonetics: [
-//       {
-//         text: newWord.phonetic,
-//         audio: newWord.audio,
-//       },
-//     ],
-//   };
-// };
-
 export const loadSearchWord = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${LANGUAGE_CODE}${id}`);
@@ -80,29 +61,22 @@ export const resetClickObject = function () {
   state.click = {
     activePart: false,
     clickedPart: 0,
-    // activeBtn: false,
-    // clickedBtn: 0,
   };
 };
 export const saveSearchedWord = function (word) {
   state.search.results.push(word);
   state.search.query = word.word;
-
-  // console.error(`${err}🔥🔥🔥`);
-  // throw err;
 };
 
 export const saveClickedData = function (link) {
   state.click.clickedPart = link;
   state.click.activePart = true;
-  // return state.click.clickedPart;
 };
 
 export const saveAndGetNewListCards = function (group) {
   let cards = sortCards(loadAllCardsFromGroup(group));
   //8 save cards into state object
   state.list.results = cards;
-  console.log('here', cards);
   return cards;
 };
 export const updateNewListCards = function (group) {
@@ -215,7 +189,6 @@ export const createObjGroup = async function (name) {
     };
     state.group.groups.push(group);
     saveGroupAsActive(name);
-    // console.log('create new objGroup', state.group.groups);
   } catch (err) {
     console.log(err);
   }
@@ -226,20 +199,6 @@ export const persistGroups = function () {
   localStorage.setItem('group', JSON.stringify(state.group));
 };
 
-// export const addCardIntoGroup = async function (card) {
-//   try {
-//     const nameGroup = state.group.activeGroup;
-//     const index = state.group.groups.findIndex(obj => obj.groupName === nameGroup);
-
-//     state.group.groups[index].cards.push(card);
-//     console.log('added card into new group', state.group.groups);
-//     console.log('all groups', state.group.groups);
-
-//     persistGroups();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 export const addCardIntoGroup2 = async function (
   card,
   group = state.group.activeGroup
@@ -252,7 +211,6 @@ export const addCardIntoGroup2 = async function (
     if (!cards) return;
     cards.cards.push(card);
 
-    // console.log('added card into  group', state.group.groups);
     persistGroups();
   } catch (err) {
     console.log(err);
@@ -262,28 +220,11 @@ export const findGroupsIndex = function (name) {
   return state.group.groups.findIndex(obj => obj.groupName === name);
 };
 
-// export const addCardIntoDefaultGroup = async function (card) {
-//   try {
-//     const index = state.group.groups.findIndex(obj => obj.groupName === 'default');
-
-//     console.log(index);
-//     state.group.groups[index].cards.push(card);
-
-//     console.log('added card into default group', state.group.groups);
-
-//     persistGroups();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
 export const saveGroupAsActive = function (name) {
   state.group.activeGroup = name;
 };
 
 export const deleteCard = function (id) {
-  console.log('I should delete this:', id);
-
   // 1. find card to delete
   let index;
   if (state.group.activeGroup) {
@@ -294,7 +235,6 @@ export const deleteCard = function (id) {
     index = state.group.groups.findIndex(obj => obj.groupName === 'default');
   }
   const allRenderedCards = state.group.groups[index].cards;
-  console.log('allRenderedCards', allRenderedCards);
   const deleteCardIndex = allRenderedCards.findIndex(obj => obj.id === id);
 
   //2. delete card
@@ -307,7 +247,6 @@ export const deleteCard = function (id) {
 };
 export const loadNewCard = function () {
   const newCard = state.card.cards[state.card.cards.length - 1];
-  // console.log('I am new card', newCard);
   return newCard;
 };
 export const loadAllCardsFromGroup = function (group) {
@@ -324,18 +263,13 @@ export const getCardResultsPage = function (card, page = state.card.page) {
   state.card.page = page;
   const start = (page - 1) * state.card.cardResultsPerPage; // 0
   const end = page * state.card.cardResultsPerPage; //9
-  // console.log(start, end);
-  // console.log('card', card.definitions);
-  // console.log(state.card.activeCard);
   let renderDefinitions = card.definitions.slice(start, end);
-  // console.log('renderDefinitions', renderDefinitions);
   const numPages = Math.ceil(
     card.definitions.length / state.card.cardResultsPerPage
   );
   card.renderDefinitions = renderDefinitions;
   card.numPages = numPages;
   card.page = page;
-  // console.log(card);
   state.card.activeCard = card;
   return state.card.activeCard;
   // return card.definitions.slice(start, end);
@@ -350,11 +284,9 @@ export const getListResultsPage = function (page = state.list.page) {
   );
 
   state.list.numPages = numPages;
-  console.log('I will cut results:', state.list.results.slice(start, end));
   const renderResults = state.list.results.slice(start, end);
   state.list.renderResults = renderResults;
   // return state.list.results.slice(start, end);
-  console.log('state.🇱🇮 ', state.list);
   // state.list = data;
   return state.list;
   // return data;
@@ -365,8 +297,6 @@ export const addNewCardIntoList = function (newCard) {
 };
 
 export const uploadWord = function (newWord) {
-  // console.log(Object.entries(newWord));
-
   const group = state.group.activeGroup ? state.group.activeGroup : 'default';
   const word = {
     id: Date.now(),

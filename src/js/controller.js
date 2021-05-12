@@ -161,12 +161,14 @@ const controlAddNewCard = function () {
   model.saveCardIntoCorrectGroup(newCard);
 
   //7. Display success message
-  initialCreateNewGroupView.renderMessage(
-    'New word was successfully created :)'
-  );
+  // initialCreateNewGroupView.renderMessage(
+  //   'New word was successfully created :)'
+  // );
 
-  //8. hide success message
-  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+  // //8. hide success message
+  // setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+  groupMessageView.renderMessage('New word was successfully created :)');
+  setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {

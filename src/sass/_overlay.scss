@@ -11,11 +11,14 @@
   z-index: 1000;
   transition: all 0.5s;
   @media only screen and (max-width: $bp-large) {
+    padding: 3rem 2rem;
     width: 80vw;
     max-width: 800px;
+    max-height: 80vh;
+    overflow-y: scroll;
   }
   @media only screen and (max-width: $bp-small) {
-    width: 95vw;
+    width: 80vw;
   }
 }
 
@@ -44,4 +47,8 @@
   border: none;
   padding: 1rem;
   background: none;
+  @media only screen and (max-width: $bp-small) {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
 }

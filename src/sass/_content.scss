@@ -64,6 +64,8 @@
     }
   }
   &__nav {
+    position: relative;
+    z-index: 20;
     @media only screen and (max-width: $bp-large) {
       width: 60vw;
     }
@@ -85,6 +87,10 @@
   }
   &__input {
     height: 0;
+  }
+  .create,
+  .rename {
+    margin: 0 auto;
   }
 
   &__input {

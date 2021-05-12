@@ -110,5 +110,9 @@
     height: 6rem;
     width: 16rem;
     margin: 5rem auto;
+    @media only screen and (max-width: $bp-small) {
+      height: 3rem;
+      width: 14rem;
+    }
   }
 }

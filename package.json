@@ -2,10 +2,10 @@
   "name": "wordsapp2",
   "version": "1.0.0",
   "description": "application for learnig new words",
-  "main": "index.js",
+  "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --out-dir ./dist"
   },
   "repository": {
     "type": "git",

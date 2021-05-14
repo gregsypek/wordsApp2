@@ -168,7 +168,7 @@ const controlAddNewCard = function () {
   // //8. hide success message
   // setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
   groupMessageView.renderMessage('New word was successfully created :)');
-  // setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
+  setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {

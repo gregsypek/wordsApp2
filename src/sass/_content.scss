@@ -23,28 +23,35 @@
   //svg plus button
   .bar__icon {
     fill: $color-primary;
+    height: 100%;
   }
 
   .message-nogroup {
     // margin: 0 auto;
-    width: 50%;
+    // width: 50%;
     // max-width: 1000px;
     // max-height: 25rem;
-    position: absolute;
+    // position: absolute;
+    // top: 50vh;
+    // left: 50vw;
+    // transform: translate(-25%, 0%);
+    // z-index: 10;
+    position: fixed;
+    z-index: 999;
+
+    // height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-25%, 0%);
-    z-index: 10;
     @media only screen and (max-width: $bp-large) {
       background-color: $color-primary;
       color: $color-secondary3;
-      width: 75%;
       transform: translate(-50%, 0%);
+      // width: 75%;
     }
 
     p {
       @extend %message;
-      height: auto;
     }
   }
   // BUTTON CREATE NEW GROUP WITH PLUS

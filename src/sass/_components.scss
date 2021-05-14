@@ -121,9 +121,10 @@
   align-items: center;
   padding: 1.5rem;
   background-color: $color-primary3;
+  // position: relative;
+  // z-index: 19;
   @media only screen and (max-width: $bp-large) {
     color: $color-primary;
-    position: relative;
   }
 }
 

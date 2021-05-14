@@ -168,7 +168,7 @@ const controlAddNewCard = function () {
   // //8. hide success message
   // setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
   groupMessageView.renderMessage('New word was successfully created :)');
-  setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
+  // setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
 };
 
 const controlLoadAllCardsFromGroup = function (group) {
@@ -183,7 +183,9 @@ const controlLoadAllCardsFromGroup = function (group) {
 
 const controlPlayAudio = function (url) {
   // if (!url) return;
+  if (!url) return;
   const audio = new Audio(url);
+
   audio.play();
 };
 const controlDeleteCard = function (cardId) {
@@ -264,7 +266,7 @@ const welcomeBack = function () {
   controlLoadAllCardsFromGroup(activeGroup);
   appInfoView.renderMessage('Welcome back :)');
   // allGroupsView.render(model.state.group.groups);
-  setTimeout(() => appInfoView.render(''), MODAL_CLOSE_SEC * 1000);
+  // setTimeout(() => appInfoView.render(''), MODAL_CLOSE_SEC * 1000);
 
   model.updateNewListCards(activeGroup);
 };
@@ -300,7 +302,7 @@ const controlAddWord = function (newWord) {
   if (allPreviousCards.length > 0) {
     if (allPreviousCards.some(card => !model.isCardUnique(card, newCard))) {
       groupMessageView.renderMessage(
-        `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one`
+        `There is already  "${newCard.name.toUpperCase()}" word in "${activeGroup.toUpperCase()}" group! Try another one!`
       );
       setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 2000);
       // createWordView.toggleWindow();
@@ -324,12 +326,11 @@ const controlAddWord = function (newWord) {
   model.saveCardIntoCorrectGroup(newCard);
 
   //7. Display success message
-  initialCreateNewGroupView.renderMessage(
-    'New word was successfully created :)'
-  );
+
+  groupMessageView.renderMessage('New word was successfully created :)');
 
   //8. hide success message
-  setTimeout(() => initialCreateNewGroupView.clear(), MODAL_CLOSE_SEC * 1000);
+  setTimeout(() => groupMessageView.clear(), MODAL_CLOSE_SEC * 1000);
 
   //9. Close form window
   createWordView.toggleWindow();

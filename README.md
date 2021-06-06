@@ -61,7 +61,7 @@ wordsApp is for people like me who prefers writing notes by keyboard rather than
 
 ### Using wordsApp
 
-Just want to use it? Do that by visiting [gregsypek.github.io/wordsApp](http://gregsypek.github.io/wordsApp).
+Just want to use it? Do that by visiting [gregsypek.github.io/wordsApp](http://wordsapp.netlify.app).
 
 ![alt tag](./src/pics/1.png)
 

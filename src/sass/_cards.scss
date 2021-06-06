@@ -4,18 +4,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding-top: 20rem;
+    padding-top: 5rem;
     min-height: 30rem;
     @media only screen and (max-width: $bp-medium) {
-      margin-top: 15rem;
+      margin-top: 10rem;
     }
-    @media only screen and (max-width: $bp-small) {
-      margin-top: -4rem;
-    }
+    // @media only screen and (max-width: $bp-small) {
+    //   margin-top: -4rem;
+    // }
   }
 
   &__card {
     background-color: $color-secondary3;
+    height: 40rem;
 
     &-box {
       margin-top: 5rem;

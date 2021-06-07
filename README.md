@@ -2,7 +2,7 @@
 
 **wordsApp** is an application built to help you learn new words by grouping them and print on special preformatted lists. You can also create your cards with any voluntary content for an instance shopping list.
 
-just visit [gregsypek.github.io/wordsApp](http://gregsypek.github.io/wordsApp)!
+just visit [wordsapp.netlify.app](http://wordsapp.netlify.app)!
 
 ![alt tag](./src/pics/4.png)
 
@@ -61,7 +61,7 @@ wordsApp is for people like me who prefers writing notes by keyboard rather than
 
 ### Using wordsApp
 
-Just want to use it? Do that by visiting [gregsypek.github.io/wordsApp](http://wordsapp.netlify.app).
+Just want to use it? Do that by visiting [wordsapp.netlify.app](http://wordsapp.netlify.app)
 
 ![alt tag](./src/pics/1.png)
 

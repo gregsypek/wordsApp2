@@ -27,9 +27,8 @@ class ListView extends View {
   }
   updateFooter(list) {
     const newList = list.renderResults;
-    this._parentElement.querySelector(
-      '.aside__print--footer'
-    ).innerHTML = this._generateFooterList(list);
+    this._parentElement.querySelector('.aside__print--footer').innerHTML =
+      this._generateFooterList(list);
   }
 
   _generateMarkup() {

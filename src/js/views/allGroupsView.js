@@ -1,6 +1,5 @@
 //.js is optional
 import View from './View.js';
-import icons from '../../img/icons.svg';
 
 class AllGroupsView extends View {
   _parentElement = document.querySelector('.groups');
